@@ -16,6 +16,8 @@ app.get('/', function(req, res){
   res.send('Hello from express!');
 })
 
+
+// listening
 app.listen(3000, function(){
   debug('listening on port 3000');
 });
