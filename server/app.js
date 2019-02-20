@@ -8,13 +8,46 @@ var debug = require('debug')('app');
 var morgan = require('morgan');
 
 var app = express();
-
+var router = express.Router();
+var path = __dirname + '/views/';
+  
+app.use('/',router);
 app.use(morgan('tiny'))
+/*allows to call static items in pulic folder such as images*/
+app.use('/public', express.static(__dirname + "/public"));
+  
+router.get('/index',function(req, res){
+  res.sendFile(path + 'index.html');
+});
 
+router.get('/about/cory-lewis',function(req, res){
+  res.sendFile(path + 'about/cory.html');
+});
+router.get('/about/david-dropping',function(req, res){
+  res.sendFile(path + 'about/david.html');
+});
+router.get('/about/soheil-ansari',function(req, res){
+  res.sendFile(path + 'about/soheil.html');
+});
+router.get('/about/xinyu-zou',function(req, res){
+  res.sendFile(path + 'about/xinyu.html');
+});
+router.get('/about/poorva-rathi',function(req, res){
+  res.sendFile(path + 'about/poorva.html');
+});
+router.get('/about/chintan-puri',function(req, res){
+  res.sendFile(path + 'about/chintan.html');
+});
+router.get('/about/junwei-liang',function(req, res){
+  res.sendFile(path + 'about/junwei.html');
+});
+router.get('/about',function(req, res){
+  res.sendFile(path + 'about/about.html');
+});
 
-app.get('/', function(req, res){
-  res.send('Hello from express!');
-})
+router.get('/',function(req, res){
+  res.sendFile(path + 'index.html');
+});
 
 app.listen(3000, function(){
   debug('listening on port 3000');

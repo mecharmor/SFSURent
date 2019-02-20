@@ -9,8 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "debug": "^4.1.1",
     "express": "^4.16.4",
-    "morgan": "^1.9.1"
+    "jquery": "^3.3.1",
+    "morgan": "^1.9.1",
+    "popper.js": "^1.14.7"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2"
   }
 }
