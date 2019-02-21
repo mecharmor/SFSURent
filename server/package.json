@@ -30,9 +30,11 @@
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.2"
   },
-  "nodemonConfig":{
+  "nodemonConfig": {
     "restartable": "rs",
-    "ignore":["node_modules/**/node_modules"],
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
     "delay": 2500
   }
 }
