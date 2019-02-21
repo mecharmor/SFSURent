@@ -13,12 +13,15 @@ var path = __dirname + '/views/';
   
 app.use('/',router);
 app.use(morgan('tiny'))
+app.set('view engine', 'ejs');
+
 /*allows to call static items in pulic folder such as images*/
 app.use('/public', express.static(__dirname + "/public"));
   
-router.get('/index',function(req, res){
-  res.sendFile(path + 'index.html');
+router.get('/',function(req, res){
+  res.render('index', {testData : "My Test Data From Node"});
 });
+
 
 router.get('/about/cory-lewis',function(req, res){
   res.sendFile(path + 'about/cory.html');
@@ -45,9 +48,6 @@ router.get('/about',function(req, res){
   res.sendFile(path + 'about/about.html');
 });
 
-router.get('/',function(req, res){
-  res.sendFile(path + 'index.html');
-});
 
 app.listen(3000, function(){
   debug('listening on port 3000');
