@@ -1,10 +1,59 @@
 # csc648-sp19-Team11
+todo: project description, team members, etc....
 
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repo from csc648-sp19-TeamNN. All that needs to chanage is the NN to your respective team number. Team numbers whos value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repo as well.
+# First time use
+1. Clone the repo.
+```
+git clone
+```
 
-1. PLEASE REMOVE THE USERNAME FROM THE REPO!!!
+2. Install the dependencies. 
+```
+npm install
+```
 
-2. Add ALL members of your team to this repo. For it to count, they must ACCEPT the invite.
+3. Start the node process
+```
+npm start # Mac
+npm startwin # Windows
+```
+
+# Workflow Tips
+## Branching
+
+1. First switch to dev branch, and do a git fetch and pull to update your local repo to the latest.
+```
+git checkout dev
+git fetch --all
+git pull
+```
+2. Create a new branch for the specific feauture you are working on.
+```
+git checkout -b my-new-feature-branch
+```
+
+3. Track all the new files by adding them to the repo and commit your changes.
+```
+git add .
+git commit -a -m "a commit message"
+```
+
+4. Push your branch to the repo and create a pull request from github
+```
+git push origin my-new-feature-brach
+```
+
+5. Make sure to switch back to the dev branch and create another branch before starting to work on aother feauture.
+```
+git checkout dev
+```
 
 
+## Linting
+To maintain coding structure and following standards, this project uses ESLint.
+```
+npm run lint
+```
+
+## Nodemon
+We are using nodmon for which restarts the nodejs application automatically whenever it detects a file change. The nodemon script is already added to the "npm start" command in the package.json file.
