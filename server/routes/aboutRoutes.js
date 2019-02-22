@@ -16,5 +16,9 @@ aboutRouter.route('/cory-lewis')
     .get((req, res) => {
         res.render("about/cory");
     })
+aboutRouter.route('/chintan-puri')
+    .get((req, res) => {
+        res.render("about/chintan");
+    })    
 
 module.exports = aboutRouter;
