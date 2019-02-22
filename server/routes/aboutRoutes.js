@@ -19,7 +19,11 @@ aboutRouter.route('/cory-lewis')
 aboutRouter.route('/chintan-puri')
     .get((req, res) => {
         res.render("about/chintan");
-    })
+    })   
+aboutRouter.route('/xinyu-zou')
+    .get((req, res) => {
+        res.render("about/xinyu");
+    })  
 aboutRouter.route('/junwei-liang')
     .get((req, res) => {
         res.render("about/junwei");
