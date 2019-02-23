@@ -2,6 +2,7 @@ const express = require('express');
 
 const app = express();
 app.set('view engine', 'ejs');
+app.set('views', './src/views');
 
 /* Debug is used for printing message on cosole in different categories.
 Run "DEBUG=* node app.js" to get all message or run "DEBUG=app node app.js"
@@ -14,10 +15,10 @@ const morgan = require('morgan');
 app.use(morgan('tiny'));
 
 /* allows to call static items in pulic folder such as images */
-app.use('/public', express.static(__dirname + "/public"));
+app.use(express.static('./public'));
 
-const aboutRouter = require('./routes/aboutRoutes');
-const mysqlRouter = require('./routes/mysqlRoutes');
+const aboutRouter = require('./src/routes/aboutRoutes');
+const mysqlRouter = require('./src/routes/mysqlRoutes');
 
 app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
@@ -26,6 +27,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(3000, function () {
-  debug('listening on port 3000');
+app.listen(80, function () {
+  debug('listening on port 80');
 });
