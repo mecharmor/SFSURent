@@ -15,7 +15,7 @@ npm install
 3. Start the node process
 ```
 npm start # Mac
-npm startwin # Windows
+npm run startwin # Windows
 ```
 
 # Workflow Tips

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
+    "start": "DEBUG=app nodemon app.js",
     "startwin": "set DEBUG=app & nodemon app.js",
     "lint": "eslint app.js",
     "lint-fix": "eslint app.js --fix"
@@ -15,7 +15,7 @@
   "dependencies": {
     "aws-sdk": "^2.408.0",
     "bootstrap": "^4.3.1",
-    "debug": "^4.1.1",  
+    "debug": "^4.1.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jquery": "^3.3.1",
