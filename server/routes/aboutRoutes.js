@@ -32,4 +32,8 @@ aboutRouter.route('/poorva-rathi')
     .get((req, res) => {
         res.render("about/poorva");
     })  
+aboutRouter.route('/david-dropping')
+    .get((req, res) => {
+        res.render("about/david");
+    })  
 module.exports = aboutRouter;
