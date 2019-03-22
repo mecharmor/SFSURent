@@ -55,13 +55,34 @@ mysqlRouter.route('/refresh')
 
     database = new Database(mysql_config);
 
-    database.query( 'DROP TABLE IF EXISTS some_table' )
-      .then( database.query('Create TABLE some_table ( ' + 
-          'testid int,' +
-          'name VARCHAR(255)'+
-          ')'
-        ))
-      .then( res.send("done"));
+      database.query('DROP TABLE IF EXISTS listings')
+      
+      .then(database.query('DROP TABLE IF EXISTS listing_type'))
+
+      .then( database.query('Create TABLE listing_type ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'name VARCHAR(150) NOT NULL' +
+        ')'
+      ))
+      
+      .then( database.query('CREATE TABLE listings ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'price double,' +
+      'title VARCHAR(150) NOT NULL,' +
+      'description VARCHAR(250),' +
+      'address VARCHAR(200),' +
+      'zipcode int,' +
+      'num_bed int,' +
+      'num_bath int,' +
+      'size int,' +
+      'score int,' +
+      'listing_type_id int NOT NULL,' +
+      'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id)'+
+        ')'
+      ))
+
+      .then( res.send('Tables created.'));
+    
 
 
   });
@@ -77,7 +98,7 @@ mysqlRouter.route('/insert')
 
     database = new Database(mysql_config);
 
-    database.query( 'INSERT INTO some_table SET testid = 1, name = "myname"' )
+    database.query( 'INSERT INTO listings SET id = 1, name = "myname"' )
       .then( rows => database.query( 'SELECT * FROM some_table' ) )
       .then( rows => res.send(rows) );
   });
