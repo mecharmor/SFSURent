@@ -17,9 +17,9 @@ app.use(morgan('tiny'));
 /* allows to call static items in public folder such as images */
 app.use(express.static('./public'));
 
-const aboutRouter = require('./routes/aboutRoutes');
-const mysqlRouter = require('./routes/mysqlRoutes');
-const listingRoutes = require('./routes/listingRoutes');
+const aboutRouter = require('./src/routes/aboutRoutes');
+const mysqlRouter = require('./src/routes/mysqlRoutes');
+const listingRoutes = require('./src/routes/listingRoutes');
 
 
 app.use('/about/', aboutRouter);
@@ -27,7 +27,7 @@ app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
 
 app.get('/', (req, res) => {
-  res.render('about/index');
+  res.render('index');
 });
 
 app.listen(80, function () {
