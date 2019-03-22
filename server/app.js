@@ -18,9 +18,11 @@ app.use('/public', express.static(__dirname + "/public"));
 
 const aboutRouter = require('./routes/aboutRoutes');
 const mysqlRouter = require('./routes/mysqlRoutes');
+const listingRoutes = require('./routes/listingRoutes');
 
 app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
+app.use('/listing/', listingRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
