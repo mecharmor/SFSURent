@@ -55,46 +55,33 @@ mysqlRouter.route('/refresh')
 
     database = new Database(mysql_config);
 
-    database.query( 'DROP TABLE IF EXISTS some_table' )
-      .then( database.query('Create TABLE some_table ( ' + 
-          'testid int,' +
-          'name VARCHAR(255)'+
-          ')'
-        ))
+      database.query('DROP TABLE IF EXISTS listings')
       
+      .then(database.query('DROP TABLE IF EXISTS listing_type'))
 
-     /* ------------------------------------------------- */
-
-     database.query('DROP TABLE IF EXISTS listing_type')
       .then( database.query('Create TABLE listing_type ( ' + 
-      'id int,' +
-      'name VARCHAR(150),' +
-      'PRIMARY KEY (id)' +
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'name VARCHAR(150) NOT NULL' +
         ')'
       ))
-
-      database.query('DROP TABLE IF EXISTS listings')
-      .then( database.query('Create TABLE listings ( ' + 
-      'id int,' +
+      
+      .then( database.query('CREATE TABLE listings ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'price double,' +
-      'title VARCHAR(150),' +
-      'desc VARCHAR(250),' +
+      'title VARCHAR(150) NOT NULL,' +
+      'description VARCHAR(250),' +
       'address VARCHAR(200),' +
       'zipcode int,' +
       'num_bed int,' +
       'num_bath int,' +
       'size int,' +
       'score int,' +
-      'listing_type_id int,' +
-      'PRIMARY KEY (id),'+
+      'listing_type_id int NOT NULL,' +
       'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id)'+
-        ')' 
+        ')'
       ))
 
-      
-
-
-      .then( res.send("listing table created"));
+      .then( res.send('Tables created.'));
     
 
 
