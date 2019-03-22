@@ -113,7 +113,7 @@ mysqlRouter.route('/insert')
       'title = "title one", ' +
       'description = "description one", ' +
       'address = "address one", ' +
-      //'thumb = LOAD_FILE("/images/images.jpg"), ' +
+      'thumb = "C:\Users\Poorva\Desktop\Softwareproject\csc648-sp19-team11\public\images", ' +
       'zipcode = 99, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
@@ -128,7 +128,7 @@ mysqlRouter.route('/insert')
       'title = "title two", ' +
       'description = "description two", ' +
       'address = "address two", ' +
-      //'thumb = LOAD_FILE("/images/images.jpg"), ' +
+      'thumb = "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2018/05/Wyvern-programming-languages-in-one.jpg", ' +
       'zipcode = 99444, ' +
       'num_bed = 3, ' +
       'num_bath = 3, ' +
