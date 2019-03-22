@@ -71,6 +71,7 @@ mysqlRouter.route('/refresh')
       'title VARCHAR(150) NOT NULL,' +
       'description VARCHAR(250),' +
       'address VARCHAR(200),' +
+      'thumb BLOB,' +
       'zipcode int,' +
       'num_bed int,' +
       'num_bath int,' +
