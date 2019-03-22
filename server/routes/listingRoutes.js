@@ -6,4 +6,13 @@ listingRoutes.route('/')
         res.render("listing/index");
     });
 
+
+listingRoutes.route('/:listingId/')
+    .get((req, res) => {
+      // res.send(req.params.listingId)
+      res.render("listing/item");
+    });
+
+
+
 module.exports = listingRoutes;
