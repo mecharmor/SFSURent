@@ -60,13 +60,13 @@ mysqlRouter.route('/refresh')
       .then(database.query('DROP TABLE IF EXISTS listing_type'))
 
       .then( database.query('Create TABLE listing_type ( ' + 
-      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'id INT PRIMARY KEY,' +
       'name VARCHAR(150) NOT NULL' +
         ')'
       ))
       
       .then( database.query('CREATE TABLE listings ( ' + 
-      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'id INT PRIMARY KEY,' +
       'price double,' +
       'title VARCHAR(150) NOT NULL,' +
       'description VARCHAR(250),' +
@@ -99,9 +99,47 @@ mysqlRouter.route('/insert')
 
     database = new Database(mysql_config);
 
-    database.query( 'INSERT INTO listings SET id = 1, name = "myname"' )
-      .then( rows => database.query( 'SELECT * FROM some_table' ) )
-      .then( rows => res.send(rows) );
+    database.query( 'DELETE FROM listings' )
+      .then(database.query( 'DELETE FROM listing_type' ))
+    // // database.query( 'INSERT INTO listings SET id = 1, name = "myname"' )
+      .then(database.query('INSERT INTO listing_type SET id = 1, name = "Apartment"' ))
+      .then(database.query('INSERT INTO listing_type SET id = 2, name = "Bungalow"'))
+      .then(database.query('INSERT INTO listing_type SET id = 3, name = "Room"'))
+
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'id = 20, ' +
+      'price = 1000.99, ' +
+      'title = "title one", ' +
+      'description = "description one", ' +
+      'address = "address one", ' +
+      //'thumb = LOAD_FILE("/images/images.jpg"), ' +
+      'zipcode = 99, ' +
+      'num_bed = 2, ' +
+      'num_bath = 2, ' +
+      'size = 3, ' +
+      'score = 5, ' +
+      'listing_type_id = 1'
+      ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'id = 30, ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      //'thumb = LOAD_FILE("/images/images.jpg"), ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2'
+      ))
+
+    .then( rows => database.query( 'SELECT * FROM listings' ) )    
+    .then( rows => res.send(rows) );
+
   });
 
 
