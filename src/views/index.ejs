@@ -1,30 +1,21 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Index</title>
-    <%- include('_partials/nav'); %>
-  </head>
-  <body>
-    <h1>Index Page</h1>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <%- include('_partials/header'); %>
+
+    <h1 style="padding-bottom: 3em;">Templated Index Page</h1>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item active">TODO David, (Chinn you can help here if you want just communicate with david)</li>
+        <li class="list-group-item">Hard code 2 listing samples for Back End to use in listing generating</li>
+        <li class="list-group-item">Each Sample listing NEEDS: photo, title, distance to school, other field you feel like adding??</li>
+        <li class="list-group-item">Please Modify the Footer partial view and create an actual footer</li>
+        <li class="list-group-item">Add browse dropdown to navbar. This dropdown will be to filter types of housing (Apartment, House, Room)</li>
+        <li class="list-group-item">Use something like this to link index to the items page <button class="btn btn-warning" onclick="location.href='/listing/item'">link to listing result page</button></li>
+      </ul>
+
+      <button style="margin-top: 2.5em;" class="btn btn-warning" onclick="location.href='/mysql/insert'">For Back-End, Page Showing DB Data</button>
+
+  <%- include('_partials/footer'); %>
   
-    <button class="btn btn-warning"><a href="/listing">Page Test (User clicks button and sees the result page of the listing)</a></button>
   
   
   
-  
-  
-  
-  
-  </body>
-</html>
