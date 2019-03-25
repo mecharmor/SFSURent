@@ -1,6 +1,8 @@
 var express = require('express');
 var mysqlRouter = express.Router();
 const mysql = require('mysql');
+var https = require('https');
+
 
 const mysql_config = {
       host: '18.144.46.90',
@@ -33,6 +35,30 @@ class Database {
         } );
     }
 }
+
+
+// temp code for faking uploading image
+let urls = [
+"https://upload.wikimedia.org/wikipedia/commons/9/99/Galloway_House.png"
+]
+
+var data = '';
+
+var request = https.request(urls[0], function (res) {
+    res.on('data', function (chunk) {
+        data += chunk;
+    });
+    res.on('end', function () {
+        console.log("Loaded image");
+    });
+});
+request.on('error', function (e) {
+    console.log(e.message);
+});
+request.end();
+
+
+
 /*
 Here we will drop the tables and create them again.. - 3/22/19
 */
@@ -46,18 +72,18 @@ mysqlRouter.route('/refresh')
       .then(database.query('DROP TABLE IF EXISTS listing_type'))
 
       .then( database.query('Create TABLE listing_type ( ' + 
-      'id INT PRIMARY KEY,' +
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'name VARCHAR(150) NOT NULL' +
         ')'
       ))
       
       .then( database.query('CREATE TABLE listings ( ' + 
-      'id INT PRIMARY KEY,' +
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'price double,' +
       'title VARCHAR(150) NOT NULL,' +
       'description VARCHAR(250),' +
       'address VARCHAR(200),' +
-      'thumb BLOB,' +
+      'thumb MEDIUMBLOB,' +
       'zipcode int,' +
       'num_bed int,' +
       'num_bath int,' +
@@ -84,13 +110,11 @@ mysqlRouter.route('/insert')
 
     database.query( 'DELETE FROM listings' )
       .then(database.query( 'DELETE FROM listing_type' ))
-    // // database.query( 'INSERT INTO listings SET id = 1, name = "myname"' )
       .then(database.query('INSERT INTO listing_type SET id = 1, name = "Apartment"' ))
       .then(database.query('INSERT INTO listing_type SET id = 2, name = "Bungalow"'))
       .then(database.query('INSERT INTO listing_type SET id = 3, name = "Room"'))
 
       .then(database.query('INSERT INTO listings SET ' +
-      'id = 20, ' +
       'price = 1000.99, ' +
       'title = "title one", ' +
       'description = "description one", ' +
@@ -105,21 +129,20 @@ mysqlRouter.route('/insert')
       ))
 
       .then(database.query('INSERT INTO listings SET ' +
-      'id = 30, ' +
       'price = 1999.99, ' +
       'title = "title two", ' +
       'description = "description two", ' +
       'address = "address two", ' +
-      'thumb = "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2018/05/Wyvern-programming-languages-in-one.jpg", ' +
+      'thumb = ?, ' +
       'zipcode = 99444, ' +
       'num_bed = 3, ' +
       'num_bath = 3, ' +
       'size = 3, ' +
       'score = 4, ' +
-      'listing_type_id = 2'
+      'listing_type_id = 2', data
       ))
 
-    .then( rows => database.query( 'SELECT * FROM listings' ) )    
+    .then( rows => database.query( 'SELECT id, price, title, description, address  FROM listings' ) )    
     .then( rows => res.send(rows) );
 
   });
