@@ -21,7 +21,6 @@ const aboutRouter = require('./src/routes/aboutRoutes');
 const mysqlRouter = require('./src/routes/mysqlRoutes');
 const listingRoutes = require('./src/routes/listingRoutes');
 
-
 app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
@@ -30,6 +29,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(80, function () {
+app.listen(80, function() {
   debug('listening on port 80');
 });

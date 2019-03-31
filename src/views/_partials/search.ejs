@@ -1,0 +1,50 @@
+<style>
+  #search-section {
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+    min-height: 90px;
+  }
+
+  #search-section .search-inner {
+    padding-top: 25px;
+  }
+</style>
+
+<!--/////////////////////////////////////////////////////////////////////-->
+
+<header id="search-section">
+  <div class="search-inner container">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <!--need to change 'housing type' with what was selected from dropdown-->
+          Housing Type
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">All Housing</a>
+          <div role="separator" class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Houses</a>
+          <a class="dropdown-item" href="#">Appartments</a>
+          <a class="dropdown-item" href="#">Rooms</a>
+        </div>
+      </div>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Search"
+      />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </span>
+    </div>
+  </div>
+</header>
