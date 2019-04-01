@@ -29,6 +29,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
 app.listen(80, function() {
   debug('listening on port 80');
 });
