@@ -146,5 +146,5 @@ mysqlRouter.route('/insert')
     .then( rows => res.send(rows) );
 
   });
-  
+
 module.exports = mysqlRouter;
