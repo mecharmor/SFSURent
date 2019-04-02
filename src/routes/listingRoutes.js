@@ -3,15 +3,17 @@ var listingRoutes = express.Router();
 
 listingRoutes.route('/')
     .get((req, res) => {
-        res.render("listing/index");
+    let results = DATABASE.query('SELECT title, price, address FROM listings', function (error, results, fields) {
+           if (error) throw error;
+           return results;
+         });
+    res.render('listing/index', {something : results});
     });
 
-listingRoutes.route('/:listingId/')
+listingRoutes.route('/:id/')
     .get((req, res) => {
-      // res.send(req.params.listingId)
+     //res.send(req.params.id)
       res.render("listing/item");
     });
-
-
 
 module.exports = listingRoutes;

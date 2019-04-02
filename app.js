@@ -64,17 +64,23 @@ app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
 
+global.DATABASE = new Database(mysql_config);//global database reference
+
+// app.get('/', (req, res) => {
+//   database = new Database(mysql_config);
+//   database.query('SELECT title, price, address FROM listings', function (error, results, fields) {
+//     if (error) throw error;
+//     console.log('The address is: ', results[0].address);
+//     console.log('The address is: ', results[1].address);
+//     console.log('The length: ', results.length);
+//     var length = results.length;
+//   });
+//   const something = "helloworld";
+//   res.render('index', {something : something});
+// });
 app.get('/', (req, res) => {
-  database = new Database(mysql_config);
-  database.query('SELECT title, price, address FROM listings', function (error, results, fields) {
-    if (error) throw error;
-    console.log('The address is: ', results[0].address);
-    console.log('The address is: ', results[1].address);
-    console.log('The length: ', results.length);
-    var length = results.length;
-  });
-  const something = "helloworld";
-  res.render('index', {something : something});
+    res.redirect('/listing/');
+    //res.render('listing/index');
 });
 
 app.listen(80, function() {
