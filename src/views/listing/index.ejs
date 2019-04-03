@@ -29,55 +29,11 @@
       <!--grid right (card items)-->
       <div class="col-sm-6 col-md-8 col-lg-9">
         <div class="row">
-          <!--card item 1-->
-          <div class="card" style="width: 20rem;">
-            <img
-              class="card-img-top"
-              src="/images/houseFiller.jpg"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                (NEW index inside lisitngs)Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-          <!--card item 2-->
-          <div class="card" style="width: 20rem;">
-            <img
-              class="card-img-top"
-              src="/images/houseFiller.jpg"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-          <!--card item 3-->
-          <div class="card" style="width: 20rem;">
-            <img
-              class="card-img-top"
-              src="/images/houseFiller.jpg"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
+
 <!--///////////////////-->
+
+      <% for(var i=0; i < something.length; i++) { %>
+
           <!--card item 4-->
           <div class="card" style="width: 20rem;">
             <img
@@ -86,14 +42,17 @@
               alt="Card image cap"
             />
             <div class="card-body">
-              <h5 class="card-title"><%= something %></h5>
+              <h5 class="card-title"><%= something[i].address %></h5>
               <p class="card-text">
                 (data in title) on the card title and make up
                 the bulk of the card's content.
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="/listing/<%= something[i].id %>" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
+
+      <% } %>
+
 <!--///////////////////-->
           <!--end cards-->
         </div>

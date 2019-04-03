@@ -3,11 +3,13 @@ var listingRoutes = express.Router();
 
 listingRoutes.route('/')
     .get((req, res) => {
-    let results = DATABASE.query('SELECT title, price, address FROM listings', function (error, results, fields) {
-           if (error) throw error;
-           return results;
-         });
-    res.render('listing/index', {something : results});
+
+      DATABASE.query('SELECT id, title, price, address FROM listings', function (error, results, fields) {
+       if (error) throw error;
+       // return results;
+       res.render('listing/index', {something : results});
+      });
+    
     });
 
 listingRoutes.route('/:id/')
