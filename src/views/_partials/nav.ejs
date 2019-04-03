@@ -2,11 +2,16 @@
   .navbar {
     border-bottom: #008ed6 3px solid;
   }
+  body {
+    color: #333;
+  }
 </style>
 
+<!--navbar-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="main-nav">
   <div class="container">
     <a href="/" class="navbar-brand">GatorRent</a>
+    <!--navbar collapse toggler button-->
     <button
       class="navbar-toggler"
       data-toggle="collapse"
@@ -14,18 +19,99 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!--navbar items-->
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto">
+        <!--home-->
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
+        <!--about-->
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
+        <!--login/register - triggers modal-->
         <li class="nav-item">
-          <a class="nav-link" href="/register">Login/Register</a>
+          <a
+            class="nav-link"
+            href="#loginModal"
+            data-toggle="modal"
+            data-target="#loginModal"
+            >Login/Register</a
+          >
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!--Modal for login/register-->
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <!--modal dialog-->
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login/Register</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--Modal Form start-->
+        <!--Login-->
+        <div class="card text-center card-form">
+          <div class="card-body">
+            <h3>Login</h3>
+            <p>Please fill out this form to login</p>
+            <form>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control form-control-lg"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control form-control-lg"
+                  placeholder="Password"
+                />
+              </div>
+              <input
+                type="submit"
+                value="Login"
+                class="btn btn-primary btn-block"
+              />
+            </form>
+          </div>
+        </div>
+        <p></p>
+        <!--register-->
+        <div class="card text-center card-form">
+          <div class="card-body">
+            <h3>Dont have an account?</h3>
+            <p>Create an account today!</p>
+            <form>
+              <a href="/register" class="btn btn-primary btn-block">Register</a>
+              <p></p>
+            </form>
+          </div>
+        </div>
+        <!--Modal Form end-->
+      </div>
+    </div>
+  </div>
+</div>
