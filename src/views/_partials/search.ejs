@@ -2,18 +2,18 @@
   #search-section {
     background-repeat: no-repeat;
     background-attachment: fixed;
-    min-height: 90px;
+    min-height: 40px;
   }
 
   #search-section .search-inner {
-    padding-top: 25px;
+    padding-top: 0;
   }
 </style>
 
 <!--/////////////////////////////////////////////////////////////////////-->
 
 <header id="search-section">
-  <div class="search-inner container">
+  <div class="search-inner px-3">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <button
@@ -24,10 +24,10 @@
           aria-expanded="false"
         >
           <!--need to change 'housing type' with what was selected from dropdown-->
-          Housing Type
+          <a>All</a>
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">All Housing</a>
+          <a class="dropdown-item" href="#">All</a>
           <div role="separator" class="dropdown-divider"></div>
           <a class="dropdown-item" href="/listing/apartment">Apartment</a>
           <a class="dropdown-item" href="/listing/bungalow">Bungalow</a>
