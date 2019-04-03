@@ -73,6 +73,7 @@ mysqlRouter.route('/refresh')
 
       .then( database.query('Create TABLE listing_type ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'slug VARCHAR(150) NOT NULL,' +
       'name VARCHAR(150) NOT NULL' +
         ')'
       ))
