@@ -2,6 +2,9 @@
   .navbar {
     border-bottom: #008ed6 3px solid;
   }
+  body {
+    color: #333;
+  }
 </style>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="main-nav">
@@ -23,9 +26,92 @@
           <a class="nav-link" href="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/register">Login/Register</a>
+          <a
+            class="nav-link"
+            href="#loginModal"
+            data-toggle="modal"
+            data-target="#loginModal"
+            >Login/Register</a
+          >
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login/Register</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--Form start-->
+        <!--Login-->
+        <div class="col-lg-4">
+          <div class="card text-center card-form">
+            <div class="card-body">
+              <h3>Login</h3>
+              <p>Please fill out this form to login</p>
+              <form>
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control form-control-lg"
+                    placeholder="Email"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    placeholder="Password"
+                  />
+                </div>
+
+                <input
+                  type="submit"
+                  value="Login"
+                  class="btn btn-primary btn-block"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+        <p></p>
+        <!--register-->
+        <div class="col-lg-4">
+          <div class="card text-center card-form">
+            <div class="card-body">
+              <h3>Dont have an account?</h3>
+              <p>Create an account today!</p>
+              <form>
+                <a href="/register" class="btn btn-primary btn-block"
+                  >Register</a
+                >
+                <p></p>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--Form end-->
+      </div>
+    </div>
+  </div>
+</div>
