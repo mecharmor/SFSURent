@@ -4,8 +4,9 @@
 <br>
 
 <div class="text-center row">
-    <div class="col-md-6"><h4>Title of the Listing</h4></div>
-    <div class="col-md-6">
+    <div class="col-md-2"><a href="/listing/" class="btn btn-primary">Go Back</a></div>
+    <div class="col-md-8"><h4><%= objectArrayFromDb[0].title %></h4></div>
+    <div class="col-md-2">
         <button class="btn" onclick="location.href='/'" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button>
       </div>
   </div>
@@ -13,7 +14,6 @@
 <br>
 
 <div class="text-center" style="background-color:#f8f8f8">
-
 
 <div id="demo" class="carousel slide" data-ride="carousel">
     
@@ -46,10 +46,6 @@
       </a>
     
     </div>
-
-  
-    
-  
 <br>
 <br>
 </div>
@@ -60,27 +56,27 @@
 
 <div class="text-center row">
     <div class="col-md-7"><h5>type</h5></div>
-    <div class="col-md-3"><h4> Apartment</h4></div>
+    <div class="col-md-3"><h4><%= objectArrayFromDb[0].listing_type_id %></h4></div>
   </div>
   
 
   <br>
   <div class="text-center row">
       <div class="col-md-7"><h5>description</h5></div>
-      <div class="col-md-3"><h4> Looking to rent out a room to an SFSU student in Parkmerced</h4></div>
+      <div class="col-md-3"><h4><%= objectArrayFromDb[0].description %></h4></div>
     </div>
     
   
     <br>
   <div class="text-center row">
     <div class="col-md-7"><h5>address</h5></div>
-    <div class="col-md-3"><h4> 50 Chumasero Dr Apt XYZ, San Francisco, CA, 94132</h4></div>
+    <div class="col-md-3"><h4><%= objectArrayFromDb[0].address %></h4></div>
   </div>
   <br>
 
   <div class="text-center row">
     <div class="col-md-7"><h5>rent</h5></div>
-    <div class="col-md-3"><h4> $1500/month</h4></div>
+    <div class="col-md-3"><h4><%= objectArrayFromDb[0].price %></h4></div>
   </div>
 <br>
 
@@ -90,18 +86,18 @@
 
   <div class="text-center row">
     <div class="col-md-7"><h4>size</h4></div>
-    <div class="col-md-3"><h4> 750 sq.feet</h4></div>
+    <div class="col-md-3"><h4> <%= objectArrayFromDb[0].size %> sq.feet</h4></div>
   </div>
   <br>
   <div class="text-center row">
     <div class="col-md-7"><h4>number of beds</h4></div>
-    <div class="col-md-3"><h4> 2</h4></div>
+    <div class="col-md-3"><h4><%= objectArrayFromDb[0].num_bed %></h4></div>
   </div>
   <br>
 
   <div class="text-center row">
     <div class="col-md-7"><h4>number of baths</h4></div>
-    <div class="col-md-3"><h4> 2</h4></div>
+    <div class="col-md-3"><h4><%= objectArrayFromDb[0].num_bath %></h4></div>
   </div>
 
   <br>
