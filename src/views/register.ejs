@@ -1,8 +1,7 @@
 <%- include('_partials/header'); %>
 
 <style>
-  body {
-    background: #333;
+  #registerFormColor {
     color: #fff;
   }
   #home-section {
@@ -76,12 +75,13 @@
             </div>
           </div>
           <!--form card-->
-          <div class="col-lg-4">
+          <div class="col-lg-4" id="registerFormColor">
             <div class="card bg-primary text-center card-form">
               <div class="card-body">
                 <h3>Sign Up Today</h3>
                 <p>Please fill out this form to register</p>
                 <form>
+                  <!--username-->
                   <div class="form-group">
                     <input
                       type="text"
@@ -89,6 +89,7 @@
                       placeholder="Username"
                     />
                   </div>
+                  <!--email-->
                   <div class="form-group">
                     <input
                       type="email"
@@ -96,6 +97,7 @@
                       placeholder="Email"
                     />
                   </div>
+                  <!--password-->
                   <div class="form-group">
                     <input
                       type="password"
@@ -103,6 +105,7 @@
                       placeholder="Password"
                     />
                   </div>
+                  <!--password-->
                   <div class="form-group">
                     <input
                       type="password"
@@ -110,14 +113,31 @@
                       placeholder="Confirm Password"
                     />
                   </div>
+                  <!--agree to terms and conditions-->
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="termsAndConditionsCheck"
+                    />
+                    <label class="form-check-label" for="appartmentCheck">
+                      Agree to terms and conditions
+                    </label>
+                    <p></p>
+                  </div>
+                  <!--Captcha-->
+                  <h5>
+                    Are You Human?
+                    <button class="btn btn-primary">Yes</button>
+                  </h5>
+                  <!--submit button-->
                   <input
                     type="submit"
                     value="Submit"
                     class="btn btn-outline-light btn-block"
                   />
                   <p></p>
-                  <a>Already have an account?</a>
-                  <a style="color: #fff" href="#">Login</a>
                 </form>
               </div>
             </div>
