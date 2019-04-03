@@ -12,10 +12,34 @@ listingRoutes.route('/')
     
     });
 
-listingRoutes.route('/:id/')
+listingRoutes.route('/:id(\\d+)')
     .get((req, res) => {
      //res.send(req.params.id)
       res.render("listing/item");
     });
+
+listingRoutes.route('/:slug/')
+    .get((req, res) => {  
+      
+      console.log("getting data");
+
+
+      DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address ' +
+      'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
+      'WHERE slug = ?', req.params.slug)
+      .then( rows => {
+      
+        
+        console.log("got data");
+        //if (error) throw error;
+        // return res'ults;
+        res.render('listing/index', {something : rows});
+        
+      });    
+
+
+      
+    });
+
 
 module.exports = listingRoutes;
