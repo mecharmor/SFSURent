@@ -13,10 +13,24 @@ listingRoutes.route('/')
     });
 
 listingRoutes.route('/:id(\\d+)')
-    .get((req, res) => {
-     //res.send(req.params.id)
-      res.render("listing/item");
-    });
+.get((req, res) => {  
+      
+  console.log("getting data");
+
+
+  DATABASE.query('SELECT * ' +
+  'FROM listings ' +
+  'WHERE id = ?', req.params.id)
+  .then( rows => {
+  
+    
+    console.log("got data");
+    //if (error) throw error;
+    // return res'ults;
+    res.render('listing/item', {something : rows});
+    
+  });    
+ });
 
 listingRoutes.route('/:slug/')
     .get((req, res) => {  
