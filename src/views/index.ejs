@@ -1,21 +1,87 @@
+<%- include('_partials/header'); %>
 
-  <%- include('_partials/header'); %>
+<style>
+  .top-section {
+    background: url(/images/backgroundFade2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 75vh;
+  }
 
-    <h1 style="padding-bottom: 3em;">Templated Index Page</h1>
+  .formBG {
+    background: #343a40;
+  }
+</style>
 
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item active">TODO David, (Chinn you can help here if you want just communicate with david)</li>
-        <li class="list-group-item">Hard code 2 listing samples for Back End to use in listing generating</li>
-        <li class="list-group-item">Each Sample listing NEEDS: photo, title, distance to school, other field you feel like adding??</li>
-        <li class="list-group-item">Please Modify the Footer partial view and create an actual footer</li>
-        <li class="list-group-item">Add browse dropdown to navbar. This dropdown will be to filter types of housing (Apartment, House, Room)</li>
-        <li class="list-group-item">Use something like this to link index to the items page <button class="btn btn-warning" onclick="location.href='/listing/item'">link to listing result page</button></li>
-      </ul>
+<!--///////////////////////////////////-->
 
-      <button style="margin-top: 2.5em;" class="btn btn-warning" onclick="location.href='/mysql/insert'">For Back-End, Page Showing DB Data</button>
+<body>
+  <div class="top-section">
+    <%- include('_partials/search'); %>
+    <div class="row">
+      <!--FILTERS-->
+      <!--grid left (filters)-->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <%- include('_partials/filters'); %>
+      </div>
 
-  <%- include('_partials/footer'); %>
-  
-  
-  
-  
+      <!--grid right (card items)-->
+      <div class="col-sm-6 col-md-8 col-lg-9">
+        <div class="row">
+          <!--card item 1-->
+          <div class="card" style="width: 20rem;">
+            <img
+              class="card-img-top"
+              src="/images/houseFiller.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+          <!--card item 2-->
+          <div class="card" style="width: 20rem;">
+            <img
+              class="card-img-top"
+              src="/images/houseFiller.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+          <!--card item 3-->
+          <div class="card" style="width: 20rem;">
+            <img
+              class="card-img-top"
+              src="/images/houseFiller.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <!--end cards-->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('_partials/footer'); %>

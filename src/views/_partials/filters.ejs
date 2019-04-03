@@ -1,0 +1,157 @@
+<div class="card text-center ">
+  <!--card head-->
+  <div class="card-header">
+    <strong>Filters</strong>
+  </div>
+  <!--card body-->
+  <div class="card-body">
+    <div class="form-check">
+      <!--housing type-->
+      <div class=" text-left">
+        <strong>Housing Type:</strong>
+        <!--appartments-->
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="appartmentCheck"
+          />
+          <label class="form-check-label" for="appartmentCheck">
+            Appartments
+          </label>
+        </div>
+        <!--Houses-->
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="houseCheck"
+          />
+          <label class="form-check-label" for="houseCheck">
+            Houses
+          </label>
+        </div>
+        <!--rooms-->
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="roomCheck"
+          />
+          <label class="form-check-label" for="roomCheck">
+            Rooms
+          </label>
+        </div>
+        <!--pricing-->
+        <p></p>
+        <div class="dropdown-divider"></div>
+        <p></p>
+        <strong>Price Range:</strong>
+        <!--min price-->
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Min price"
+            aria-label="Amount (to the nearest dollar)"
+          />
+        </div>
+        <!--max price-->
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Max price"
+            aria-label="Amount (to the nearest dollar)"
+          />
+        </div>
+        <!--morefilters expanded-->
+        <div class="collapse" id="collapseExample">
+          <p></p>
+          <div class="dropdown-divider"></div>
+          <p></p>
+          <!--Miles from school-->
+          <strong>Miles from Campus:</strong>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Miles"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <p></p>
+          <div class="dropdown-divider"></div>
+          <p></p>
+          <strong>Bedrooms:</strong>
+          <!--Min Bedrooms-->
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Min"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <!--Max Bedrooms-->
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Max"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <p></p>
+          <div class="dropdown-divider"></div>
+          <p></p>
+          <!--Bathrooms-->
+          <strong>Bathrooms:</strong>
+          <!--,in Bathrooms-->
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Min"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <!--Max Bathrooms-->
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Max"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--More Filters buttom-->
+
+    <a
+      class="btn btn-secondary "
+      data-toggle="collapse"
+      href="#collapseExample"
+      role="button"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      More Filters
+    </a>
+  </div>
+  <!--card footer-->
+  <div class="card-footer text-muted">
+    <a href="#" class="btn btn-primary">Search Filter</a>
+  </div>
+</div>
