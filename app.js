@@ -83,6 +83,10 @@ app.get('/', (req, res) => {
     //res.render('listing/index');
 });
 
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
 app.listen(80, function() {
   debug('listening on port 80');
 });
