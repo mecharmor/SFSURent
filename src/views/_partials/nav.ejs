@@ -1,6 +1,7 @@
 <style>
-  .navbar {
+  .blueLine {
     border-bottom: #008ed6 3px solid;
+    background-color: #343a40;
   }
   body {
     color: #333;
@@ -9,41 +10,52 @@
 
 <!--navbar-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="main-nav">
-  <div class="container">
-    <a href="/" class="navbar-brand">SFSURent</a>
-    <!--navbar collapse toggler button-->
-    <button
-      class="navbar-toggler"
-      data-toggle="collapse"
-      data-target="#navbarCollapse"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!--navbar items-->
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto">
-        <!--home-->
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <!--about-->
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <!--login/register - triggers modal-->
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            href="#loginModal"
-            data-toggle="modal"
-            data-target="#loginModal"
-            >Login/Register</a
-          >
-        </li>
-      </ul>
+  <a href="/" class="navbar-brand">
+    <img src="images/gatorRent_logo.png" width="50" height="50" alt="" />
+    <h3 class="d-inline align-middle">GatorRent</h3>
+  </a>
+  <!--navbar collapse toggler button-->
+  <button
+    class="navbar-toggler"
+    data-toggle="collapse"
+    data-target="#navbarCollapse"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!--navbar items-->
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <!--serach bar-->
+    <div class="d-none d-lg-inline w-100 pt-1 pt-3">
+      <%- include('search'); %>
     </div>
+    <ul class="navbar-nav ml-auto">
+      <!--home-->
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <!--about-->
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      <!--login/register - triggers modal-->
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="#loginModal"
+          data-toggle="modal"
+          data-target="#loginModal"
+          >Login/Register</a
+        >
+      </li>
+    </ul>
   </div>
 </nav>
+
+<div class="blueLine">
+  <div class="d-lg-none">
+    <%- include('search'); %>
+  </div>
+</div>
 
 <!--Modal for login/register-->
 <div
@@ -110,6 +122,7 @@
             </form>
           </div>
         </div>
+
         <!--Modal Form end-->
       </div>
     </div>
