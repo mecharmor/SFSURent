@@ -7,9 +7,11 @@
   }
 </style>
 
+<!--navbar-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="main-nav">
   <div class="container">
     <a href="/" class="navbar-brand">GatorRent</a>
+    <!--navbar collapse toggler button-->
     <button
       class="navbar-toggler"
       data-toggle="collapse"
@@ -17,14 +19,18 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!--navbar items-->
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto">
+        <!--home-->
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
+        <!--about-->
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
+        <!--login/register - triggers modal-->
         <li class="nav-item">
           <a
             class="nav-link"
@@ -39,7 +45,7 @@
   </div>
 </nav>
 
-<!--Modal-->
+<!--Modal for login/register-->
 <div
   class="modal fade"
   id="loginModal"
@@ -48,6 +54,7 @@
   aria-labelledby="loginModalLabel"
   aria-hidden="true"
 >
+  <!--modal dialog-->
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,7 +69,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <!--Form start-->
+        <!--Modal Form start-->
         <!--Login-->
         <div class="col-lg-4">
           <div class="card text-center card-form">
@@ -110,7 +117,7 @@
             </div>
           </div>
         </div>
-        <!--Form end-->
+        <!--Modal Form end-->
       </div>
     </div>
   </div>
