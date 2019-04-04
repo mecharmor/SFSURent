@@ -1,13 +1,12 @@
 var express = require('express');
 var aboutRouter = express.Router();
 
+//Main About Page
 aboutRouter.route('/')
     .get((req, res) => {
         res.render("about/index");
     })
-
-// TODO: Copy the block for your name.
-// Use same convention (lower case, etc...)
+//Personal About Pages
 aboutRouter.route('/soheil-ansari')
     .get((req, res) => {
         res.render("about/soheil");
