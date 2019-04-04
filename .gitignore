@@ -78,6 +78,3 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-
-Milestones/.DS_Store
-.DS_Store
