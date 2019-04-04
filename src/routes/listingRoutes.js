@@ -22,7 +22,7 @@ listingRoutes.route('/:id(\\d+)')
   });    
  });
 
- // load listing index page given a listing_type for selected listing {ex| bungalo, apartment, house}, Soheil, Poorva,  4/2/19
+ // load listing index page given a listing_type for selected listing {ex| bungalow, apartment, house}, Soheil, Poorva,  4/2/19
 listingRoutes.route('/:slug/')
     .get((req, res) => {  
       DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address ' +
@@ -32,5 +32,16 @@ listingRoutes.route('/:slug/')
         res.render('listing/index', {objectArrayFromDb : rows});      
       });     
     });
+//search query based on title, price, address, description
+  /*listingRoutes.route('/search/')
+    .get((req, res) => {  
+      DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address ' +
+      'FROM listings' +
+      'WHERE title LIKE "%' + req.query.key + '%" OR price LIKE "%' + req.query.key + '%" OR address LIKE "%' + req.query.key + '%" OR description LIKE "%' + req.query.key + '%"'
+      , req.params.slug)
+      .then( rows => {
+        res.render('listing/index', {objectArrayFromDb : rows});      
+      });     
+    });*/
 
 module.exports = listingRoutes;
