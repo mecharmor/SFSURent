@@ -1,1 +1,61 @@
-Ignore this page for now - this might be used for search in the future (No Front end work TODO here)
+<%- include('../_partials/header'); %>
+
+<style>
+  .top-section {
+    background: url(/images/backgroundFade.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 75vh;
+  }
+
+  .formBG {
+    background: #343a40;
+  }
+</style>
+
+<!--///////////////////////////////////-->
+
+<body>
+  <div class="top-section">
+    <div class="row">
+      <!--FILTERS-->
+      <!--grid left (filters)-->
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <%- include('../_partials/filters'); %>
+      </div>
+
+      <!--grid right (card items)-->
+      <div class="col-sm-6 col-md-8 col-lg-9">
+        <div class="row">
+
+<!--///////////////////-->
+
+      <% for(var i=0; i < objectArrayFromDb.length; i++) { %>
+
+          <!--card item 4-->
+          <div class="card" style="width: 20rem;">
+            <img
+              class="card-img-top"
+              src="/images/houseFiller.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= objectArrayFromDb[i].address %></h5>
+              <p class="card-text">
+                  <%= objectArrayFromDb[i].description %>
+              </p>
+              <a href="/listing/<%= objectArrayFromDb[i].id %>" class="btn btn-primary">View Listing</a>
+            </div>
+          </div>
+
+      <% } %>
+
+<!--///////////////////-->
+          <!--end cards-->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../_partials/footer'); %>
