@@ -87,6 +87,6 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
-app.listen(3000, function() {
+app.listen(80, function() {
   debug('listening on port 80');
 });
