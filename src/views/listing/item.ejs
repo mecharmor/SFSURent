@@ -23,17 +23,20 @@
         <li data-target="#demo" data-slide-to="1"></li>
         <li data-target="#demo" data-slide-to="2"></li>
       </ul>
-    
+      
+      <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
+
+
       <!-- The slideshow -->
       <div class="carousel-inner" style=" width:100%">
         <div class="carousel-item active">
-          <img src="/images/sample_apt.jpg" style="display:inline" alt="Apartment Image" width="350" height="350">
+          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
         </div>
         <div class="carousel-item">
-          <img src="/images/sample_apt.jpg" style="display:inline" alt="Apartment Image" width="350" height="350">
+          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
         </div>
         <div class="carousel-item">
-          <img src="/images/sample_apt.jpg" style="display:inline" alt="Apartment Image" width="350" height="350">
+          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
         </div>
       </div>
     
