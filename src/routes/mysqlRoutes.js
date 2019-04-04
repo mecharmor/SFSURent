@@ -108,7 +108,7 @@ mysqlRouter.route('/insert')
       'title = "title one", ' +
       'description = "description one", ' +
       'address = "address one", ' +
-      //'thumb = ?, ' +
+      'thumb = ?, ' +
       'zipcode = 99, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
@@ -117,7 +117,7 @@ mysqlRouter.route('/insert')
       'listing_type_id = 1', img1
       ))
 
-      .then(database.query('INSERT INTO listings SET ' +
+      .then(DATABASE.query('INSERT INTO listings SET ' +
       'price = 1999.99, ' +
       'title = "title two", ' +
       'description = "description two", ' +
@@ -131,61 +131,18 @@ mysqlRouter.route('/insert')
       'listing_type_id = 2', img2
       ))
 
-      .then(database.query('INSERT INTO listings SET ' +
-      'price = 1999.99, ' +
-      'title = "title two", ' +
-      'description = "description two", ' +
-      'address = "address two", ' +
-      'thumb = ?, ' +
-      'zipcode = 99444, ' +
-      'num_bed = 3, ' +
-      'num_bath = 3, ' +
-      'size = 3, ' +
-      'score = 4, ' +
-      'listing_type_id = 2', img3
-      ))
-
-      .then(database.query('INSERT INTO listings SET ' +
-      'price = 1999.99, ' +
-      'title = "title two", ' +
-      'description = "description two", ' +
-      'address = "address two", ' +
-      'thumb = ?, ' +
-      'zipcode = 99444, ' +
-      'num_bed = 3, ' +
-      'num_bath = 3, ' +
-      'size = 3, ' +
-      'score = 4, ' +
-      'listing_type_id = 2', img4
-      ))
-
-      .then(DATABASE.query('INSERT INTO listings SET ' +
-      'price = 1999.99, ' +
-      'title = "title two", ' +
-      'description = "description two", ' +
-      'address = "address two", ' +
-      'thumb = ?, ' +
-      'zipcode = 99444, ' +
-      'num_bed = 3, ' +
-      'num_bath = 3, ' +
-      'size = 3, ' +
-      'score = 4, ' +
-      'listing_type_id = 2', img5
-      ))
-
-
       .then(DATABASE.query('INSERT INTO listings SET ' +
       'price = 1600.00, ' +
       'title = "title three", ' +
       'description = "description three", ' +
       'address = "address three", ' +
-      //'thumb = ?, ' +
+      'thumb = ?, ' +
       'zipcode = 99903, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
       'size = 3, ' +
       'score = 5, ' +
-      'listing_type_id = 3'
+      'listing_type_id = 3', img3
       ))
 
       .then(DATABASE.query('INSERT INTO listings SET ' +
@@ -193,13 +150,13 @@ mysqlRouter.route('/insert')
       'title = "title four", ' +
       'description = "description four", ' +
       'address = "address four", ' +
-      //'thumb = ?, ' +
+      'thumb = ?, ' +
       'zipcode = 99904, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
       'size = 3, ' +
       'score = 4, ' +
-      'listing_type_id = 2'
+      'listing_type_id = 2', img4
       ))
 
       .then(DATABASE.query('INSERT INTO listings SET ' +
@@ -207,13 +164,42 @@ mysqlRouter.route('/insert')
       'title = "title five", ' +
       'description = "description five", ' +
       'address = "address five", ' +
-      //'thumb = ?, ' +
+      'thumb = ?, ' +
       'zipcode = 99905, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
       'size = 3, ' +
       'score = 3, ' +
-      'listing_type_id = 1'
+      'listing_type_id = 1', img5
+      ))
+
+      .then(DATABASE.query('INSERT INTO listings SET ' +
+      'price = 1200.00, ' +
+      'title = "title six", ' +
+      'description = "description six", ' +
+      'address = "address six", ' +
+      'thumb = ?, ' +
+      'zipcode = 94112, ' +
+      'num_bed = 3, ' +
+      'num_bath = 2, ' +
+      'size = 2, ' +
+      'score = 5, ' +
+      'listing_type_id = 2', img6
+      ))
+
+
+      .then(DATABASE.query('INSERT INTO listings SET ' +
+      'price = 1700.00, ' +
+      'title = "title seven", ' +
+      'description = "description seven", ' +
+      'address = "address seven", ' +
+      'thumb = ?, ' +
+      'zipcode = 94132, ' +
+      'num_bed = 2, ' +
+      'num_bath = 2, ' +
+      'size = 3, ' +
+      'score = 3, ' +
+      'listing_type_id = 3', img7
       ))
 
     .then( rows => DATABASE.query( 'SELECT id, price, title, description, address FROM listings' ) )    
