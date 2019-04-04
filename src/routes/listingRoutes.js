@@ -9,6 +9,19 @@ listingRoutes.route('/')
        res.render('listing/index', {objectArrayFromDb : results});
       });
     
+    })
+    //search query based on title, price, address, description using % Like search
+    .post((req, res) => {
+
+      req.body.keyword = '%' + req.body.keyword + '%';
+      let sql = 
+      DATABASE.query('SELECT id, title, price, address, thumb ' +
+      'FROM listings ' +
+      'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
+      , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
+      .then( rows => {
+        res.render('listing/index', {objectArrayFromDb : rows});      
+      });  
     });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
@@ -32,16 +45,5 @@ listingRoutes.route('/:slug/')
         res.render('listing/index', {objectArrayFromDb : rows});      
       });     
     });
-//search query based on title, price, address, description
-  /*listingRoutes.route('/search/')
-    .get((req, res) => {  
-      DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address ' +
-      'FROM listings' +
-      'WHERE title LIKE "%' + req.query.key + '%" OR price LIKE "%' + req.query.key + '%" OR address LIKE "%' + req.query.key + '%" OR description LIKE "%' + req.query.key + '%"'
-      , req.params.slug)
-      .then( rows => {
-        res.render('listing/index', {objectArrayFromDb : rows});      
-      });     
-    });*/
 
 module.exports = listingRoutes;

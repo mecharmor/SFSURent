@@ -43,6 +43,9 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
+// will allow to get form submited data using rrequest.body
+app.use(express.urlencoded());
+
 /* Debug is used for printing message on cosole in different categories.
 Run "DEBUG=* node app.js" to get all message or run "DEBUG=app node app.js"
 to get messages for this file only. */
