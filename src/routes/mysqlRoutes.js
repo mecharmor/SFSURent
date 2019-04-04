@@ -2,6 +2,7 @@ var express = require('express');
 var mysqlRouter = express.Router();
 const mysql = require('mysql');
 var https = require('https');
+var fs = require('fs');
 
 
 const mysql_config = {
@@ -38,26 +39,13 @@ class Database {
 
 
 // temp code for faking uploading image
-let urls = [
-"https://upload.wikimedia.org/wikipedia/commons/9/99/Galloway_House.png"
-]
-
-var data = '';
-
-var request = https.request(urls[0], function (res) {
-    res.on('data', function (chunk) {
-        data += chunk;
-    });
-    res.on('end', function () {
-        console.log("Loaded image");
-    });
-});
-request.on('error', function (e) {
-    console.log(e.message);
-});
-request.end();
-
-
+var img1 = fs.readFileSync("./src/test_images/1.jpg");
+var img2 = fs.readFileSync("./src/test_images/2.jpg");
+var img3 = fs.readFileSync("./src/test_images/3.jpg");
+var img4 = fs.readFileSync("./src/test_images/4.jpg");
+var img5 = fs.readFileSync("./src/test_images/5.jpg");
+var img6 = fs.readFileSync("./src/test_images/6.jpg");
+var img7 = fs.readFileSync("./src/test_images/7.jpg");
 
 /*
 Here we will drop the tables and create them again.. - 3/22/19
@@ -119,13 +107,13 @@ mysqlRouter.route('/insert')
       'title = "title one", ' +
       'description = "description one", ' +
       'address = "address one", ' +
-      //'thumb = "C:\Users\Poorva\Desktop\Softwareproject\csc648-sp19-team11\public\images", ' +
+      'thumb = ?, ' +
       'zipcode = 99, ' +
       'num_bed = 2, ' +
       'num_bath = 2, ' +
       'size = 3, ' +
       'score = 5, ' +
-      'listing_type_id = 1'
+      'listing_type_id = 1', img1
       ))
 
       .then(database.query('INSERT INTO listings SET ' +
@@ -139,8 +127,82 @@ mysqlRouter.route('/insert')
       'num_bath = 3, ' +
       'size = 3, ' +
       'score = 4, ' +
-      'listing_type_id = 2', data
+      'listing_type_id = 2', img2
       ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      'thumb = ?, ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2', img3
+      ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      'thumb = ?, ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2', img4
+      ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      'thumb = ?, ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2', img5
+      ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      'thumb = ?, ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2', img6
+      ))
+
+      .then(database.query('INSERT INTO listings SET ' +
+      'price = 1999.99, ' +
+      'title = "title two", ' +
+      'description = "description two", ' +
+      'address = "address two", ' +
+      'thumb = ?, ' +
+      'zipcode = 99444, ' +
+      'num_bed = 3, ' +
+      'num_bath = 3, ' +
+      'size = 3, ' +
+      'score = 4, ' +
+      'listing_type_id = 2', img7
+      ))
+
+
+
+
 
     .then( rows => database.query( 'SELECT id, price, title, description, address  FROM listings' ) )    
     .then( rows => res.send(rows) );
