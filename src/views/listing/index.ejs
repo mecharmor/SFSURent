@@ -28,7 +28,9 @@
       <!--grid right (card items)-->
       <div class="col-sm-6 col-md-8 col-lg-9">
         <div class="row">
-
+        <% if(objectArrayFromDb.length < 1) { %>
+              <h2>no result</h2>
+        <% } else { %>
           <% for(var i=0; i < objectArrayFromDb.length; i++) { %>
 
             <% var image_b64 = new Buffer(objectArrayFromDb[i].thumb).toString('base64') %>
@@ -50,7 +52,7 @@
             </div>
 
           <% } %>
-
+        <% } %>
           <!--end cards-->
         </div>
       </div>
