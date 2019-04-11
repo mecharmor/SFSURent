@@ -66,6 +66,18 @@ mysqlRouter.route('/refresh')
       DATABASE.query('DROP TABLE IF EXISTS listings')
       
       .then(DATABASE.query('DROP TABLE IF EXISTS listing_type'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS user'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS password_token'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS message'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS favorite'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS search_history'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS features'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS listing_feature'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS listing_commute'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS listing_image'))
+
+
+
 
       .then( DATABASE.query('Create TABLE listing_type ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
@@ -90,6 +102,92 @@ mysqlRouter.route('/refresh')
       'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id)'+
         ')'
       ))
+
+      .then( DATABASE.query('Create TABLE user ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'name VARCHAR(150) NOT NULL' +
+      'email VARCHAR(150) NOT NULL' +
+      'password VARCHAR(150) NOT NULL' +
+      'name VARCHAR(150) NOT NULL' +
+      'phone INT' +
+      'thumb MEDIUMBLOB,' +
+          ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE password_token ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'email VARCHAR(150) NOT NULL' +
+      'token VARCHAR(150) NOT NULL' +
+      'user_id int NOT NULL' +
+      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE message ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'body VARCHAR(500) NOT NULL' +
+      'user_id int NOT NULL' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE favorite ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'user_id int NOT NULL' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE search_history ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'params VARCHAR(150) NOT NULL' +
+      'user_id int NOT NULL' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE features ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'name VARCHAR(150) NOT NULL' +
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE listing_feature ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'feature_id int NOT NULL' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (feature_id) REFERENCES features(id)'+
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE listing_commute ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'unit VARCHAR(150) NOT NULL' +
+      'type VARCHAR(150) NOT NULL' +
+      'value double,' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
+      .then( DATABASE.query('Create TABLE listing_image ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'title VARCHAR(150) NOT NULL' +
+      'image MEDIUMBLOB,' +
+      'order INT' +
+      'value double,' +
+      'listing_id int NOT NULL' +
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+        ')'
+      ))
+
 
       .then( res.send('Tables created.'));
     
