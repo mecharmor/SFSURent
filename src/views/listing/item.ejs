@@ -13,132 +13,86 @@
 <br>
 <br>
 
-<div class="text-center" style="background-color:#f8f8f8">
+  <div class= "text-center row" style="color:white">
 
-<div id="demo" class="carousel slide" data-ride="carousel">
-    
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-        <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <li data-target="#demo" data-slide-to="1"></li>
-        <li data-target="#demo" data-slide-to="2"></li>
-      </ul>
-      
-      <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
-
-
-      <!-- The slideshow -->
-      <div class="carousel-inner" style=" width:100%">
-        <div class="carousel-item active">
-          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
-        </div>
-        <div class="carousel-item">
-          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
-        </div>
-        <div class="carousel-item">
-          <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="350" height="350">
-        </div>
+      <div class="col-md-3 rounded" style="background-color:#964dd6;"> 
+          <div>  
+            <br>
+            <h3>Basic Information</h3> 
+            <br>
+              <h5>type : <%= objectArrayFromDb[0].listing_type_id %></h5>
+            <br>
+                <h5>description : <%= objectArrayFromDb[0].description %></h5>
+              <br>
+              <h5>address : <%= objectArrayFromDb[0].address %></h5>
+            <br>
+                <h5>rent : <%= objectArrayFromDb[0].price %></h5>
+              <br>
+           </div>
       </div>
-    
-      <!-- Left and right controls -->
-      <a class="carousel-control-prev" href="#demo" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
-    
-    </div>
+
 <br>
 <br>
-</div>
-<div>
-<div class="jumbotron text-center" style="background-color:#6440e1; color:#f8f8f8">
-  <h3>Basic Information</h3> 
-</div>
 
-<div class="text-center row">
-    <div class="col-md-7"><h5>type</h5></div>
-    <div class="col-md-3"><h4><%= objectArrayFromDb[0].listing_type_id %></h4></div>
-  </div>
-  
+    <div class="col-md-6">
 
-  <br>
-  <div class="text-center row">
-      <div class="col-md-7"><h5>description</h5></div>
-      <div class="col-md-3"><h4><%= objectArrayFromDb[0].description %></h4></div>
-    </div>
-    
-  
-    <br>
-  <div class="text-center row">
-    <div class="col-md-7"><h5>address</h5></div>
-    <div class="col-md-3"><h4><%= objectArrayFromDb[0].address %></h4></div>
-  </div>
-  <br>
-
-  <div class="text-center row">
-    <div class="col-md-7"><h5>rent</h5></div>
-    <div class="col-md-3"><h4><%= objectArrayFromDb[0].price %></h4></div>
-  </div>
-<br>
-
-  <div class="jumbotron text-center" style="background-color:#964dd6; color:#f8f8f8">
-    <h3>Details</h3> 
-  </div>
-
-  <div class="text-center row">
-    <div class="col-md-7"><h4>size</h4></div>
-    <div class="col-md-3"><h4> <%= objectArrayFromDb[0].size %> sq.feet</h4></div>
-  </div>
-  <br>
-  <div class="text-center row">
-    <div class="col-md-7"><h4>number of beds</h4></div>
-    <div class="col-md-3"><h4><%= objectArrayFromDb[0].num_bed %></h4></div>
-  </div>
-  <br>
-
-  <div class="text-center row">
-    <div class="col-md-7"><h4>number of baths</h4></div>
-    <div class="col-md-3"><h4><%= objectArrayFromDb[0].num_bath %></h4></div>
-  </div>
-
-  <br>
-  <br>
-  <div class="jumbotron text-center" style= "background-color:#dea954; color:#f8f8f8">
-      <h3>Features</h3> 
-    </div>
-  <div class="text-center row">
-    <div class="col-md-7"><h4>sample Feature 1</h4></div>
-    <div class="col-md-3"><h4> details</h4></div>
-  </div>  
-  <br>
-
-  <div class="text-center row">
-      <div class="col-md-7"><h4>sample Feature 2</h4></div>
-      <div class="col-md-3"><h4> details</h4></div>
-    </div>  
-    <br>
-    <br>
-  <div class="jumbotron text-center" style="background-color:#1ebae0; color:#f8f8f8">
-      <h3>Distance From the University</h3> 
-    </div>
-    <div class="text-center row">
-        <div class="col-md-7"><h4>walk</h4></div>
-        <div class="col-md-3"><h4> 10 minutes</h4></div>
-      </div>
-      <br>
-      <div class="text-center row">
-          <div class="col-md-7"><h4>car</h4></div>
-          <div class="col-md-3"><h4> 3 minutes</h4></div>
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            
+              <!-- Indicators -->
+              <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+              </ul>
+              
+              <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
+        
+        
+              <!-- The slideshow -->
+              <div class="carousel-inner" style="">
+                <div class="carousel-item active">
+                  <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
+                </div>
+                <div class="carousel-item">
+                  <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
+                </div>
+                <div class="carousel-item">
+                  <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
+                </div>
+              </div>
+            
+              <!-- Left and right controls -->
+              <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </a>
+              <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </a>
         </div>
         <br>
-        <div class="text-center row">
-            <div class="col-md-7"><h4>bike</h4></div>
-            <div class="col-md-3"><h4> 5 minutes</h4></div>
-          </div>
+        <br>
+    </div>
 
-        </div>
+  
+
+  <div class="col-md-3 rounded" style="background-color:#dea954; padding-left:100px; padding-right:100px;"> 
+   <br>
+      <h3>Features</h3> 
+<br>
+<h6>Size : <%= objectArrayFromDb[0].size %> sq.feet</h6>
+<h6>Bedrooms : <%= objectArrayFromDb[0].num_bed %> sq.feet</h6>
+<h6>Bathrooms : <%= objectArrayFromDb[0].size %> sq.feet</h6>
+<br>
+<h6>Laundry : Yes</h6>
+<h6>Laundry : Yes</h6>
+<h6>Laundry : Yes</h6>
+<br>
+<h6>Walk : 10 minutes</h6>
+<h6>Car : 3 minutes</h6>
+<h6>Bike : 5 minutes</h6>
+
+</div>
+  </div>
 
 
 <%- include('../_partials/footer'); %>
