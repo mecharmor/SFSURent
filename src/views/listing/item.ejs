@@ -20,24 +20,20 @@
             <br>
             <h3>Basic Information</h3> 
             <br>
-              <h5>type : <%= objectArrayFromDb[0].listing_type_id %></h5>
+              <h5>Type : <%= objectArrayFromDb[0].listing_type_id %></h5>
             <br>
-                <h5>description : <%= objectArrayFromDb[0].description %></h5>
+                <h5>Description : <%= objectArrayFromDb[0].description %></h5>
               <br>
-              <h5>address : <%= objectArrayFromDb[0].address %></h5>
+              <h5>Address : <%= objectArrayFromDb[0].address %></h5>
             <br>
-                <h5>rent : <%= objectArrayFromDb[0].price %></h5>
-              <br>
+                <h5>Rent : <%= objectArrayFromDb[0].price %></h5>
+                <br>
            </div>
       </div>
 
-<br>
-<br>
-
-    <div class="col-md-6">
+    <div class="col-md-6" style="padding-top: 25px">
 
         <div id="demo" class="carousel slide" data-ride="carousel">
-            
               <!-- Indicators -->
               <ul class="carousel-indicators">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -75,8 +71,10 @@
 
   
 
-  <div class="col-md-3 rounded" style="background-color:#dea954; padding-left:100px; padding-right:100px;"> 
+  <div class="col-md-3 rounded" style="background-color:#dea954;"> 
    <br>
+
+   <div>
       <h3>Features</h3> 
 <br>
 <h6>Size : <%= objectArrayFromDb[0].size %> sq.feet</h6>
@@ -90,9 +88,14 @@
 <h6>Walk : 10 minutes</h6>
 <h6>Car : 3 minutes</h6>
 <h6>Bike : 5 minutes</h6>
+<br>
+
+</div>
 
 </div>
   </div>
+  <br>
+  <br>
 
 
 <%- include('../_partials/footer'); %>
