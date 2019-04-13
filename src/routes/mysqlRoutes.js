@@ -66,7 +66,7 @@ mysqlRouter.route('/refresh')
       DATABASE.query('DROP TABLE IF EXISTS listings')
       
       .then(DATABASE.query('DROP TABLE IF EXISTS listing_type'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS user'))
+      .then(DATABASE.query('DROP TABLE IF EXISTS users'))
       .then(DATABASE.query('DROP TABLE IF EXISTS password_token'))
       .then(DATABASE.query('DROP TABLE IF EXISTS message'))
       .then(DATABASE.query('DROP TABLE IF EXISTS favorite'))
@@ -103,51 +103,51 @@ mysqlRouter.route('/refresh')
         ')'
       ))
 
-      .then( DATABASE.query('Create TABLE user ( ' + 
+      .then( DATABASE.query('Create TABLE users ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'name VARCHAR(150) NOT NULL' +
-      'email VARCHAR(150) NOT NULL' +
-      'password VARCHAR(150) NOT NULL' +
-      'name VARCHAR(150) NOT NULL' +
-      'phone INT' +
+      'name VARCHAR(150) NOT NULL,' +
+      'email VARCHAR(150) NOT NULL,' +
+      'password VARCHAR(150) NOT NULL,' +
+      'phone BIGINT,' +
       'thumb MEDIUMBLOB,' +
+      'isblocked TINYINT' +
           ')'
       ))
 
       .then( DATABASE.query('Create TABLE password_token ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'email VARCHAR(150) NOT NULL' +
-      'token VARCHAR(150) NOT NULL' +
-      'user_id int NOT NULL' +
-      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'email VARCHAR(150) NOT NULL,' +
+      'token VARCHAR(150) NOT NULL,' +
+      'user_id INT NOT NULL,' +
+      'FOREIGN KEY (user_id) REFERENCES users(id)'+
         ')'
       ))
 
-      .then( DATABASE.query('Create TABLE message ( ' + 
+      /*.then( DATABASE.query('Create TABLE message ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'body VARCHAR(500) NOT NULL' +
-      'user_id int NOT NULL' +
-      'listing_id int NOT NULL' +
-      'FOREIGN KEY (user_id) REFERENCES user(id)'+
-      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
+      'body VARCHAR(500) NOT NULL,' +
+      'user_id INT NOT NULL,' +
+      'listing_id INT NOT NULL,' +
+      'FOREIGN KEY (user_id) REFERENCES users(id),' +
+      'FOREIGN KEY (listing_id) REFERENCES listings(id)' +
         ')'
       ))
 
       .then( DATABASE.query('Create TABLE favorite ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'user_id int NOT NULL' +
-      'listing_id int NOT NULL' +
-      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'user_id int NOT NULL,' +
+      'listing_id int NOT NULL,' +
+      'FOREIGN KEY (user_id) REFERENCES user(id),'+
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
 
       .then( DATABASE.query('Create TABLE search_history ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'params VARCHAR(150) NOT NULL' +
-      'user_id int NOT NULL' +
-      'listing_id int NOT NULL' +
-      'FOREIGN KEY (user_id) REFERENCES user(id)'+
+      'params VARCHAR(150) NOT NULL,' +
+      'user_id int NOT NULL,' +
+      'listing_id int NOT NULL,' +
+      'FOREIGN KEY (user_id) REFERENCES user(id),'+
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
@@ -160,33 +160,33 @@ mysqlRouter.route('/refresh')
 
       .then( DATABASE.query('Create TABLE listing_feature ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'feature_id int NOT NULL' +
-      'listing_id int NOT NULL' +
-      'FOREIGN KEY (feature_id) REFERENCES features(id)'+
+      'feature_id int NOT NULL,' +
+      'listing_id int NOT NULL,' +
+      'FOREIGN KEY (feature_id) REFERENCES features(id),'+
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
 
       .then( DATABASE.query('Create TABLE listing_commute ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'unit VARCHAR(150) NOT NULL' +
-      'type VARCHAR(150) NOT NULL' +
-      'value double,' +
-      'listing_id int NOT NULL' +
+      'unit VARCHAR(150) NOT NULL,' +
+      'type VARCHAR(150) NOT NULL,' +
+      'value DOUBLE,' +
+      'listing_id int NOT NULL,' +
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
 
       .then( DATABASE.query('Create TABLE listing_image ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'title VARCHAR(150) NOT NULL' +
+      'title VARCHAR(150) NOT NULL,' +
       'image MEDIUMBLOB,' +
-      'order INT' +
+      'order INT,' +
       'value double,' +
-      'listing_id int NOT NULL' +
+      'listing_id int NOT NULL,' +
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
-      ))
+      ))*/
 
 
       .then( res.send('Tables created.'));
