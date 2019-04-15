@@ -1,4 +1,3 @@
-/* below is new addition from junwei */
 const express = require('express');
 const mysql = require('mysql');
 var https = require('https');
@@ -35,9 +34,7 @@ class Database {
         } );
     }
 }
-/* above is new addition from junwei */
 
-/* const express = require('express'); */
 
 const app = express();
 app.set('view engine', 'ejs');
