@@ -123,7 +123,7 @@ mysqlRouter.route('/refresh')
         ')'
       ))
 
-      /*.then( DATABASE.query('Create TABLE message ( ' + 
+      .then( DATABASE.query('Create TABLE message ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'body VARCHAR(500) NOT NULL,' +
       'user_id INT NOT NULL,' +
@@ -137,7 +137,7 @@ mysqlRouter.route('/refresh')
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'user_id int NOT NULL,' +
       'listing_id int NOT NULL,' +
-      'FOREIGN KEY (user_id) REFERENCES user(id),'+
+      'FOREIGN KEY (user_id) REFERENCES users(id),'+
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
@@ -147,7 +147,7 @@ mysqlRouter.route('/refresh')
       'params VARCHAR(150) NOT NULL,' +
       'user_id int NOT NULL,' +
       'listing_id int NOT NULL,' +
-      'FOREIGN KEY (user_id) REFERENCES user(id),'+
+      'FOREIGN KEY (user_id) REFERENCES users(id),'+
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
       ))
@@ -181,12 +181,12 @@ mysqlRouter.route('/refresh')
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
       'title VARCHAR(150) NOT NULL,' +
       'image MEDIUMBLOB,' +
-      'order INT,' +
-      'value double,' +
+      'orders INT,' +
+      'image_value double,' +
       'listing_id int NOT NULL,' +
       'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
         ')'
-      ))*/
+      ))
 
 
       .then( res.send('Tables created.'));
