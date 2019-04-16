@@ -15,7 +15,7 @@ listingRoutes.route('/')
 
       req.body.keyword = '%' + req.body.keyword + '%';
       let sql = 
-      DATABASE.query('SELECT id, title, price, address, thumb ' +
+      DATABASE.query('SELECT id, title, price, address, description, thumb ' +
       'FROM listings ' +
       'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
       , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
@@ -38,12 +38,25 @@ listingRoutes.route('/:id(\\d+)')
  // load listing index page given a listing_type for selected listing {ex| bungalow, apartment, house}, Soheil, Poorva,  4/2/19
 listingRoutes.route('/:slug/')
     .get((req, res) => {  
-      DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, thumb ' +
+      DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb ' +
       'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
       'WHERE slug = ?', req.params.slug)
       .then( rows => {
         res.render('listing/index', {objectArrayFromDb : rows});      
       });     
-    });
+    })
+    /////////////////////////////
+    // .post((req, res) => {
+
+    //   req.body.keyword = '%' + req.body.keyword + '%';
+    //   let sql = 
+    //   DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb ' +
+    //   'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
+    //   'WHERE (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?) AND slug = ?'
+    //   , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword], req.params.slug)
+    //   .then( rows => {
+    //     res.render('listing/index', {objectArrayFromDb : rows});      
+    //   });  
+    // });
 
 module.exports = listingRoutes;
