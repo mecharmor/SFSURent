@@ -14,7 +14,25 @@ listingRoutes.route('/')
     .post((req, res) => {
 
       req.body.keyword = '%' + req.body.keyword + '%';
-      let sql = 
+
+      if(req.body.housing_types_selection != ""){
+        //Get id of housing type
+        let tempSql = 
+        DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.housing_types_selection]).then(row => {
+        //Query all records where the housing type matches the selection
+        let sql = 
+        DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+        'FROM listings ' +
+        'WHERE listing_type_id = ? AND (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?)'
+        , [row[0].id, req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
+        .then( rows => {
+          console.log("should be something: " + row[0].id);
+          res.render('listing/index', {objectArrayFromDb : rows});      
+        });  
+          });
+      }else{
+
+        let sql = 
       DATABASE.query('SELECT id, title, price, address, description, thumb ' +
       'FROM listings ' +
       'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
@@ -22,6 +40,10 @@ listingRoutes.route('/')
       .then( rows => {
         res.render('listing/index', {objectArrayFromDb : rows});      
       });  
+
+      }
+
+      
     });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
