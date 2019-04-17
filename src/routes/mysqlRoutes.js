@@ -63,21 +63,36 @@ mysqlRouter.route('/refresh')
 
     /* database = new Database(mysql_config); */
 
-      DATABASE.query('DROP TABLE IF EXISTS listings')
+    //DROP TABLE IF EXISTS listings
+
+       DATABASE.query('select 1')
+       .then(DATABASE.query('DROP DATABASE IF EXISTS team11db'))
+       .then(DATABASE.query('CREATE DATABASE team11db'))
+       .then(DATABASE.query('USE team11db'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS favorite'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS password_token'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS message'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS search_history'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS listing_image'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS listing_commute'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS listing_feature'))
+      // .then(DATABASE.query('DROP TABLE IF EXISTS features'))
+
+
+      // //.then(DATABASE.query('DROP TABLE IF EXISTS listing_type'))
+      //  .then(DATABASE.query('DROP TABLE IF EXISTS users'))
+
+      .then( DATABASE.query('Create TABLE users ( ' + 
+      'id INT AUTO_INCREMENT PRIMARY KEY,' +
+      'name VARCHAR(150) NOT NULL,' +
+      'email VARCHAR(500) NOT NULL,' +
+      'password VARCHAR(500) NOT NULL,' +
+      'phone BIGINT,' +
+      'thumb MEDIUMBLOB,' +
+      'isblocked TINYINT' +
+          ')'
+      ))
       
-      .then(DATABASE.query('DROP TABLE IF EXISTS listing_type'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS users'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS password_token'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS message'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS favorite'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS search_history'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS features'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS listing_feature'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS listing_commute'))
-      .then(DATABASE.query('DROP TABLE IF EXISTS listing_image'))
-
-
-
 
       .then( DATABASE.query('Create TABLE listing_type ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
@@ -99,20 +114,13 @@ mysqlRouter.route('/refresh')
       'size int,' +
       'score int,' +
       'listing_type_id int NOT NULL,' +
-      'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id)'+
+      'user_id INT NOT NULL,' +
+      'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id),' +
+      'FOREIGN KEY (user_id) REFERENCES users(id)' +
         ')'
       ))
 
-      .then( DATABASE.query('Create TABLE users ( ' + 
-      'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'name VARCHAR(150) NOT NULL,' +
-      'email VARCHAR(150) NOT NULL,' +
-      'password VARCHAR(150) NOT NULL,' +
-      'phone BIGINT,' +
-      'thumb MEDIUMBLOB,' +
-      'isblocked TINYINT' +
-          ')'
-      ))
+      
 
       .then( DATABASE.query('Create TABLE password_token ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
