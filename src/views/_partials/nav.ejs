@@ -87,9 +87,10 @@
           <div class="card-body">
             <h3>Login</h3>
             <p>Please fill out this form to login</p>
-            <form>
+            <form action="/login/" method="POST">
               <div class="form-group">
                 <input
+                  name="username"
                   type="email"
                   class="form-control form-control-lg"
                   placeholder="Email"
@@ -97,6 +98,7 @@
               </div>
               <div class="form-group">
                 <input
+                  name="password"
                   type="password"
                   class="form-control form-control-lg"
                   placeholder="Password"
