@@ -4,11 +4,11 @@ var listingRoutes = express.Router();
 // default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
     .get((req, res) => {
+
       DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings', function (error, results, fields) {
        if (error) throw error;
-       res.render('listing/index', {objectArrayFromDb : results});
+       res.render('listing/index', {objectArrayFromDb : results, housing_types : ""});
       });
-    
     })
     //search query based on title, price, address, description using % Like search
     .post((req, res) => {
@@ -26,8 +26,7 @@ listingRoutes.route('/')
         'WHERE listing_type_id = ? AND (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?)'
         , [row[0].id, req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
         .then( rows => {
-          console.log("should be something: " + row[0].id);
-          res.render('listing/index', {objectArrayFromDb : rows});      
+          res.render('listing/index', {objectArrayFromDb : rows, housing_types : req.body.housing_types_selection});      
         });  
           });
       }else{

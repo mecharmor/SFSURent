@@ -1,39 +1,38 @@
 const express = require('express');
-const mysql = require('mysql');
 var https = require('https');
+global.DATABASE = require('./src/model/database.js');
 
+// const mysql_config = {
+//       host: '18.144.46.90',
+//       user: 'team11',
+//       password: 'csc648Team11@',
+//       port: 3306,
+//       database: 'team11db',
+//     };
 
-const mysql_config = {
-      host: '18.144.46.90',
-      user: 'team11',
-      password: 'csc648Team11@',
-      port: 3306,
-      database: 'team11db',
-    };
-
-class Database {
-    constructor( config ) {
-        this.connection = mysql.createConnection( config );
-    }
-    query( sql, args ) {
-        return new Promise( ( resolve, reject ) => {
-            this.connection.query( sql, args, ( err, rows ) => {
-                if ( err )
-                    return reject( err );
-                resolve( rows );
-            } );
-        } );
-    }
-    close() {
-        return new Promise( ( resolve, reject ) => {
-            this.connection.end( err => {
-                if ( err )
-                    return reject( err );
-                resolve();
-            } );
-        } );
-    }
-}
+// class Database {
+//     constructor( config ) {
+//         this.connection = mysql.createConnection( config );
+//     }
+//     query( sql, args ) {
+//         return new Promise( ( resolve, reject ) => {
+//             this.connection.query( sql, args, ( err, rows ) => {
+//                 if ( err )
+//                     return reject( err );
+//                 resolve( rows );
+//             } );
+//         } );
+//     }
+//     close() {
+//         return new Promise( ( resolve, reject ) => {
+//             this.connection.end( err => {
+//                 if ( err )
+//                     return reject( err );
+//                 resolve();
+//             } );
+//         } );
+//     }
+// }
 
 
 const app = express();
@@ -64,7 +63,20 @@ app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
 
-global.DATABASE = new Database(mysql_config);//global database reference
+//GLOBALS
+//global.DATABASE = new Database(mysql_config);//global database reference
+// let res = await DATABASE.query('SELECT * FROM listing_type').then(res => {
+//     global.LISTINGTYPES = res;
+// });
+// let res = async () =>{
+//     let _res = await DATABASE.query('SELECT * FROM listing_type');
+//     console.log("query done");
+//     return  _res;
+// }
+// console.log(res());
+
+//await for function, then console log value
+
 
 // app.get('/', (req, res) => {
 //   database = new Database(mysql_config);
