@@ -1,3 +1,10 @@
+/*
+Author: Cory Lewis
+Date: 4/17/19
+Description: This file holds the pool data for connections and also
+keeps reference to the `pool` variable so the class `Database` has access to query() and also 
+pre-query tables so they can be quickly retrieved in the future to decrease query time on client side
+*/
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
@@ -10,10 +17,17 @@ const pool = mysql.createPool({
     queueLimit: 0
   });
 
-  // async function getListingTypes(){
-  //   let result = pool.query('SELECT * FROM listing_type')
-  // }
+  class Database {
+      constructor(pool) {
+          this.pool = pool;//save pool variable
+          this.listingTypes;//declare
+          this.storeListingTypes();//store listing_type table promise array in listingTypes for future use
+      }
+      storeListingTypes(){
+          this.pool.query('SELECT * FROM listing_type').then(result => {
+            this.listingTypes = result;
+          });
+      }
+  }
 
-
-
-  module.exports = pool;
+  module.exports = (new Database(pool)).pool;

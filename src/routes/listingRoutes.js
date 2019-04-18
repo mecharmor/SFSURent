@@ -39,10 +39,7 @@ listingRoutes.route('/')
       .then( rows => {
         res.render('listing/index', {objectArrayFromDb : rows});      
       });  
-
       }
-
-      
     });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
@@ -66,18 +63,5 @@ listingRoutes.route('/:slug/')
         res.render('listing/index', {objectArrayFromDb : rows});      
       });     
     })
-    /////////////////////////////
-    // .post((req, res) => {
-
-    //   req.body.keyword = '%' + req.body.keyword + '%';
-    //   let sql = 
-    //   DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb ' +
-    //   'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
-    //   'WHERE (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?) AND slug = ?'
-    //   , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword], req.params.slug)
-    //   .then( rows => {
-    //     res.render('listing/index', {objectArrayFromDb : rows});      
-    //   });  
-    // });
 
 module.exports = listingRoutes;
