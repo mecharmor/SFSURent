@@ -7,7 +7,11 @@ listingRoutes.route('/')
 
       DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings', function (error, results, fields) {
        if (error) throw error;
-       res.render('listing/index', {objectArrayFromDb : results, housing_types : ""});
+       res.render('listing/index', {
+         objectArrayFromDb : results, 
+         listingTypes : POOL.listingTypes,
+         listing_type_selection : ""
+        });
       });
     })
     //search query based on title, price, address, description using % Like search
@@ -15,10 +19,9 @@ listingRoutes.route('/')
 
       req.body.keyword = '%' + req.body.keyword + '%';
 
-      if(req.body.housing_types_selection != ""){
+      if(req.body.listing_type_selection != ""){
         //Get id of housing type
-        let tempSql = 
-        DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.housing_types_selection]).then(row => {
+        DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.listing_type_selection]).then(row => {
         //Query all records where the housing type matches the selection
         let sql = 
         DATABASE.query('SELECT id, title, price, address, description, thumb ' +
@@ -26,7 +29,11 @@ listingRoutes.route('/')
         'WHERE listing_type_id = ? AND (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?)'
         , [row[0].id, req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
         .then( rows => {
-          res.render('listing/index', {objectArrayFromDb : rows, housing_types : req.body.housing_types_selection});      
+          res.render('listing/index', {
+            objectArrayFromDb : rows, 
+            listingTypes : POOL.listingTypes, 
+            listing_type_selection : req.body.listing_type_selection
+          });      
         });  
           });
       }else{
@@ -37,7 +44,11 @@ listingRoutes.route('/')
       'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
       , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
       .then( rows => {
-        res.render('listing/index', {objectArrayFromDb : rows});      
+        res.render('listing/index', {
+          objectArrayFromDb : rows, 
+          listingTypes : POOL.listingTypes, 
+          listing_type_selection : ""
+        });        
       });  
       }
     });

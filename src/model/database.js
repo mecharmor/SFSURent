@@ -20,14 +20,19 @@ const pool = mysql.createPool({
   class Database {
       constructor(pool) {
           this.pool = pool;//save pool variable
-          this.listingTypes;//declare
-          this.storeListingTypes();//store listing_type table promise array in listingTypes for future use
+        //   this.listingTypes = [
+        //       "apartment", 
+        //       "bungalow",
+        //       "room"
+        //   ];
+        this.listingTypes;
+        this.storeListingTypes();//store listing_type table promise array in listingTypes for future use
       }
       storeListingTypes(){
-          this.pool.query('SELECT * FROM listing_type').then(result => {
+          this.listingTypes = this.pool.query('SELECT * FROM listing_type').then(result => {
             this.listingTypes = result;
           });
       }
   }
 
-  module.exports = (new Database(pool)).pool;
+  module.exports = new Database(pool);
