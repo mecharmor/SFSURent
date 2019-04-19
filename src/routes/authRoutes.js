@@ -2,10 +2,17 @@
 Author: Soheil Ansari
 Date: 4/18/19
 Description: Routes for authentication
+
+  For register route we have access to the following:
+  req.body.name
+  req.body.email
+  req.body.password
+  req.body.password_confirm
 */
 
 const express = require('express');
 const passport = require('passport');
+const { User } = require('../model/user.js');
 
 const authRouter = express.Router();
 
@@ -14,7 +21,12 @@ authRouter.route('/register')
     res.render('register');
   })
   .post((req, res) => {
-    console.log(req.body.name);
+    // validate
+    // .....
+
+    // create user
+    User.register(req.body.name, req.body.name, req.body.name);
+
     res.send('done');
   });
 
