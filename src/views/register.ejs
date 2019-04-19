@@ -82,18 +82,20 @@
               <div class="card-body">
                 <h3>Sign Up Today</h3>
                 <p>Please fill out this form to register</p>
-                <form>
+                <form method="post" action="/auth/register">
                   <!--username-->
                   <div class="form-group">
                     <input
+                      name="name"
                       type="text"
                       class="form-control form-control-lg"
-                      placeholder="Username"
+                      placeholder="Name"
                     />
                   </div>
                   <!--email-->
                   <div class="form-group">
                     <input
+                      name="email"
                       type="email"
                       class="form-control form-control-lg"
                       placeholder="Email"
@@ -102,6 +104,7 @@
                   <!--password-->
                   <div class="form-group">
                     <input
+                      name="password"
                       type="password"
                       class="form-control form-control-lg"
                       placeholder="Password"
@@ -110,6 +113,7 @@
                   <!--password-->
                   <div class="form-group">
                     <input
+                      name="password_confirm"
                       type="password"
                       class="form-control form-control-lg"
                       placeholder="Confirm Password"
@@ -118,6 +122,7 @@
                   <!--agree to terms and conditions-->
                   <div class="form-check">
                     <input
+                      name="terms"
                       class="form-check-input"
                       type="checkbox"
                       value=""

@@ -109,12 +109,12 @@ app.use(express.static('./public'));
 const aboutRouter = require('./src/routes/aboutRoutes');
 const mysqlRouter = require('./src/routes/mysqlRoutes');
 const listingRoutes = require('./src/routes/listingRoutes');
-// const authRoutes = require('./src/routes/authRoutes');
+const authRoutes = require('./src/routes/authRoutes');
 
 app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
-// app.use('/auth/', authRoutes);
+app.use('/auth/', authRoutes);
 
 global.DATABASE = new Database(mysql_config); // global database reference
 
@@ -135,18 +135,6 @@ app.get('/', (req, res) => {
   res.redirect('/listing/');
   // res.render('listing/index');
 });
-
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-
-app.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/dashboard/',
-    failureRedirect: '/login/?failed=true',
-    failureFlash: false,
-  }));
 
 app.listen(3000, () => {
   debug('listening on port 80');
