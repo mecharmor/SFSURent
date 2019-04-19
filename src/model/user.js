@@ -22,14 +22,17 @@ class User {
     return sql;
   }
 
-  static checkValid(email, pass) {
-    global.DATABASE.query('SELECT * FROM users WHERE email = ?', email)
-      .then((results) => {
-        console.log(results);
-        console.log(pass);
+  static async checkValid(email, pass) {
+    return global.DATABASE.query('SELECT * FROM users WHERE email = ?', email)
+      .then((rows) => {
+        if (!rows || rows == null || rows.length !== 1) {
+          return false;
+        }
+        if (rows[0].password === pass) {
+          return true;
+        }
+        return false;
       });
-    const sql = '';
-    return sql;
   }
 }
 
