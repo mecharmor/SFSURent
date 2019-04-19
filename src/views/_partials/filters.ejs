@@ -6,6 +6,7 @@
   <div class="card-header">
     <strong>Filters</strong>
   </div>
+  <form>
   <!--card body-->
   <div class="card-body">
     <div class="form-check">
@@ -59,6 +60,7 @@
             <span class="input-group-text">$</span>
           </div>
           <input
+            name="minPrice"
             type="text"
             class="form-control"
             placeholder="Min price"
@@ -71,6 +73,7 @@
             <span class="input-group-text">$</span>
           </div>
           <input
+            name="maxPrice"
             type="text"
             class="form-control"
             placeholder="Max price"
@@ -86,6 +89,7 @@
           <strong>Miles from Campus:</strong>
           <div class="input-group mb-3">
             <input
+              name="distance"
               type="text"
               class="form-control"
               placeholder="Miles"
@@ -99,6 +103,7 @@
           <!--Min Bedrooms-->
           <div class="input-group mb-3">
             <input
+              name="minBedrooms"
               type="text"
               class="form-control"
               placeholder="Min"
@@ -108,6 +113,7 @@
           <!--Max Bedrooms-->
           <div class="input-group mb-3">
             <input
+              name="maxBedrooms"
               type="text"
               class="form-control"
               placeholder="Max"
@@ -122,6 +128,7 @@
           <!--,in Bathrooms-->
           <div class="input-group mb-3">
             <input
+              name="minBathrooms"
               type="text"
               class="form-control"
               placeholder="Min"
@@ -131,6 +138,7 @@
           <!--Max Bathrooms-->
           <div class="input-group mb-3">
             <input
+              name="maxBathrooms"
               type="text"
               class="form-control"
               placeholder="Max"
@@ -155,6 +163,8 @@
   </div>
   <!--card footer-->
   <div class="card-footer text-muted">
-    <a href="#" class="btn btn-primary">Search Filter</a>
+    <button type="submit" class="btn btn-primary">Search Filter</button>
+    <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
   </div>
+  </form>
 </div>
