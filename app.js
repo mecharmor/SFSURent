@@ -12,7 +12,8 @@ Run "DEBUG=* node app.js" to get all message or run "DEBUG=app node app.js"
 to get messages for this file only. */
 const debug = require('debug')('app');
 // const localStrategy = require('./src/config/strategies/local-strategy.js');
-const LocalStrategy = require('passport-local').Strategy;
+//const LocalStrategy = require('passport-local').Strategy;
+
 
 const mysql_config = {
   host: '18.144.46.90',
@@ -64,29 +65,32 @@ app.use(session({
   resave: false,
 }));
 
+require('./src/config/passport.js')(app);
+
+
 // Initialize passport.
 // passport.use(localStrategy);
 
-passport.use(new LocalStrategy(
-  ((username, password, done) => {
-    if (username === 'test@test' && password === 't') {
-      return done(null, { id: 1 });
-    }
-    return done(null, false, { message: 'Incorrect username.' });
+// passport.use(new LocalStrategy(
+//   ((username, password, done) => {
+//     if (username === 'test@test' && password === 't') {
+//       return done(null, { id: 1 });
+//     }
+//     return done(null, false, { message: 'Incorrect username.' });
 
 
-    // User.findOne({ username }, (err, user) => {
-    //   if (err) { return done(err); }
-    //   if (!user) {
-    //     return done(null, false, { message: 'Incorrect username.' });
-    //   }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
-    //   return done(null, user);
-    // });
-  }),
-));
+//     // User.findOne({ username }, (err, user) => {
+//     //   if (err) { return done(err); }
+//     //   if (!user) {
+//     //     return done(null, false, { message: 'Incorrect username.' });
+//     //   }
+//     //   if (!user.validPassword(password)) {
+//     //     return done(null, false, { message: 'Incorrect password.' });
+//     //   }
+//     //   return done(null, user);
+//     // });
+//   }),
+// ));
 
 passport.serializeUser((user, done) => {
   done(null, user);

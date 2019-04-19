@@ -21,6 +21,16 @@ class User {
     const sql = '';
     return sql;
   }
+
+  static checkValid(email, pass) {
+    global.DATABASE.query('SELECT * FROM users WHERE email = ?', email)
+      .then((results) => {
+        console.log(results);
+        console.log(pass);
+      });
+    const sql = '';
+    return sql;
+  }
 }
 
 module.exports.User = User;
