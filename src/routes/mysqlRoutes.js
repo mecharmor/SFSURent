@@ -114,9 +114,9 @@ mysqlRouter.route('/refresh')
       'size int,' +
       'score int,' +
       'listing_type_id int NOT NULL,' +
-      'user_id INT NOT NULL,' +
-      'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id),' +
-      'FOREIGN KEY (user_id) REFERENCES users(id)' +
+      //'user_id INT NOT NULL,' +
+      'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id)'+ 
+      //'FOREIGN KEY (user_id) REFERENCES users(id)' +
         ')'
       ))
 
