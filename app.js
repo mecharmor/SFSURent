@@ -1,7 +1,5 @@
 const express = require('express');
 var https = require('https');
-global.POOL =  require('./src/model/database.js');
-global.DATABASE = POOL.pool;
 
 const app = express();
 app.set('view engine', 'ejs');
