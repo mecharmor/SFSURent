@@ -1,20 +1,15 @@
 var express = require('express');
 var listingRoutes = express.Router();
-
-const POOL =  require('../model/database.js');
-const DATABASE = POOL.pool;
+const DATABASE = require('../model/database.js');
 
 // default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
     .get((req, res) => {
 
-      DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings', function (error, results, fields) {
-       if (error) throw error;
-
+      DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings').then(results =>{
+       //if (error) throw error;
        res.render('listing/index', {
-         objectArrayFromDb : results, 
-         listingTypes : POOL.listingTypes,
-         listing_type_selection : ""
+         objectArrayFromDb : results
         });
       });
     })
@@ -23,24 +18,22 @@ listingRoutes.route('/')
 
       req.body.keyword = '%' + req.body.keyword + '%';
 
-      if(req.body.listing_type_selection != ""){
-        //Get id of housing type
-        DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.listing_type_selection]).then(row => {
-        //Query all records where the housing type matches the selection
-        let sql = 
-        DATABASE.query('SELECT id, title, price, address, description, thumb ' +
-        'FROM listings ' +
-        'WHERE listing_type_id = ? AND (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?)'
-        , [row[0].id, req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
-        .then( rows => {
-          res.render('listing/index', {
-            objectArrayFromDb : rows, 
-            listingTypes : POOL.listingTypes, 
-            listing_type_selection : req.body.listing_type_selection
-          });      
-        });  
-          });
-      }else{
+      // if(req.body.listing_type_selection != ""){
+      //   //Get id of housing type
+      //   DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.listing_type_selection]).then(row => {
+      //   //Query all records where the housing type matches the selection
+      //   let sql = 
+      //   DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+      //   'FROM listings ' +
+      //   'WHERE listing_type_id = ? AND (title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?)'
+      //   , [row[0].id, req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
+      //   .then( rows => {
+      //     res.render('listing/index', {
+      //       objectArrayFromDb : rows, 
+      //     });      
+      //   });  
+      //     });
+      // }else{
 
         let sql = 
       DATABASE.query('SELECT id, title, price, address, description, thumb ' +
@@ -50,11 +43,9 @@ listingRoutes.route('/')
       .then( rows => {
         res.render('listing/index', {
           objectArrayFromDb : rows, 
-          listingTypes : POOL.listingTypes, 
-          listing_type_selection : ""
         });        
       });  
-      }
+      //}
     });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
@@ -74,7 +65,7 @@ listingRoutes.route('/:slug/')
       'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
       'WHERE slug = ?', req.params.slug)
       .then( rows => {
-        res.render('listing/index', {objectArrayFromDb : rows, listingTypes : POOL.listingTypes,});      
+        res.render('listing/index', {objectArrayFromDb : rows});      
       });     
     })
 
