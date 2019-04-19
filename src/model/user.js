@@ -5,12 +5,13 @@ Description: User Model and specific functions relating to the user
 */
 
 class User {
-  constructor(height, width) {
-    this.height = height;
-    this.width = width;
-  }
+  // constructor(height, width) {
+  //   this.height = height;
+  //   this.width = width;
+  // }
 
   static register(name, email, pass) {
+    
     global.DATABASE.query('INSERT INTO users (name, email, password) VALUES (?,?,?) ',
       [name, email, pass])
       .then((results) => {

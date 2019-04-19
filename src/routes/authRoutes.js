@@ -25,7 +25,7 @@ authRouter.route('/register')
     // .....
 
     // create user
-    User.register(req.body.name, req.body.name, req.body.name);
+    User.register(req.body.name, req.body.email, req.body.password);
 
     res.send('done');
   });
