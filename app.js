@@ -1,6 +1,5 @@
 const express = require('express');
 var https = require('https');
-global.DATABASE = require('./src/model/database.js');
 
 const app = express();
 app.set('view engine', 'ejs');
