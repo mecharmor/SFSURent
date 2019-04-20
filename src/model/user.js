@@ -3,6 +3,9 @@ Author: Soheil Ansari
 Date: 4/18/19
 Description: User Model and specific functions relating to the user
 */
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 class User {
   // constructor(height, width) {
@@ -11,16 +14,10 @@ class User {
   // }
 
   static register(name, email, pass) {
-    
+    const hash = bcrypt.hashSync(pass, saltRounds);
     global.DATABASE.query('INSERT INTO users (name, email, password) VALUES (?,?,?) ',
-      [name, email, pass])
-      .then((results) => {
-        console.log('Registered');
-        console.log(results.insertId);
-        return results.insertId;
-      });
-    const sql = '';
-    return sql;
+      [name, email, hash])
+      .then(results => results.insertId);
   }
 
   static async checkValid(email, pass) {
@@ -29,10 +26,7 @@ class User {
         if (!rows || rows == null || rows.length !== 1) {
           return false;
         }
-        if (rows[0].password === pass) {
-          return true;
-        }
-        return false;
+        return bcrypt.compareSync(pass, rows[0].password);
       });
   }
 }
