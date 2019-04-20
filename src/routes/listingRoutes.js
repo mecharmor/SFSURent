@@ -2,21 +2,35 @@ var express = require('express');
 var listingRoutes = express.Router();
 const DATABASE = require('../model/database.js');
 
+//Save filtering options here
+const FILTER = {
+  listingType : ""
+};
+
 // default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
     .get((req, res) => {
 
-      DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings').then(results =>{
+      DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings').then(([results, fields]) =>{
        //if (error) throw error;
        res.render('listing/index', {
          objectArrayFromDb : results
         });
       });
     })
+    // DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings', function(error, results, files){
+    //   //if (error) throw error;
+    //   res.render('listing/index', {
+    //     objectArrayFromDb : results
+    //    });
+    //  });
+   //})
     //search query based on title, price, address, description using % Like search
     .post((req, res) => {
 
       req.body.keyword = '%' + req.body.keyword + '%';
+      //Update Filters
+      FILTER.listingType = req.body.listingType;
 
       // if(req.body.listing_type_selection != ""){
       //   //Get id of housing type
@@ -35,16 +49,22 @@ listingRoutes.route('/')
       //     });
       // }else{
 
-        let sql = 
-      DATABASE.query('SELECT id, title, price, address, description, thumb ' +
-      'FROM listings ' +
-      'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
-      , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword])
-      .then( rows => {
-        res.render('listing/index', {
-          objectArrayFromDb : rows, 
-        });        
-      });  
+        DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+        'FROM listings ' +
+        'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
+        , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword]).then(([results, fields]) =>{
+          res.render('listing/index', {
+            objectArrayFromDb : results,
+            filter : FILTER 
+          });  
+        });
+      
+        
+      //   let results = (async (req) => {return await DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+      //   'FROM listings ' +
+      //   'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
+      //   , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword]);
+      // });       
       //}
     });
 
@@ -53,7 +73,7 @@ listingRoutes.route('/:id(\\d+)')
     .get((req, res) => {  
       DATABASE.query('SELECT * ' +
     'FROM listings ' +
-    'WHERE id = '+ req.params.id,function(error, results, fields){
+    'WHERE id = ?', req.params.id).then(([results, fields])=>{
       res.render('listing/item', {objectArrayFromDb : results});
     });   
  });
@@ -64,8 +84,8 @@ listingRoutes.route('/:slug/')
       DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb ' +
       'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
       'WHERE slug = ?', req.params.slug)
-      .then( rows => {
-        res.render('listing/index', {objectArrayFromDb : rows});      
+      .then( ([results, fields]) => {
+        res.render('listing/index', {objectArrayFromDb : results});      
       });     
     })
 
