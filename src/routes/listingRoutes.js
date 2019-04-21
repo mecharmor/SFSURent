@@ -46,19 +46,43 @@ listingRoutes.route('/')
       FILTER.maxBedrooms = req.body.maxBedrooms;
       FILTER.minBathrooms = req.body.minBathrooms;
       FILTER.maxBathrooms = req.body.maxBathrooms;
-
+      
       //checking the values from filter
+      //check if they are not numbers, assign to ""
+      if(isNaN(FILTER.minPrice)) {
+        FILTER.minPrice = "";
+      }
+      if(isNaN(FILTER.maxPrice)) {
+        FILTER.maxPrice = "";
+      }
+      if(isNaN(FILTER.minBedrooms)) {
+        FILTER.minBedrooms = "";
+      }
+      if(isNaN(FILTER.maxBedrooms)) {
+        FILTER.maxBedrooms = "";
+      }
+      if(isNaN(FILTER.minBathrooms)) {
+        FILTER.minBathrooms = "";
+      }
+      if(isNaN(FILTER.maxBathrooms)) {
+        FILTER.maxBathrooms = "";
+      }
+
       //if both are empty OR (min > max), assign a large range
-      if(FILTER.minPrice == "" && FILTER.maxPrice == "") {
+      //note: number > "", so need FILTER.max != ""
+      if((FILTER.minPrice == "" && FILTER.maxPrice == "") 
+          || (FILTER.maxPrice != "" && FILTER.minPrice > FILTER.maxPrice)) {
         FILTER.minPrice = "0";
         FILTER.maxPrice = "10000";
       }
-      if(FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") {
+      if((FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") 
+          || (FILTER.maxBedrooms != "" && FILTER.minBedrooms > FILTER.maxBedrooms)) {  
         FILTER.minBedrooms = "0";
         FILTER.maxBedrooms = "10";
         //console.log("1");
       }
-      if(FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") {
+      if((FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") 
+          || (FILTER.maxBathrooms != "" && FILTER.minBathrooms > FILTER.maxBathrooms)) {
         FILTER.minBathrooms = "0";
         FILTER.maxBathrooms = "10";
       }
@@ -84,6 +108,8 @@ listingRoutes.route('/')
       if(FILTER.minBathrooms != "" && FILTER.maxBathrooms == "") {
         FILTER.maxBathrooms = "10";
       }
+
+      //print the inputs to console
       console.log('min price:' + FILTER.minPrice);
       console.log('max price:' + FILTER.maxPrice);
       console.log('min bed:' + FILTER.minBedrooms);
