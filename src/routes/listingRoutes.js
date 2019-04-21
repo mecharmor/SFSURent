@@ -40,6 +40,9 @@ listingRoutes.route('/')
     //search query based on title, price, address, description using % Like search
     .post((req, res) => {
 
+      if(typeof(req.body.listingType) == "undefined") {
+        req.body.keyword = '';
+      }
       req.body.keyword = '%' + req.body.keyword + '%';
 
       console.log('listing type: ' + FILTER.listingType);
