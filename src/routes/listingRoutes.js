@@ -4,14 +4,22 @@ const DATABASE = require('../model/database.js');
 
 //Save filtering options here
 const FILTER = {
-  listingType : ""
+  listingType : "",
+  minPrice : "",
+  maxPrice : "",
+  distance : "",
+  minBedrooms : "",
+  maxBedrooms : "",
+  minBathrooms : "",
+  maxBathrooms : ""
 };
 
 // default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
     .get((req, res) => {
 
-      DATABASE.query('SELECT id, title, description, price, address, thumb FROM listings').then(([results, fields]) =>{
+      DATABASE.query('SELECT id, title, description, price, address, thumb, num_bed, num_bath FROM listings')
+      .then(([results, fields]) =>{
        //if (error) throw error;
        res.render('listing/index', {
          objectArrayFromDb : results
@@ -30,7 +38,58 @@ listingRoutes.route('/')
 
       req.body.keyword = '%' + req.body.keyword + '%';
       //Update Filters
-      FILTER.listingType = req.body.listingType;
+      // FILTER.listingType = req.body.listingType;
+      FILTER.minPrice = req.body.minPrice;
+      FILTER.maxPrice = req.body.maxPrice;
+      // FILTER.distance = req.body.distance;
+      FILTER.minBedrooms = req.body.minBedrooms;
+      FILTER.maxBedrooms = req.body.maxBedrooms;
+      FILTER.minBathrooms = req.body.minBathrooms;
+      FILTER.maxBathrooms = req.body.maxBathrooms;
+
+      //checking the values from filter
+      //if both are empty OR (min > max), assign a large range
+      if(FILTER.minPrice == "" && FILTER.maxPrice == "") {
+        FILTER.minPrice = "0";
+        FILTER.maxPrice = "10000";
+      }
+      if(FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") {
+        FILTER.minBedrooms = "0";
+        FILTER.maxBedrooms = "10";
+        //console.log("1");
+      }
+      if(FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") {
+        FILTER.minBathrooms = "0";
+        FILTER.maxBathrooms = "10";
+      }
+      //if min value is empty, assign min to 0
+      if(FILTER.minPrice == "" && FILTER.maxPrice != "") {
+        FILTER.minPrice = "0";
+      }
+      if(FILTER.minBedrooms == "" && FILTER.maxBedrooms != "") {
+        FILTER.minBedrooms = "0";
+        //console.log("2");
+      }
+      if(FILTER.minBathrooms == "" && FILTER.maxBathrooms != "") {
+        FILTER.minBathrooms = "0";
+      }
+      //if max value is empty, assign max to a large number
+      if(FILTER.minPrice != "" && FILTER.maxPrice == "") {
+        FILTER.maxPrice = "10000";
+      }
+      if(FILTER.minBedrooms != "" && FILTER.maxBedrooms == "") {
+        FILTER.maxBedrooms = "10";
+        //console.log("3");
+      }
+      if(FILTER.minBathrooms != "" && FILTER.maxBathrooms == "") {
+        FILTER.maxBathrooms = "10";
+      }
+      console.log('min price:' + FILTER.minPrice);
+      console.log('max price:' + FILTER.maxPrice);
+      console.log('min bed:' + FILTER.minBedrooms);
+      console.log('max bed:' + FILTER.maxBedrooms);
+      console.log('min bath:' + FILTER.minBathrooms);
+      console.log('max bath:' + FILTER.maxBathrooms);
 
       // if(req.body.listing_type_selection != ""){
       //   //Get id of housing type
@@ -49,10 +108,23 @@ listingRoutes.route('/')
       //     });
       // }else{
 
-        DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+      //search bar
+        // DATABASE.query('SELECT id, title, price, address, description, thumb ' +
+        // 'FROM listings ' +
+        // 'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
+        // , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword]).then(([results, fields]) =>{
+        //   res.render('listing/index', {
+        //     objectArrayFromDb : results,
+        //     filter : FILTER 
+        //   });  
+        // });
+
+      //filter
+        DATABASE.query('SELECT id, title, price, address, description, thumb, num_bed, num_bath ' +
         'FROM listings ' +
-        'WHERE title LIKE ? OR price LIKE ? OR address LIKE ? OR description LIKE ?'
-        , [req.body.keyword,req.body.keyword,req.body.keyword,req.body.keyword]).then(([results, fields]) =>{
+        'WHERE (price >= ? AND price <= ?) AND (num_bed >= ? AND num_bed <= ?) AND (num_bath >= ? AND num_bath <= ?)'
+        , [FILTER.minPrice, FILTER.maxPrice, FILTER.minBedrooms, FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+        .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
             filter : FILTER 
