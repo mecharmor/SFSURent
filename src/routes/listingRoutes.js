@@ -18,7 +18,11 @@ const FILTER = {
 listingRoutes.route('/')
     .get((req, res) => {
 
-      DATABASE.query('SELECT id, title, description, price, address, thumb, num_bed, num_bath FROM listings')
+      DATABASE.query('SELECT listings.id, listings.title, listings.description, listings.price, ' 
+      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+      + 'FROM listings, listing_commute '
+      + 'WHERE listings.id = listing_commute.listing_id '
+      + 'ORDER BY listings.id')
       .then(([results, fields]) =>{
        //if (error) throw error;
        res.render('listing/index', {
@@ -41,7 +45,7 @@ listingRoutes.route('/')
       // FILTER.listingType = req.body.listingType;
       FILTER.minPrice = req.body.minPrice;
       FILTER.maxPrice = req.body.maxPrice;
-      // FILTER.distance = req.body.distance;
+      FILTER.distance = req.body.distance;
       FILTER.minBedrooms = req.body.minBedrooms;
       FILTER.maxBedrooms = req.body.maxBedrooms;
       FILTER.minBathrooms = req.body.minBathrooms;
@@ -54,6 +58,9 @@ listingRoutes.route('/')
       }
       if(isNaN(FILTER.maxPrice)) {
         FILTER.maxPrice = "";
+      }
+      if(isNaN(FILTER.distance)) {
+        FILTER.distance = "";
       }
       if(isNaN(FILTER.minBedrooms)) {
         FILTER.minBedrooms = "";
@@ -69,11 +76,15 @@ listingRoutes.route('/')
       }
 
       //if both are empty OR (min > max), assign a large range
+      //if distance is empty, assign to a large number
       //note: number > "", so need FILTER.max != ""
       if((FILTER.minPrice == "" && FILTER.maxPrice == "") 
           || (FILTER.maxPrice != "" && FILTER.minPrice > FILTER.maxPrice)) {
         FILTER.minPrice = "0";
         FILTER.maxPrice = "10000";
+      }
+      if(FILTER.distance == "") {
+        FILTER.distance = "1000";
       }
       if((FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") 
           || (FILTER.maxBedrooms != "" && FILTER.minBedrooms > FILTER.maxBedrooms)) {  
@@ -112,6 +123,7 @@ listingRoutes.route('/')
       //print the inputs to console
       console.log('min price:' + FILTER.minPrice);
       console.log('max price:' + FILTER.maxPrice);
+      console.log('distance:' + FILTER.distance);
       console.log('min bed:' + FILTER.minBedrooms);
       console.log('max bed:' + FILTER.maxBedrooms);
       console.log('min bath:' + FILTER.minBathrooms);
@@ -146,10 +158,15 @@ listingRoutes.route('/')
         // });
 
       //filter
-        DATABASE.query('SELECT id, title, price, address, description, thumb, num_bed, num_bath ' +
-        'FROM listings ' +
-        'WHERE (price >= ? AND price <= ?) AND (num_bed >= ? AND num_bed <= ?) AND (num_bath >= ? AND num_bath <= ?)'
-        , [FILTER.minPrice, FILTER.maxPrice, FILTER.minBedrooms, FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+        DATABASE.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
+        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+        + 'FROM listings, listing_commute '
+        + 'WHERE (listings.id = listing_commute.listing_id) AND (listings.price >= ? AND listings.price <= ?) ' 
+                + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
+                + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+        + 'ORDER BY listings.id'
+        , [FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
+           FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
