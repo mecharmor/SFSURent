@@ -3,7 +3,7 @@ var listingRoutes = express.Router();
 const DATABASE = require('../model/database.js');
 
 //Save filtering options here
-const FILTER = {
+var FILTER = {
   listingType : "",
   minPrice : "",
   maxPrice : "",
@@ -26,7 +26,8 @@ listingRoutes.route('/')
       .then(([results, fields]) =>{
        //if (error) throw error;
        res.render('listing/index', {
-         objectArrayFromDb : results
+         objectArrayFromDb : results,
+         FILTER : FILTER
         });
       });
     })
@@ -46,6 +47,13 @@ listingRoutes.route('/')
       req.body.keyword = '%' + req.body.keyword + '%';
 
       console.log('listing type: ' + FILTER.listingType);
+
+      //Update Filters
+      // for(let key in FILTER){
+      //   if(typeof(req.body.key) != "undefined" && FILTER.key != req.body.key) {
+      //     FILTER.key = req.body.key;
+      //   }
+      // }
 
       //Update Filters
       //assign new req.body if req.body not undefined and FILTER != req.body
@@ -73,25 +81,17 @@ listingRoutes.route('/')
       if(typeof(req.body.maxBathrooms) != "undefined" && FILTER.maxBathrooms != req.body.maxBathrooms) {
         FILTER.maxBathrooms = req.body.maxBathrooms;
       }
-      // FILTER.minPrice = req.body.minPrice;
-      // FILTER.maxPrice = req.body.maxPrice;
-      // FILTER.distance = req.body.distance;
-      // FILTER.minBedrooms = req.body.minBedrooms;
-      // FILTER.maxBedrooms = req.body.maxBedrooms;
-      // FILTER.minBathrooms = req.body.minBathrooms;
-      // FILTER.maxBathrooms = req.body.maxBathrooms;
-      
-      console.log('listing type: ' + FILTER.listingType);
-      console.log('min price:' + FILTER.minPrice);
-      console.log('max price:' + FILTER.maxPrice);
-      console.log('distance:' + FILTER.distance);
-      console.log('min bed:' + FILTER.minBedrooms);
-      console.log('max bed:' + FILTER.maxBedrooms);
-      console.log('min bath:' + FILTER.minBathrooms);
-      console.log('max bath:' + FILTER.maxBathrooms);
 
       //checking the values from filter
       //check if they are not numbers, assign to ""
+
+      //Check
+      // for(let value of FILTER){
+      //   if(isNaN(prpty)) {
+      //     prpty = "";
+      //   }
+      // }
+
       if(isNaN(FILTER.minPrice)) {
         FILTER.minPrice = "";
       }
@@ -159,15 +159,6 @@ listingRoutes.route('/')
         FILTER.maxBathrooms = "10";
       }
 
-      //print the inputs to console
-      console.log('min price:' + FILTER.minPrice);
-      console.log('max price:' + FILTER.maxPrice);
-      console.log('distance:' + FILTER.distance);
-      console.log('min bed:' + FILTER.minBedrooms);
-      console.log('max bed:' + FILTER.maxBedrooms);
-      console.log('min bath:' + FILTER.minBathrooms);
-      console.log('max bath:' + FILTER.maxBathrooms);
-
       // if(req.body.listing_type_selection != ""){
       //   //Get id of housing type
       //   DATABASE.query('SELECT id FROM listing_type WHERE slug = ?', [req.body.listing_type_selection]).then(row => {
@@ -214,7 +205,7 @@ listingRoutes.route('/')
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
-            filter : FILTER 
+            FILTER : FILTER 
           });  
         });
       }
@@ -235,7 +226,7 @@ listingRoutes.route('/')
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
-            filter : FILTER 
+            FILTER : FILTER 
           });  
         });
       }

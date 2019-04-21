@@ -57,7 +57,7 @@
         <!--min price-->
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text">Min $</span>
           </div>
           <input
             name="minPrice"
@@ -65,12 +65,13 @@
             class="form-control"
             placeholder="Min price"
             aria-label="Amount (to the nearest dollar)"
+            value="<%= FILTER.minPrice %>"
           />
         </div>
         <!--max price-->
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text">Max $</span>
           </div>
           <input
             name="maxPrice"
@@ -78,6 +79,7 @@
             class="form-control"
             placeholder="Max price"
             aria-label="Amount (to the nearest dollar)"
+            value="<%= FILTER.maxPrice %>"
           />
         </div>
         <!--morefilters expanded-->
@@ -86,14 +88,18 @@
           <div class="dropdown-divider"></div>
           <p></p>
           <!--Miles from school-->
-          <strong>Miles from Campus:</strong>
+          <strong>Miles from Campus</strong>
           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Distance:</span>
+              </div>
             <input
               name="distance"
               type="text"
               class="form-control"
               placeholder="Miles"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.distance %>"
             />
           </div>
           <p></p>
@@ -102,47 +108,63 @@
           <strong>Bedrooms:</strong>
           <!--Min Bedrooms-->
           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Min:</span>
+                </div>
             <input
               name="minBedrooms"
               type="text"
               class="form-control"
               placeholder="Min"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.minBedrooms %>"
             />
           </div>
           <!--Max Bedrooms-->
           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Max:</span>
+                </div>
             <input
               name="maxBedrooms"
               type="text"
               class="form-control"
               placeholder="Max"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.maxBedrooms %>"
             />
           </div>
           <p></p>
           <div class="dropdown-divider"></div>
           <p></p>
           <!--Bathrooms-->
-          <strong>Bathrooms:</strong>
+          <strong>Bathrooms</strong>
           <!--Min Bathrooms-->
           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Min:</span>
+                </div>
             <input
               name="minBathrooms"
               type="text"
               class="form-control"
               placeholder="Min"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.minBathrooms %>"
             />
           </div>
           <!--Max Bathrooms-->
           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">Max: </span>
+                </div>
             <input
               name="maxBathrooms"
               type="text"
               class="form-control"
               placeholder="Max"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.maxBathrooms %>"
             />
           </div>
         </div>
@@ -163,7 +185,7 @@
   </div>
   <!--card footer-->
   <div class="card-footer text-muted">
-    <button type="submit" class="btn btn-primary">Search Filter</button>
+    <button type="submit" class="btn btn-warning">Update Filters</button>
     <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
   </div>
   </form>
