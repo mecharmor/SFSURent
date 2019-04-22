@@ -17,32 +17,13 @@
     <div class="search-inner px-3">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <!-- <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            need to change 'housing type' with what was selected from dropdown
-            <a>All</a>
-          </button> -->
-          
-          <!-- <div class="dropdown-menu">
-            <a class="dropdown-item" href="/listing/">All</a>
-            <div role="separator" class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/listing/apartment">Apartment</a>
-            <a class="dropdown-item" href="/listing/bungalow">Bungalow</a>
-            <a class="dropdown-item" href="/listing/room">Room</a>
-          </div> -->
-          
-          <!--////testing--change dropdown items to options////////-->
-          <!--onchange="location = this.value;"-->
-
+          <!--Search Dropdown Creation, 4/22/19 - Cory Lewis-->
           <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
-          <select name="listingType">
+          <select name="listingType" style="margin-right: 1em;">
           <% if(FILTER.listingType == ""){ %>
             <option value="" selected>All</option>
+          <% }else{ %>
+            <option value="">All</option>
           <% } %>
           <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
             <% if(FILTER.listingType == listTypeDropdownValues[i]){ %>
@@ -52,17 +33,6 @@
             <% } %>
           <% } %>
         </select>
-          
-          <!-- <select name="listingType">
-              <option value="">All</option>
-              <option value="apartment">apartment</option>
-              <option value="bungalow">bungalow</option>
-              <option value="room">room</option>
-          </select> -->
- 
-            
-          
-          <!--////////////-->
         </div>
         
         <input
