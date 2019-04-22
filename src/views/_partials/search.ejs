@@ -38,13 +38,29 @@
           
           <!--////testing--change dropdown items to options////////-->
           <!--onchange="location = this.value;"-->
- 
-            <select name="listingType">
-              <option value="">all</option>
+
+          <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
+          <select name="listingType">
+          <% if(FILTER.listingType == ""){ %>
+            <option value="" selected>All</option>
+          <% } %>
+          <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
+            <% if(FILTER.listingType == listTypeDropdownValues[i]){ %>
+              <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
+            <% }else{ %>
+              <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
+            <% } %>
+          <% } %>
+        </select>
+          
+          <!-- <select name="listingType">
+              <option value="">All</option>
               <option value="apartment">apartment</option>
               <option value="bungalow">bungalow</option>
               <option value="room">room</option>
-            </select>
+          </select> -->
+ 
+            
           
           <!--////////////-->
         </div>
