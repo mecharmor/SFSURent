@@ -1,62 +1,227 @@
-<%- include('../_partials/header'); %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #floating-panel1 {
+        position: absolute;
+        top: 80px;
+        left: 450px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel2 {
+        position: absolute;
+        top: 15px;
+        left: 450px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  
+  
+  <body>
 
-<style>
-  .top-section {
-    background: url(/images/backgroundFade.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    min-height: 75vh;
-  }
-
-  .formBG {
-    background: #343a40;
-  }
-</style>
-
-<!--///////////////////////////////////-->
-
-<body>
-  <div class="top-section">
-    <div class="row">
-      <!--FILTERS-->
-      <!--grid left (filters)-->
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <%- include('../_partials/filters'); %>
-      </div>
-
-      <!--grid right (card items)-->
-      <div class="col-sm-6 col-md-8 col-lg-9">
-        <div class="row">
-        <% if(objectArrayFromDb.length < 1) { %>
-              <h2>no result</h2>
-        <% } else { %>
-          <% for(var i=0; i < objectArrayFromDb.length; i++) { %>
-
-            <% var image_b64 = new Buffer(objectArrayFromDb[i].thumb).toString('base64') %>
-
-
-            <div class="card" style="width: 20rem;">
-              <img
-                class="card-img-top"
-                src="data:image/jpg;base64,<%= image_b64 %>"
-                alt="<%= objectArrayFromDb[i].title %>"
-              />
-              <div class="card-body">
-                <h5 class="card-title"><%= objectArrayFromDb[i].title %></h5>
-                <p class="card-text">
-                    <%= objectArrayFromDb[i].description %>
-                </p>
-                <a href="/listing/<%= objectArrayFromDb[i].id %>" class="btn btn-primary">View Listing</a>
-              </div>
-            </div>
-
-          <% } %>
-        <% } %>
-          <!--end cards-->
-        </div>
-      </div>
+    <div id='floating-panel1'>
+      <input id="address" class="controls" type="text" placeholder="Search Box">
+      <input id="submit" type="button" value="Go">
     </div>
+
+    <div id="floating-panel2">
+        <b>Mode of Travel: </b>
+        <select id="mode">
+          <option value="DRIVING">Driving</option>
+          <option value="WALKING">Walking</option>
+          <option value="BICYCLING">Bicycling</option>
+          <option value="TRANSIT">Transit</option>
+        </select>
+        </div>
+
+    <div id="map" style="width:400px; height:400px"></div>
+    <script>
+      var map;
+      var marker;
+      var sLocation;
+      var urLocation;
+      var infoWindow;
+      var geocoder;
+      var directionsDisplay;
+      var directionsService;
+      var input;
+      var searchbox;
+
+      function initMap() {
+        
+        /* School Location */
+        sLocation = {lat: 37.7219, lng: -122.4782};
+
+        /* Marker */
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: sLocation,
+          zoom: 14
+        });
+        
+        marker = new google.maps.Marker({
+          position: sLocation,
+          draggable: true,
+          animation: google.maps.Animation.DROP});
+
+        /*marker.addListener('click',toggleBounce); */
+        marker.setMap(map);
+
+        /* Get local location */
+        infoWindow = new google.maps.InfoWindow;
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position){
+            urLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            
+            infoWindow.setPosition(urLocation);
+            infoWindow.setContent('Your Location');
+            infoWindow.open(map);
+            map.setCenter(urLocation);
+            marker.setMap(map);
+          }, function(){
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+           
+          } else{
+            handleLocationError(flase, infoWindow, map.getCenter());
+          }
+
+          function handleLocationError(browserHasGeoLocation, infoWindow, urLocation){
+          infoWindow.setPosition(urLocation);
+          infoWindow.setContent(browserHasGeolocation ?
+                                'Error1':'Error2');
+          infoWindow.open(map);
+        };
+
+          geocoder = new google.maps.Geocoder();
+          document.getElementById('submit').addEventListener('click', function(){
+            geocodeAddress(geocoder.map);
+          });
+
+          function geocodeAddress(geocoder, retultsMap){
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status){
+              if(status === 'OK'){
+                retultsMap.setCenter(result[0].geomentry.location);
+                marker.setMap(resultsmap);
+              } else{ alert('Error3' + status);}
+            });
+          }
+
+          /* Travel Mood with Distance */
+          directionsDisplay = new google.maps.DirectionsRenderer;
+          directionsService = new google.maps.DirectionsService;
+          directionsDisplay.setMap(map);
+
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+          document.getElementById('mode').addEventListener('change', function(){
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+          });
+          function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+            var selectedMode = document.getElementById('mode').value;
+            directionsService.route({
+              origin: {lat: 37.721557, lng: -122.477394},
+              destination: urLocation,
+              travelMode: google.maps.TravelMode[selectedMode]
+            }, function(response, status){
+              if(status == 'OK'){
+                directionsDisplay.setDirections(response);
+              } else {
+                window.alert('Error4' + status);
+              }
+            });
+          }
+
+          /* Search Box*/
+          input = document.getElementById('address');
+          searchbox = new google.maps.places.SearchBox(input);
+          map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+          var smarkers = [];
+          searchBox.addListener('places_changed', function(){
+            var places = searchBox.getPlaces();
+            if(places.length == 0){
+              return;
+            }
+          smarkers.forEach(function(smarkers){
+            smarkers.setMap(null);
+          });
+          smarkers = [];
+
+           var bounds = new google.maps.LanLngBounds();
+          places.forEach(function(place){
+            if(!place.geometry){
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+            smarkers.push(new google.maps.Marker({
+              map: map,
+              icon: icon, 
+              title: place.name,
+              position: place.geometry.location
+            }));
+            if(place.geometry.viewport){
+              bounds.union(place.geometry.viewport);
+            } else{
+              bounds.extend(place.geometry.location);
+            }
+           });
+          });
+
+
+
+
+      }
+
+
+/*
+
+https://maps.googleapis.com/maps/api/distancematrix/json?language=en&units=imperial&origins=37.721557,-122.477394&mode=bicycling&destinations=37.725671,-122.438599&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE
+
+
+
+*/
+       
+
+      
+      /* var map1 = new google.maps.Map(document.getElementById("googleMap1"),mapOptions1)*/
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE&callback=initMap"
+    async defer></script>
+
+
+
   </div>
-</body>
-<%- include('../_partials/footer'); %>
+
+
+
+  </body>
+</html>
