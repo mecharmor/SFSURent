@@ -169,7 +169,7 @@
           });
           smarkers = [];
 
-          var bounds = new google.maps.LanLngBounds();
+           var bounds = new google.maps.LanLngBounds();
           places.forEach(function(place){
             if(!place.geometry){
               console.log("Returned place contains no geometry");
@@ -193,6 +193,7 @@
             } else{
               bounds.extend(place.geometry.location);
             }
+           });
           });
 
 
