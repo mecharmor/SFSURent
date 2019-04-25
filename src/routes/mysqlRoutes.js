@@ -122,14 +122,7 @@ mysqlRouter.route('/refresh')
 
       
 
-      .then( DATABASE.query('Create TABLE password_token ( ' + 
-      'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'email VARCHAR(150) NOT NULL,' +
-      'token VARCHAR(150) NOT NULL,' +
-      'user_id INT NOT NULL,' +
-      'FOREIGN KEY (user_id) REFERENCES users(id)'+
-        ')'
-      ))
+    
 
       .then( DATABASE.query('Create TABLE message ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
@@ -150,15 +143,7 @@ mysqlRouter.route('/refresh')
         ')'
       ))
 
-      .then( DATABASE.query('Create TABLE search_history ( ' + 
-      'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'params VARCHAR(150) NOT NULL,' +
-      'user_id int NOT NULL,' +
-      'listing_id int NOT NULL,' +
-      'FOREIGN KEY (user_id) REFERENCES users(id),'+
-      'FOREIGN KEY (listing_id) REFERENCES listings(id)'+
-        ')'
-      ))
+    
 
       .then( DATABASE.query('Create TABLE features ( ' + 
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
