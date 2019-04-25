@@ -273,8 +273,8 @@ mysqlRouter.route('/insert')
 
       .then(DATABASE.query('INSERT INTO listings SET ' +
       'price = 1999.99, ' +
-      'title = "title two", ' +
-      'description = "description two", ' +
+      'title = "same title", ' +
+      'description = "bungalow description", ' +
       'address = "address two", ' +
       'thumb = ?, ' +
       'zipcode = 99444, ' +
