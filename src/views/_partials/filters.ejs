@@ -11,7 +11,7 @@
       <div class="form-check">
         <!--housing type-->
         <div class=" text-left">
-          <!--pricing-->
+          <!--////////  PRICE  RANGE  //////////-->
           <strong>Price Range:</strong>
           <div class="input-group mb-3">
             <!--min price-->
@@ -40,94 +40,89 @@
               value="<%= FILTER.maxPrice %>"
             />
           </div>
+          <!--////////  BEDROOM  RANGE  //////////-->
+          <strong>Bedrooms:</strong>
+          <!--Min Bedrooms-->
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Min:</span>
+            </div>
+            <input
+              name="minBedrooms"
+              type="text"
+              class="form-control"
+              placeholder="Min"
+              aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.minBedrooms %>"
+            />
+            <!--Max Bedrooms-->
+            <div class="pr-1"></div>
+            <div class="input-group-prepend">
+              <span class="input-group-text">Max:</span>
+            </div>
+            <input
+              name="maxBedrooms"
+              type="text"
+              class="form-control"
+              placeholder="Max"
+              aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.maxBedrooms %>"
+            />
+          </div>
+          <!--////////  BATHROOM  RANGE  //////////-->
+          <strong>Bathrooms:</strong>
+          <!--Min Bathrooms-->
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Min:</span>
+            </div>
+            <input
+              name="minBathrooms"
+              type="text"
+              class="form-control"
+              placeholder="Min"
+              aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.minBathrooms %>"
+            />
+            <!--Max Bathrooms-->
+            <div class="pr-1"></div>
+            <div class="input-group-prepend">
+              <span class="input-group-text">Max: </span>
+            </div>
+            <input
+              name="maxBathrooms"
+              type="text"
+              class="form-control"
+              placeholder="Max"
+              aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.maxBathrooms %>"
+            />
+          </div>
+          <!--////////  MILES  FROM  SCHOOL  //////////-->
+          <strong>Miles from Campus:</strong>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Miles:</span>
+            </div>
+            <input
+              name="distance"
+              type="text"
+              class="form-control"
+              placeholder="Miles"
+              aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.distance %>"
+            />
+          </div>
           <!--morefilters expanded-->
           <div class="collapse" id="collapseExample">
             <p></p>
             <div class="dropdown-divider"></div>
+            <!-- *** ENTER EXTRA FILTER OPTIONS BELOW ***-->
             <p></p>
-            <!--Miles from school-->
-            <strong>Miles from Campus</strong>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Distance:</span>
-              </div>
-              <input
-                name="distance"
-                type="text"
-                class="form-control"
-                placeholder="Miles"
-                aria-label="Amount (to the nearest dollar)"
-                value="<%= FILTER.distance %>"
-              />
-            </div>
-            <p></p>
-            <div class="dropdown-divider"></div>
-            <p></p>
-            <strong>Bedrooms:</strong>
-            <!--Min Bedrooms-->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Min:</span>
-              </div>
-              <input
-                name="minBedrooms"
-                type="text"
-                class="form-control"
-                placeholder="Min"
-                aria-label="Amount (to the nearest dollar)"
-                value="<%= FILTER.minBedrooms %>"
-              />
-              <!--Max Bedrooms-->
-              <div class="pr-1"></div>
-              <div class="input-group-prepend">
-                <span class="input-group-text">Max:</span>
-              </div>
-              <input
-                name="maxBedrooms"
-                type="text"
-                class="form-control"
-                placeholder="Max"
-                aria-label="Amount (to the nearest dollar)"
-                value="<%= FILTER.maxBedrooms %>"
-              />
-            </div>
-            <p></p>
-            <div class="dropdown-divider"></div>
-            <p></p>
-            <!--Bathrooms-->
-            <strong>Bathrooms</strong>
-            <!--Min Bathrooms-->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Min:</span>
-              </div>
-              <input
-                name="minBathrooms"
-                type="text"
-                class="form-control"
-                placeholder="Min"
-                aria-label="Amount (to the nearest dollar)"
-                value="<%= FILTER.minBathrooms %>"
-              />
-              <!--Max Bathrooms-->
-              <div class="pr-1"></div>
-              <div class="input-group-prepend">
-                <span class="input-group-text">Max: </span>
-              </div>
-              <input
-                name="maxBathrooms"
-                type="text"
-                class="form-control"
-                placeholder="Max"
-                aria-label="Amount (to the nearest dollar)"
-                value="<%= FILTER.maxBathrooms %>"
-              />
-            </div>
           </div>
         </div>
       </div>
       <!--More Filters buttom-->
-
       <a
         class="btn btn-outline-secondary"
         data-toggle="collapse"
@@ -141,7 +136,7 @@
     </div>
     <!--card footer-->
     <div class="card-footer text-muted">
-      <button type="submit" class="btn btn-warning">Update Filters</button>
+      <button type="submit" class="btn btn-warning">Apply Filters</button>
       <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
     </div>
   </form>
