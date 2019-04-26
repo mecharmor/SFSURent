@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Messages</title>
+<!--https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_two_columns_unequal-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+  height: 500px;
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Style the navigation menu inside the left column */
+#myMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block
+}
+
+#myMenu li a:hover {
+  background-color: #eee;
+}
+
+input {
+  width: 100%;
+}
+
+div.messengerList {
+  background-color: lightblue;
+  height: 350px;
+  overflow: scroll;
+}
+
+div.messenger {
+  background-color: lightblue;
+  height: 400px;
+  overflow: scroll;
+}
+</style>
+</head>
+<body>
+
+<h1>Messages</h1>
+
+<div class="row">
+    <div class="column left" style="background-color:#aaa;">
+      <h2>Messengers</h2>
+      <ul id="myMenu">
+          <div class="messenger">
+            <li><a href="#">Messenger 1</a></li>
+            <li><a href="#">Messenger 2</a></li>
+            <li><a href="#">Messenger 3</a></li>
+            <li><a href="#">Messenger 4</a></li>
+            <li><a href="#">Messenger 5</a></li>
+            <li><a href="#">Messenger 6</a></li>
+            <li><a href="#">Messenger 7</a></li>
+            <li><a href="#">Messenger 8</a></li>
+            <li><a href="#">Messenger 9</a></li>
+            <li><a href="#">Messenger 10</a></li>
+            <li><a href="#">Messenger 11</a></li>
+            <li><a href="#">Messenger 12</a></li>
+            <li><a href="#">Messenger 13</a></li>
+            <li><a href="#">Messenger 14</a></li>
+          </div>
+      </ul>
+    </div>
+
+    <div class="column right" style="background-color:#bbb;">
+      <h2>Messenger 1</h2>
+      <div class="messengerList">
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+        <p>Chat history....</p>
+      </div>
+      
+      <div>
+          <p>
+          </p>     
+      </div>
+
+      <form>
+        <input
+          name="message"
+          type="text"
+          class="form-control form-control-lg"
+          placeholder=""
+        />
+        <span class="input-group-prepend">
+            <button class="btn btn-primary" type="submit" style="float: right;">
+              send
+            </button>
+        </span>
+      </form>
+    </div>
+</div>
+</body>
+</html>
