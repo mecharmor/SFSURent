@@ -2,6 +2,15 @@ const express = require('express');
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+/* Morgan is used for logging http request in the console */
+const morgan = require('morgan');
+/* Debug is used for printing message on cosole in different categories.
+Run "DEBUG=* node app.js" to get all message or run "DEBUG=app node app.js"
+to get messages for this file only. */
+const debug = require('debug')('app');
 
 // will allow to get form submited data using request.body
 // app.use(express.urlencoded({ extended: false }));
