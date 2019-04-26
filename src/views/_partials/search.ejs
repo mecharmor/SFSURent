@@ -1,76 +1,54 @@
 <style>
-        #search-section {
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          min-height: 40px;
-        }
-      
-        #search-section .search-inner {
-          padding-top: 0;
-        }
-      </style>
-      
-      <!--/////////////////////////////////////////////////////////////////////-->
-      
-      <header id="search-section">
-        <div class="row">
-          <div class="col-md-10">
-        <form method="post" action="/listing/">
-          <div class="search-inner">
-            <div class="input-group mb-3">
-              <!--housing type dropdown-->
-              <div class="input-group-prepend">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <!--need to change 'housing type' with what was selected from dropdown-->
-                  <a>All</a>
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">All</a>
-                  <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/listing/apartment">Apartment</a>
-                  <a class="dropdown-item" href="/listing/bungalow">Bungalow</a>
-                  <a class="dropdown-item" href="/listing/room">Room</a>
-                </div>
-              </div>
-              <!--end housing type dropdown-->
-              <!--search entry-->
-              <input
-                name="keyword"
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Search"
-              />
-              <!--end search entry-->
-              <!--search button-->
-              <span class="input-group-prepend">
-                <button class="btn btn-primary" type="submit">
-                  Search
-                </button>
-              </span>
-              <!--end serach button-->
-              </div>
-            </div>
-          </div>
-      
-          <div class="col-md-2 pt-1">
-              <!--filters button-->
-              <a
-            class="btn btn-primary btn-block"
-            data-toggle="collapse"
-            href="#collapseFilters"
-            role="button"
-            aria-expanded="false"
-            aria-controls="collapseFilters"
-          >
-            Filters
-          </a>
-            </div>
+  #search-section {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 40px;
+  }
+
+  #search-section .search-inner {
+    padding-top: 0;
+  }
+</style>
+
+<!--/////////////////////////////////////////////////////////////////////-->
+
+<header id="search-section">
+  <form method="post" action="/listing/">
+    <div class="search-inner px-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <!--Search Dropdown Creation, 4/22/19 - Cory Lewis-->
+          <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
+          <select name="listingType" style="margin-right: 1em;">
+            <% if(FILTER.listingType == ""){ %>
+            <option value="" selected>All</option>
+            <% }else{ %>
+            <option value="">All</option>
+            <% } %> <% for(let i = 0; i < listTypeDropdownValues.length; i++){
+            %> <% if(FILTER.listingType == listTypeDropdownValues[i]){ %>
+            <option value="<%= listTypeDropdownValues[i] %>" selected
+              ><%= listTypeDropdownValues[i] %></option
+            >
+            <% }else{ %>
+            <option value="<%= listTypeDropdownValues[i] %>"
+              ><%= listTypeDropdownValues[i] %></option
+            >
+            <% } %> <% } %>
+          </select>
         </div>
-        </form>
-      </header>
+
+        <input
+          name="keyword"
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Search"
+        />
+        <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit">
+            Search
+          </button>
+        </span>
+      </div>
+    </div>
+  </form>
+</header>

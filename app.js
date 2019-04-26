@@ -1,6 +1,4 @@
-/* below is new addition from junwei */
 const express = require('express');
-const mysql = require('mysql');
 var https = require('https');
 
 const mysql_config = {

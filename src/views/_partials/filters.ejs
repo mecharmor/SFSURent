@@ -67,22 +67,26 @@
               <span class="input-group-text">$</span>
             </div>
             <input
+              name="minBathrooms"
               type="text"
               class="form-control"
               placeholder="Min price"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.minBathrooms %>"
             />
           </div>
           <!--max price-->
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
+              <span class="input-group-text">Max: </span>
             </div>
             <input
+              name="maxBathrooms"
               type="text"
               class="form-control"
               placeholder="Max price"
               aria-label="Amount (to the nearest dollar)"
+              value="<%= FILTER.maxBathrooms %>"
             />
           </div>
           <!--morefilters expanded-->
