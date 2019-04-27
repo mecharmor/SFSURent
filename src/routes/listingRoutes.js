@@ -20,8 +20,8 @@ listingRoutes.route('/')
 
       DATABASE.query('SELECT listings.id, listings.title, listings.description, listings.price, ' 
       + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
-      + 'FROM listings, listing_commute '
-      + 'WHERE listings.id = listing_commute.listing_id '
+      + 'FROM listings LEFT JOIN listing_commute '
+      + 'ON listings.id = listing_commute.listing_id '
       + 'ORDER BY listings.id')
       .then(([results, fields]) =>{
        //if (error) throw error;
