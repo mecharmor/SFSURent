@@ -20,13 +20,13 @@
           <!--Search Dropdown Creation, 4/22/19 - Cory Lewis-->
           <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
           <select name="listingType" style="margin-right: 1em;">
-          <% if(FILTER.listingType == ""){ %>
+          <% if(typeof FILTER == 'undefined' || FILTER.listingType == ""){ %>
             <option value="" selected>All</option>
           <% }else{ %>
             <option value="">All</option>
           <% } %>
           <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
-            <% if(FILTER.listingType == listTypeDropdownValues[i]){ %>
+            <% if(typeof FILTER != 'undefined' && FILTER.listingType == listTypeDropdownValues[i]){ %>
               <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
             <% }else{ %>
               <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
