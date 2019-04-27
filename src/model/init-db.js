@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 const db = require('../model/database.js');
 
 const saltRounds = 10;
@@ -208,6 +209,15 @@ const InsertTestUsers = async () => {
 
 
 const InsertTestListings = async () => {
+  // temp code for faking uploading image
+  const img1 = fs.readFileSync('./test_images/1.jpg');
+  const img2 = fs.readFileSync('./test_images/2.jpg');
+  const img3 = fs.readFileSync('./test_images/3.jpg');
+  const img4 = fs.readFileSync('./test_images/4.jpg');
+  const img5 = fs.readFileSync('./test_images/5.jpg');
+  const img6 = fs.readFileSync('./test_images/6.jpg');
+  const img7 = fs.readFileSync('./test_images/7.jpg');
+
   await db.query('INSERT INTO listings SET '
   + 'price = 1000.99, '
   + 'title = "title one", '
