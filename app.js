@@ -59,6 +59,10 @@ app.get('/', (req, res) => {
   // res.render('listing/index');
 });
 
-app.listen(80, () => {
+app.get('/create-post', (req, res) => {
+    res.render('create-post');
+  });
+
+app.listen(80, function() {
   debug('listening on port 80');
 });
