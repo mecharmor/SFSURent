@@ -11,10 +11,10 @@ body {font-family: "Lato", sans-serif;}
 /* Style the tab */
 .tab {
   float: left;
-  border: 1px solid #ccc;
+  border: solid rgb(161, 21, 189);
   background-color: #f1f1f1;
   width: 30%;
-  height: 500px;
+  height: 600px;
 }
 
 /* Style the buttons inside the tab */
@@ -46,165 +46,73 @@ body {font-family: "Lato", sans-serif;}
 .tabcontent {
   float: left;
   padding: 0px 12px;
-  border: 1px solid #ccc;
+  border: solid rgb(161, 21, 189);
   width: 70%;
   border-left: none;
-  height: 500px;
-}
-/*
-* {
- box-sizing: border-box;
+  height: 600px;
 }
 
-/* Create two unequal columns that floats next to each other */
-/*
-.column {
- float: left;
- padding: 10px;
- height: 500px;
-}
-
-.left {
- width: 25%;
-}
-
-.right {
- width: 75%;
-}
-
-/* Clear floats after the columns 
-.row:after {
- content: "";
- display: table;
- clear: both;
-}
-/* Style the navigation menu inside the left column 
-#myMenu {
- list-style-type: none;
- padding: 0;
- margin: 0;
-}
-
-#myMenu li a {
- padding: 12px;
- text-decoration: none;
- color: black;
- display: block
-}
-
-#myMenu li a:hover {
- background-color: #eee;
-}
-*/
 input {
   width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: solid rgb(165, 163, 163);
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 20px;
 }
 
-div.messengerList {  
-  height: 500px;
+button {
+  background-color: rgb(161, 21, 189);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+div.contactList {  
+  height: 535px;
   overflow: scroll;
 }
 
-div.messenger {
+div.chatHistory {
   background-color: white;
-  height: 350px;
+  height: 400px;
   overflow: scroll;
+  border: solid rgb(165, 163, 163);
 }
 
 </style>
 </head>
 <body>
 
-<!-- <h1>Messages</h1>
-
-<div class="row">
-    <div class="column left" style="background-color:#aaa;">
-      <h2>Messengers</h2>
-      <ul id="myMenu">
-          <div class="messenger">
-            <li><a href="#">Messenger 1</a></li>
-            <li><a href="#">Messenger 2</a></li>
-            <li><a href="#">Messenger 3</a></li>
-            <li><a href="#">Messenger 4</a></li>
-            <li><a href="#">Messenger 5</a></li>
-            <li><a href="#">Messenger 6</a></li>
-            <li><a href="#">Messenger 7</a></li>
-            <li><a href="#">Messenger 8</a></li>
-            <li><a href="#">Messenger 9</a></li>
-            <li><a href="#">Messenger 10</a></li>
-            <li><a href="#">Messenger 11</a></li>
-            <li><a href="#">Messenger 12</a></li>
-            <li><a href="#">Messenger 13</a></li>
-            <li><a href="#">Messenger 14</a></li>
-          </div>
-      </ul>
-    </div>
-
-    <div class="column right" style="background-color:#bbb;">
-      <h2>Messenger 1</h2>
-      <div class="messengerList">
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-        <p>Chat history....</p>
-      </div>
-      
-      <div>
-          <p>
-          </p>     
-      </div>
-
-      <form>
-        <input
-          name="message"
-          type="text"
-          class="form-control form-control-lg"
-          placeholder=""
-        />
-        <span class="input-group-prepend">
-            <button class="btn btn-primary" type="submit" style="float: right;">
-              send
-            </button>
-        </span>
-      </form>
-    </div>
-</div> -->
-<h2>Messages</h2>
-
+<center><h1>Messages</h1></center>
 
 <div class="tab">
-  <div class="messengerList">
-  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Messenger1</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Messenger2</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Messenger3</button>
-  <button class="tablinks" onclick="openCity(event, 'London')">Messenger4</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Messenger5</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Messenger6</button>
-  <button class="tablinks" onclick="openCity(event, 'London')">Messenger7</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Messenger8</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Messenger9</button>
-  <button class="tablinks" onclick="openCity(event, 'London')">Messenger10</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Messenger11</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Messenger12</button>
-  <button class="tablinks" onclick="openCity(event, 'London')">Messenger13</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Messenger14</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Messenger15</button>
+  <h3>Contact</h3>
+  <div class="contactList">
+  <button class="tablinks" onclick="openMessenger(event, 'messenger1')" id="defaultOpen">Messenger1</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger2')">Messenger2</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger3')">Messenger3</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger4')">Messenger4</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger5')">Messenger5</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger6')">Messenger6</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger7')">Messenger7</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger8')">Messenger8</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger9')">Messenger9</button>
+  <button class="tablinks" onclick="openMessenger(event, 'messenger10')">Messenger10</button>
   </div>
 </div>
-
-<div id="London" class="tabcontent">
+<!--messenger 1 chat history-->
+<div id="messenger1" class="tabcontent">
   <h3>Messenger1</h3>
-  <div class="messenger">
+  <div class="chatHistory">
     <p>Chat history 1....</p>
     <p>Chat history 1....</p>
     <p>Chat history 1....</p>
@@ -231,7 +139,7 @@ div.messenger {
       name="message"
       type="text"
       class="form-control form-control-lg"
-      placeholder=""
+      placeholder="Text Message..."
     />
     <span class="input-group-prepend">
         <button class="btn btn-primary" type="submit" style="float: right;">
@@ -241,10 +149,10 @@ div.messenger {
   </form>
 
 </div>
-
-<div id="Paris" class="tabcontent">
+<!--messenger 2 chat history-->
+<div id="messenger2" class="tabcontent">
   <h3>Messenger2</h3>
-  <div class="messenger">
+  <div class="chatHistory">
     <p>Chat history 2....</p>
     <p>Chat history 2....</p>
     <p>Chat history 2....</p>
@@ -271,7 +179,7 @@ div.messenger {
       name="message"
       type="text"
       class="form-control form-control-lg"
-      placeholder=""
+      placeholder="Text Message..."
     />
     <span class="input-group-prepend">
         <button class="btn btn-primary" type="submit" style="float: right;">
@@ -281,10 +189,10 @@ div.messenger {
   </form>
 
 </div>
-
-<div id="Tokyo" class="tabcontent">
+<!--messenger 3 chat history-->
+<div id="messenger3" class="tabcontent">
   <h3>Messenger3</h3>
-  <div class="messenger">
+  <div class="chatHistory">
     <p>Chat history 3....</p>
     <p>Chat history 3....</p>
     <p>Chat history 3....</p>
@@ -311,21 +219,311 @@ div.messenger {
       name="message"
       type="text"
       class="form-control form-control-lg"
-      placeholder=""
+      placeholder="Text Message..."
     />
     <span class="input-group-prepend">
-        <button class="btn btn-primary" type="submit" style="float: right;">
+        <button 
+          class="btn btn-primary" 
+          type="submit" 
+          style="float: right;">
           send
         </button>
     </span>
   </form>
 
 </div>
+<!--messenger 4 chat history-->
+<div id="messenger4" class="tabcontent">
+    <h3>Messenger4</h3>
+    <div class="chatHistory">
+      <p>Chat history 4....</p>
+      <p>Chat history 4....</p>
+      <p>Chat history 4....</p>
+      <p>Chat history 4....</p>
+      <p>Chat history 4....</p>
+      <p>Chat history 4....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div>
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit" style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 5 chat history-->
+  <div id="messenger5" class="tabcontent">
+    <h3>Messenger5</h3>
+    <div class="chatHistory">
+      <p>Chat history 5....</p>
+      <p>Chat history 5....</p>
+      <p>Chat history 5....</p>
+      <p>Chat history 5....</p>
+      <p>Chat history 5....</p>
+      <p>Chat history 5....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div> 
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit" style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 6 chat history-->
+  <div id="messenger6" class="tabcontent">
+    <h3>Messenger6</h3>
+    <div class="chatHistory">
+      <p>Chat history 6....</p>
+      <p>Chat history 6....</p>
+      <p>Chat history 6....</p>
+      <p>Chat history 6....</p>
+      <p>Chat history 6....</p>
+      <p>Chat history 6....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div>
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button 
+            class="btn btn-primary" 
+            type="submit" 
+            style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 7 chat history-->
+  <div id="messenger7" class="tabcontent">
+    <h3>Messenger7</h3>
+    <div class="chatHistory">
+      <p>Chat history 7....</p>
+      <p>Chat history 7....</p>
+      <p>Chat history 7....</p>
+      <p>Chat history 7....</p>
+      <p>Chat history 7....</p>
+      <p>Chat history 7....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div>
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit" style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 8 chat history-->
+  <div id="messenger8" class="tabcontent">
+    <h3>Messenger8</h3>
+    <div class="chatHistory">
+      <p>Chat history 8....</p>
+      <p>Chat history 8....</p>
+      <p>Chat history 8....</p>
+      <p>Chat history 8....</p>
+      <p>Chat history 8....</p>
+      <p>Chat history 8....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div> 
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit" style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 9 chat history-->
+  <div id="messenger9" class="tabcontent">
+    <h3>Messenger9</h3>
+    <div class="chatHistory">
+      <p>Chat history 9....</p>
+      <p>Chat history 9....</p>
+      <p>Chat history 9....</p>
+      <p>Chat history 9....</p>
+      <p>Chat history 9....</p>
+      <p>Chat history 9....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div>
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button 
+            class="btn btn-primary" 
+            type="submit" 
+            style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  <!--messenger 10 chat history-->
+  <div id="messenger10" class="tabcontent">
+    <h3>Messenger10</h3>
+    <div class="chatHistory">
+      <p>Chat history 10....</p>
+      <p>Chat history 10....</p>
+      <p>Chat history 10....</p>
+      <p>Chat history 10....</p>
+      <p>Chat history 10....</p>
+      <p>Chat history 10....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+      <p>Chat history....</p>
+    </div>
+  
+    <div>
+      <p>
+      </p>     
+    </div>
+    
+    <form>
+      <input
+        name="message"
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Text Message..."
+      />
+      <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit" style="float: right;">
+            send
+          </button>
+      </span>
+    </form>
+  
+  </div>
+  
 
 
-
+<!--function to show chat history of a messenger when user click messenger name-->
 <script>
-    function openCity(evt, cityName) {
+    function openMessenger(evt, messengerName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
       for (i = 0; i < tabcontent.length; i++) {
@@ -335,7 +533,7 @@ div.messenger {
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
-      document.getElementById(cityName).style.display = "block";
+      document.getElementById(messengerName).style.display = "block";
       evt.currentTarget.className += " active";
     }
     
