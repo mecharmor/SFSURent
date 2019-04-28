@@ -45,10 +45,14 @@
               <div class="card-body">
                 <h5 class="card-title"><%= objectArrayFromDb[i].title %></h5>
                 <p class="card-text">
-                  Price: $<%= objectArrayFromDb[i].price %> Bedrooms: <%=
-                  objectArrayFromDb[i].num_bed %> Bathrooms: <%=
-                  objectArrayFromDb[i].num_bath %> Distance: <%=
-                  objectArrayFromDb[i].value %>
+                  Price:
+                  <strong>$<%= objectArrayFromDb[i].price %></strong>
+                  Bedrooms:
+                  <strong><%= objectArrayFromDb[i].num_bed %></strong>
+                  Bathrooms:
+                  <strong><%=objectArrayFromDb[i].num_bath %></strong>
+                  Distance:
+                  <strong><%=objectArrayFromDb[i].value %></strong>
                 </p>
                 <a
                   href="/listing/<%= objectArrayFromDb[i].id %>"

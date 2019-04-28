@@ -1,0 +1,28 @@
+<strong>Price Range:</strong>
+<div class="input-group mb-3">
+  <!--min price-->
+  <div class="input-group-prepend">
+    <span class="input-group-text">$</span>
+  </div>
+  <input
+    name="minPrice"
+    type="text"
+    class="form-control"
+    placeholder="Min price"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.minPrice %>"
+  />
+  <!--max price-->
+  <div class="pr-1"></div>
+  <div class="input-group-prepend">
+    <span class="input-group-text">$</span>
+  </div>
+  <input
+    name="maxPrice"
+    type="text"
+    class="form-control"
+    placeholder="Max price"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.maxPrice %>"
+  />
+</div>

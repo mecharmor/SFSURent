@@ -5,7 +5,9 @@
 -->
 
 <div class="py-2">
-    <a href="/create-post"> <button class="btn btn-primary btn-block py-3">Create Post</button></a>
+  <a href="/create-post">
+    <button class="btn btn-primary btn-block py-3">Create Post</button></a
+  >
 </div>
 <div class=" cardSize card text-center">
   <!--card head-->
@@ -18,107 +20,13 @@
         <!--housing type-->
         <div class=" text-left">
           <!--////////  PRICE  RANGE  //////////-->
-          <strong>Price Range:</strong>
-          <div class="input-group mb-3">
-            <!--min price-->
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input
-              name="minPrice"
-              type="text"
-              class="form-control"
-              placeholder="Min price"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minPrice %>"
-            />
-            <!--max price-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input
-              name="maxPrice"
-              type="text"
-              class="form-control"
-              placeholder="Max price"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxPrice %>"
-            />
-          </div>
+          <%- include('../_partials/filterItems/priceRange'); %>
           <!--////////  BEDROOM  RANGE  //////////-->
-          <strong>Bedrooms:</strong>
-          <!--Min Bedrooms-->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Min:</span>
-            </div>
-            <input
-              name="minBedrooms"
-              type="text"
-              class="form-control"
-              placeholder="Min"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minBedrooms %>"
-            />
-            <!--Max Bedrooms-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">Max:</span>
-            </div>
-            <input
-              name="maxBedrooms"
-              type="text"
-              class="form-control"
-              placeholder="Max"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxBedrooms %>"
-            />
-          </div>
+          <%- include('../_partials/filterItems/bedroomsRange'); %>
           <!--////////  BATHROOM  RANGE  //////////-->
-          <strong>Bathrooms:</strong>
-          <!--Min Bathrooms-->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Min:</span>
-            </div>
-            <input
-              name="minBathrooms"
-              type="text"
-              class="form-control"
-              placeholder="Min"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minBathrooms %>"
-            />
-            <!--Max Bathrooms-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">Max: </span>
-            </div>
-            <input
-              name="maxBathrooms"
-              type="text"
-              class="form-control"
-              placeholder="Max"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxBathrooms %>"
-            />
-          </div>
+          <%- include('../_partials/filterItems/bathroomsRange'); %>
           <!--////////  MILES  FROM  SCHOOL  //////////-->
-          <strong>Miles from Campus:</strong>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Miles:</span>
-            </div>
-            <input
-              name="distance"
-              type="text"
-              class="form-control"
-              placeholder="Miles"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.distance %>"
-            />
-          </div>
+          <%- include('../_partials/filterItems/milesFromCampus'); %>
           <!--morefilters expanded-->
           <div class="collapse" id="collapseExample">
             <p></p>
