@@ -17,11 +17,13 @@ const debug = require('debug')('app');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // use express session
-app.use(session({
-  secret: 'CSC Class',
-  saveUninitialized: false,
-  resave: false,
-}));
+app.use(
+  session({
+    secret: 'CSC Class',
+    saveUninitialized: false,
+    resave: false
+  })
+);
 
 require('./src/config/passport.js')(app);
 
@@ -36,9 +38,7 @@ passport.deserializeUser((id, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use(morgan('tiny'));
-
 
 /* allows to call static items in public folder such as images */
 app.use(express.static('./public'));
@@ -60,8 +60,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/create-post', (req, res) => {
-    res.render('create-post');
-  });
+  res.render('create-post');
+});
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
 
 app.listen(80, function() {
   debug('listening on port 80');
