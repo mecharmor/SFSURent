@@ -1,3 +1,11 @@
+<!--
+Navbar: includes logo/brand name, search bar partial, menu items
+todo:
+- make logo appear for pages in listings/
+- make brand name disappear and only keep logo for small screens
+- Change 'Login/Register' to 'My Accout' and 'logout' when user is logged in
+-->
+
 <style>
   .blueLine {
     border-bottom: #008ed6 3px solid;
@@ -87,9 +95,10 @@
           <div class="card-body">
             <h3>Login</h3>
             <p>Please fill out this form to login</p>
-            <form>
+            <form action="/auth/login/" method="POST">
               <div class="form-group">
                 <input
+                  name="username"
                   type="email"
                   class="form-control form-control-lg"
                   placeholder="Email"
@@ -97,6 +106,7 @@
               </div>
               <div class="form-group">
                 <input
+                  name="password"
                   type="password"
                   class="form-control form-control-lg"
                   placeholder="Password"
@@ -117,7 +127,7 @@
             <h3>Dont have an account?</h3>
             <p>Create an account today!</p>
             <form>
-              <a href="/register" class="btn btn-primary btn-block">Register</a>
+              <a href="/auth/register" class="btn btn-primary btn-block">Register</a>
               <p></p>
             </form>
           </div>
