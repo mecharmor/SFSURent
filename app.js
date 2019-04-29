@@ -18,11 +18,13 @@ const debug = require('debug')('app');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // use express session
-app.use(session({
-  secret: 'CSC Class',
-  saveUninitialized: false,
-  resave: false,
-}));
+app.use(
+  session({
+    secret: 'CSC Class',
+    saveUninitialized: false,
+    resave: false
+  })
+);
 
 require('./src/config/passport.js')(app);
 
@@ -41,6 +43,7 @@ function authProtect(req, res, next) {
     res.redirect('/auth/register');
   }
 }
+
 
 app.use(morgan('tiny'));
 
@@ -65,6 +68,14 @@ app.get('/', (req, res) => {
   // res.render('listing/index');
 });
 
-app.listen(80, () => {
+app.get('/create-post', (req, res) => {
+  res.render('create-post');
+});
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
+
+app.listen(80, function() {
   debug('listening on port 80');
 });

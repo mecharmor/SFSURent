@@ -3,132 +3,38 @@
   todo:
   - add more filters
 -->
-
 <div class="py-2">
-  <button class="btn btn-primary btn-block py-3">Create Post</button>
-</div>
-<div class=" cardSize card text-center">
-  <!--card head-->
-  <div class="card-header">
-    <strong>Filters</strong>
-  </div>
-  <form method="post" action="/listing/">
-    <div class="card-body">
-      <div class="form-check">
-        <!--housing type-->
-        <div class=" text-left">
-          <!--////////  PRICE  RANGE  //////////-->
-          <strong>Price Range:</strong>
-          <div class="input-group mb-3">
-            <!--min price-->
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input
-              name="minPrice"
-              type="text"
-              class="form-control"
-              placeholder="Min price"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minPrice %>"
-            />
-            <!--max price-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input
-              name="maxPrice"
-              type="text"
-              class="form-control"
-              placeholder="Max price"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxPrice %>"
-            />
-          </div>
-          <!--////////  BEDROOM  RANGE  //////////-->
-          <strong>Bedrooms:</strong>
-          <!--Min Bedrooms-->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Min:</span>
-            </div>
-            <input
-              name="minBedrooms"
-              type="text"
-              class="form-control"
-              placeholder="Min"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minBedrooms %>"
-            />
-            <!--Max Bedrooms-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">Max:</span>
-            </div>
-            <input
-              name="maxBedrooms"
-              type="text"
-              class="form-control"
-              placeholder="Max"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxBedrooms %>"
-            />
-          </div>
-          <!--////////  BATHROOM  RANGE  //////////-->
-          <strong>Bathrooms:</strong>
-          <!--Min Bathrooms-->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Min:</span>
-            </div>
-            <input
-              name="minBathrooms"
-              type="text"
-              class="form-control"
-              placeholder="Min"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.minBathrooms %>"
-            />
-            <!--Max Bathrooms-->
-            <div class="pr-1"></div>
-            <div class="input-group-prepend">
-              <span class="input-group-text">Max: </span>
-            </div>
-            <input
-              name="maxBathrooms"
-              type="text"
-              class="form-control"
-              placeholder="Max"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.maxBathrooms %>"
-            />
-          </div>
-          <!--////////  MILES  FROM  SCHOOL  //////////-->
-          <strong>Miles from Campus:</strong>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Miles:</span>
-            </div>
-            <input
-              name="distance"
-              type="text"
-              class="form-control"
-              placeholder="Miles"
-              aria-label="Amount (to the nearest dollar)"
-              value="<%= FILTER.distance %>"
-            />
-          </div>
-          <!--morefilters expanded-->
-          <div class="collapse" id="collapseExample">
-            <p></p>
+  <div class="cardSize card text-center">
+    <!--card head-->
+    <div class="card-header">
+      <strong>Filters</strong>
+    </div>
+    <form method="post" action="/listing/">
+      <div class="card-body">
+        <div class="form-check">
+          <!--housing type-->
+          <div id="checkbox-container" class="text-left">
+            <!--////////  PRICE  RANGE  //////////-->
+            <%- include('../_partials/filterItems/priceRange'); %>
             <div class="dropdown-divider"></div>
-            <!-- *** ENTER EXTRA FILTER OPTIONS BELOW ***-->
-            <p></p>
+            <!--////////  BEDROOM  RANGE  //////////-->
+            <%- include('../_partials/filterItems/bedroomsRange'); %>
+            <div class="dropdown-divider"></div>
+            <!--////////  BATHROOM  RANGE  //////////-->
+            <%- include('../_partials/filterItems/bathroomsRange'); %>
+            <div class="dropdown-divider"></div>
+            <!--////////  MILES  FROM  SCHOOL  //////////-->
+            <%- include('../_partials/filterItems/milesFromCampus'); %>
+            <!--morefilters expanded-->
+            <div class="collapse" id="collapseExample">
+              <p></p>
+              <div class="dropdown-divider"></div>
+              <!-- *** ENTER EXTRA FILTER OPTIONS BELOW ***-->
+              <p></p>
+            </div>
           </div>
         </div>
-      </div>
-      <!--More Filters buttom-->
+        <!-- More Filters buttom
       <a
         class="btn btn-outline-secondary"
         data-toggle="collapse"
@@ -138,12 +44,49 @@
         aria-controls="collapseExample"
       >
         More Filters
-      </a>
-    </div>
-    <!--card footer-->
-    <div class="card-footer text-muted">
-      <button type="submit" class="btn btn-warning">Apply Filters</button>
-      <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
-    </div>
-  </form>
+      </a> -->
+      </div>
+      <!--card footer-->
+      <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col">
+            <button type="reset" id="filterReset" class="btn btn-danger">
+              Reset
+            </button>
+          </div>
+          <div class="col">
+            <button type="submit" id="filterUpdate" class="btn btn-success">
+              Update
+            </button>
+          </div>
+        </div>
+        <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
+      </div>
+    </form>
+  </div>
 </div>
+
+<!--Save FILTERING On clients local storage-->
+<script type="text/javascript">
+  var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
+    $checkboxes = $('#checkbox-container :checkbox');
+
+  // Set filters on page load
+  $.each(checkboxValues, function(key, value) {
+    $('#' + key).prop('checked', value);
+  });
+  //Reset Button Pressed
+  $('#filterReset').click(() => {
+    $checkboxes.each(function() {
+      checkboxValues[this.id] = false;
+    });
+    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
+  });
+  //Update Button Pressed
+  $('#filterUpdate').click(() => {
+    $checkboxes.each(function() {
+      checkboxValues[this.id] = this.checked;
+    });
+    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
+  });
+</script>

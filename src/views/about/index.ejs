@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <style>
-    .top-section {
-      background: url(/images/backgroundFade2.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      min-height: 75vh;
-    }
-  </style>
 
-  <head>
-    <title>About</title>
-  </head>
-
-  <body>
     <%- include('../_partials/header'); %>
     <div class="top-section">
       <div class="container">
@@ -29,6 +13,9 @@
         </div>
 
         <hr />
+        <div style="margin-bottom: 1em;">
+            <%- include('../_partials/websiteDescription'); %>
+        </div>
 
         <!---Cards-->
         <div class="container-fluid padding">
@@ -152,9 +139,5 @@
         </div>
       </div>
     </div>
-  </body>
 
-  <footer>
     <%- include('../_partials/footer'); %>
-  </footer>
-</html>

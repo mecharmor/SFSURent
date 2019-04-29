@@ -17,9 +17,9 @@
     <div class="search-inner px-3">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <!--Search Dropdown Creation, 4/22/19 - Cory Lewis-->
           <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
-          <select name="listingType" style="margin-right: 1em;">
+          <select class="form-control" name="listingType" style =" -webkit-appearance: none;
+          -webkit-border-radius: 0px;height: 100%;">
           <% if(typeof FILTER == 'undefined' || FILTER.listingType == ""){ %>
             <option value="" selected>All</option>
           <% }else{ %>
@@ -43,7 +43,7 @@
         />
         <span class="input-group-prepend">
           <button class="btn btn-primary" type="submit">
-            Search
+              <i class="fa fa-search" aria-hidden="true"></i>
           </button>
         </span>
       </div> 
