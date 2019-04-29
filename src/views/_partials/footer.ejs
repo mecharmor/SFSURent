@@ -4,6 +4,8 @@
   - enable contact message to send to project email
 -->
 
+    <!-- DO NOT PUT OPENING BODY OR HTML TAGS IN HEADER-->
+
 <style>
   .textcolor {
     color: #fff;
@@ -11,21 +13,36 @@
 </style>
 
 <footer id="main-footer" class="bg-dark">
-  <div class="container">
+  <div class="container" style="padding-top:1em;">
     <div class="row">
-      <div class="textcolor col text-center py-4">
-        <h3>GatorRent</h3>
+    <div class="col">
+        <button
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#contactModal"
+        >
+        Contact Us
+      </button>
+    </div>
+    <div class="textcolor col">
+        <h3>SFSU Rent</h3>
         <p>
           Copyright &copy; 2019
         </p>
-        <button
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#contactModal"
-        >
-          Contact Us
-        </button>
       </div>
+    <div class="col">
+      <button
+      class="btn btn-success"
+      onclick="window.location.href = '/about';"
+      >
+      About
+      </button>
     </div>
   </div>
-</footer>
+  </div>
+
+<!-- DO NOT DELETE BELOW CLOSING TAGS-->
+        </footer>
+      </div>
+    </body>
+</html>
