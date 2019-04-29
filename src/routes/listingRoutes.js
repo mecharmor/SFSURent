@@ -53,7 +53,12 @@ listingRoutes.route('/')
       console.log("bed3: " + req.body.bed3);
       console.log("bed4: " + req.body.bed4);
       console.log("bed5: " + req.body.bed5);
+      console.log("bath1: " + req.body.bath1);
+      console.log("bath2: " + req.body.bath2);
+      console.log("bath3: " + req.body.bath3);
+      console.log("bath4: " + req.body.bath4);
 
+      //bedroom check
       if(typeof(req.body.bed1) == "undefined") {
         req.body.bed1 = "0";
       }
@@ -67,22 +72,43 @@ listingRoutes.route('/')
         req.body.bed4 = "0";
       }
       if(typeof(req.body.bed5) == "undefined") {
-        req.body.bed5 = "0";
+        req.body.bed5 = "20";
       }
       //if nothing in bedroom was checked, assign the range
       if(req.body.bed1 == '0' && req.body.bed2 == '0'
          && req.body.bed3 == '0' && req.body.bed4 == '0'
-         && req.body.bed5 == '0') {
+         && req.body.bed5 == '20') {
         FILTER.minBedrooms = 0;
-        FILTER.maxBedrooms = 10;
+        FILTER.maxBedrooms = 20;
       }
       else {   //else don't assign the range
         FILTER.minBedrooms = 0;
         FILTER.maxBedrooms = 0;
       }
-      //note:  1: all undefined
-      //       2: some undefined
-      //       3: bed 5 is different query
+      
+      //bathroom check
+      if(typeof(req.body.bath1) == "undefined") {
+        req.body.bath1 = "0";
+      }
+      if(typeof(req.body.bath2) == "undefined") {
+        req.body.bath2 = "0";
+      }
+      if(typeof(req.body.bath3) == "undefined") {
+        req.body.bath3 = "0";
+      }
+      if(typeof(req.body.bath4) == "undefined") {
+        req.body.bath4 = "20";
+      }
+      //if nothing in bathroom was checked, assign the range
+      if(req.body.bath1 == '0' && req.body.bath2 == '0'
+         && req.body.bath3 == '0' && req.body.bath4 == '20') {
+        FILTER.minBathrooms = 0;
+        FILTER.maxBathrooms = 20;
+      }
+      else {   //else don't assign the range
+        FILTER.minBathrooms = 0;
+        FILTER.maxBathrooms = 0;
+      }
 
       /////////////////////////////
       // if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
@@ -241,10 +267,12 @@ listingRoutes.route('/')
         + 'FROM listings, listing_type '
         + 'WHERE (listing_type.id = listings.listing_type_id) AND '
                  + '(listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
-                 + 'AND (listing_type.slug = ?) AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
+                 + 'AND (listing_type.slug = ?) AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed >= ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
+                 + 'AND (listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath >= ? OR (listings.num_bath >= ? AND listings.num_bath <= ?)) '
         + 'ORDER BY listings.id'
         , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), 
-           FILTER.listingType, req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, FILTER.minBedrooms, FILTER.maxBedrooms])
+           FILTER.listingType, req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, req.body.bed5, FILTER.minBedrooms, FILTER.maxBedrooms,
+           req.body.bath1, req.body.bath2, req.body.bath3, req.body.bath4, FILTER.minBathrooms, FILTER.maxBathrooms])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
@@ -257,10 +285,12 @@ listingRoutes.route('/')
         + 'listings.thumb, listings.num_bed, listings.num_bath '
         + 'FROM listings '
         + 'WHERE (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
-                 + 'AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
+                 + 'AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed >= ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
+                 + 'AND (listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath >= ? OR (listings.num_bath >= ? AND listings.num_bath <= ?)) '
         + 'ORDER BY listings.id'
         , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'),
-           req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, FILTER.minBedrooms, FILTER.maxBedrooms])
+           req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, req.body.bed5, FILTER.minBedrooms, FILTER.maxBedrooms,
+           req.body.bath1, req.body.bath2, req.body.bath3, req.body.bath4, FILTER.minBathrooms, FILTER.maxBathrooms])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,

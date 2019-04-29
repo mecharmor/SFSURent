@@ -35,12 +35,17 @@
         </select>
         </div>
         
+        <% var keyword = ""; %>
+        <% if(typeof FILTER != 'undefined'){ %>
+              <% keyword = FILTER.keyword; %>
+        <% } %>
+
         <input
           name="keyword"
           type="text"
           class="form-control form-control-lg"
           placeholder="Search"
-          value="<%= FILTER.keyword %>"
+          value="<%= keyword %>"
         />
         <span class="input-group-prepend">
           <button class="btn btn-primary" type="submit">
