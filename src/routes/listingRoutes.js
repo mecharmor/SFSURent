@@ -44,27 +44,29 @@ listingRoutes.route('/')
       if(typeof(req.body.listingType) != "undefined" && FILTER.listingType != req.body.listingType) {
         FILTER.listingType = req.body.listingType;
       }
-      if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
-        FILTER.minPrice = req.body.minPrice;
-      }
-      if(typeof(req.body.maxPrice) != "undefined" && FILTER.maxPrice != req.body.maxPrice) {
-        FILTER.maxPrice = req.body.maxPrice;
-      }
-      if(typeof(req.body.distance) != "undefined" && FILTER.distance != req.body.distance) {
-        FILTER.distance = req.body.distance;
-      }
-      if(typeof(req.body.minBedrooms) != "undefined" && FILTER.minBedrooms != req.body.minBedrooms) {
-        FILTER.minBedrooms = req.body.minBedrooms;
-      }
-      if(typeof(req.body.maxBedrooms) != "undefined" && FILTER.maxBedrooms != req.body.maxBedrooms) {
-        FILTER.maxBedrooms = req.body.maxBedrooms;
-      }
-      if(typeof(req.body.minBathrooms) != "undefined" && FILTER.minBathrooms != req.body.minBathrooms) {
-        FILTER.minBathrooms = req.body.minBathrooms;
-      }
-      if(typeof(req.body.maxBathrooms) != "undefined" && FILTER.maxBathrooms != req.body.maxBathrooms) {
-        FILTER.maxBathrooms = req.body.maxBathrooms;
-      }
+      /////////////////////////////
+      // if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
+      //   FILTER.minPrice = req.body.minPrice;
+      // }
+      // if(typeof(req.body.maxPrice) != "undefined" && FILTER.maxPrice != req.body.maxPrice) {
+      //   FILTER.maxPrice = req.body.maxPrice;
+      // }
+      // if(typeof(req.body.distance) != "undefined" && FILTER.distance != req.body.distance) {
+      //   FILTER.distance = req.body.distance;
+      // }
+      // if(typeof(req.body.minBedrooms) != "undefined" && FILTER.minBedrooms != req.body.minBedrooms) {
+      //   FILTER.minBedrooms = req.body.minBedrooms;
+      // }
+      // if(typeof(req.body.maxBedrooms) != "undefined" && FILTER.maxBedrooms != req.body.maxBedrooms) {
+      //   FILTER.maxBedrooms = req.body.maxBedrooms;
+      // }
+      // if(typeof(req.body.minBathrooms) != "undefined" && FILTER.minBathrooms != req.body.minBathrooms) {
+      //   FILTER.minBathrooms = req.body.minBathrooms;
+      // }
+      // if(typeof(req.body.maxBathrooms) != "undefined" && FILTER.maxBathrooms != req.body.maxBathrooms) {
+      //   FILTER.maxBathrooms = req.body.maxBathrooms;
+      // }
+      ////////////////////////////
 
       //checking the values from filter
       //check if they are not numbers, assign to ""
@@ -76,88 +78,133 @@ listingRoutes.route('/')
       //   }
       // }
 
-      if(isNaN(FILTER.minPrice)) {
-        FILTER.minPrice = "";
-      }
-      if(isNaN(FILTER.maxPrice)) {
-        FILTER.maxPrice = "";
-      }
-      if(isNaN(FILTER.distance)) {
-        FILTER.distance = "";
-      }
-      if(isNaN(FILTER.minBedrooms)) {
-        FILTER.minBedrooms = "";
-      }
-      if(isNaN(FILTER.maxBedrooms)) {
-        FILTER.maxBedrooms = "";
-      }
-      if(isNaN(FILTER.minBathrooms)) {
-        FILTER.minBathrooms = "";
-      }
-      if(isNaN(FILTER.maxBathrooms)) {
-        FILTER.maxBathrooms = "";
-      }
+      /////////////////////////////
+      // if(isNaN(FILTER.minPrice)) {
+      //   FILTER.minPrice = "";
+      // }
+      // if(isNaN(FILTER.maxPrice)) {
+      //   FILTER.maxPrice = "";
+      // }
+      // if(isNaN(FILTER.distance)) {
+      //   FILTER.distance = "";
+      // }
+      // if(isNaN(FILTER.minBedrooms)) {
+      //   FILTER.minBedrooms = "";
+      // }
+      // if(isNaN(FILTER.maxBedrooms)) {
+      //   FILTER.maxBedrooms = "";
+      // }
+      // if(isNaN(FILTER.minBathrooms)) {
+      //   FILTER.minBathrooms = "";
+      // }
+      // if(isNaN(FILTER.maxBathrooms)) {
+      //   FILTER.maxBathrooms = "";
+      // }
+      /////////////////////////////
 
       //if both are empty OR (min > max), assign a large range
       //if distance is empty, assign to a large number
       //note: number > "", so need FILTER.max != ""
-      if((FILTER.minPrice == "" && FILTER.maxPrice == "") 
-          || (FILTER.maxPrice != "" && FILTER.minPrice > FILTER.maxPrice)) {
-        FILTER.minPrice = "0";
-        FILTER.maxPrice = "10000";
-      }
-      if(FILTER.distance == "") {
-        FILTER.distance = "1000";
-      }
-      if((FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") 
-          || (FILTER.maxBedrooms != "" && FILTER.minBedrooms > FILTER.maxBedrooms)) {  
-        FILTER.minBedrooms = "0";
-        FILTER.maxBedrooms = "10";
-        //console.log("1");
-      }
-      if((FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") 
-          || (FILTER.maxBathrooms != "" && FILTER.minBathrooms > FILTER.maxBathrooms)) {
-        FILTER.minBathrooms = "0";
-        FILTER.maxBathrooms = "10";
-      }
-      //if min value is empty, assign min to 0
-      if(FILTER.minPrice == "" && FILTER.maxPrice != "") {
-        FILTER.minPrice = "0";
-      }
-      if(FILTER.minBedrooms == "" && FILTER.maxBedrooms != "") {
-        FILTER.minBedrooms = "0";
-        //console.log("2");
-      }
-      if(FILTER.minBathrooms == "" && FILTER.maxBathrooms != "") {
-        FILTER.minBathrooms = "0";
-      }
-      //if max value is empty, assign max to a large number
-      if(FILTER.minPrice != "" && FILTER.maxPrice == "") {
-        FILTER.maxPrice = "10000";
-      }
-      if(FILTER.minBedrooms != "" && FILTER.maxBedrooms == "") {
-        FILTER.maxBedrooms = "10";
-        //console.log("3");
-      }
-      if(FILTER.minBathrooms != "" && FILTER.maxBathrooms == "") {
-        FILTER.maxBathrooms = "10";
-      }
+      ////////////////////////
+      // if((FILTER.minPrice == "" && FILTER.maxPrice == "") 
+      //     || (FILTER.maxPrice != "" && FILTER.minPrice > FILTER.maxPrice)) {
+      //   FILTER.minPrice = "0";
+      //   FILTER.maxPrice = "10000";
+      // }
+      // if(FILTER.distance == "") {
+      //   FILTER.distance = "1000";
+      // }
+      // if((FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") 
+      //     || (FILTER.maxBedrooms != "" && FILTER.minBedrooms > FILTER.maxBedrooms)) {  
+      //   FILTER.minBedrooms = "0";
+      //   FILTER.maxBedrooms = "10";
+      //   //console.log("1");
+      // }
+      // if((FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") 
+      //     || (FILTER.maxBathrooms != "" && FILTER.minBathrooms > FILTER.maxBathrooms)) {
+      //   FILTER.minBathrooms = "0";
+      //   FILTER.maxBathrooms = "10";
+      // }
+      // //if min value is empty, assign min to 0
+      // if(FILTER.minPrice == "" && FILTER.maxPrice != "") {
+      //   FILTER.minPrice = "0";
+      // }
+      // if(FILTER.minBedrooms == "" && FILTER.maxBedrooms != "") {
+      //   FILTER.minBedrooms = "0";
+      //   //console.log("2");
+      // }
+      // if(FILTER.minBathrooms == "" && FILTER.maxBathrooms != "") {
+      //   FILTER.minBathrooms = "0";
+      // }
+      // //if max value is empty, assign max to a large number
+      // if(FILTER.minPrice != "" && FILTER.maxPrice == "") {
+      //   FILTER.maxPrice = "10000";
+      // }
+      // if(FILTER.minBedrooms != "" && FILTER.maxBedrooms == "") {
+      //   FILTER.maxBedrooms = "10";
+      //   //console.log("3");
+      // }
+      // if(FILTER.minBathrooms != "" && FILTER.maxBathrooms == "") {
+      //   FILTER.maxBathrooms = "10";
+      // }
+      ///////////////////////////////
 
       //filter and search bar
       //if listing type is not "", such as apartment, rooms
+      ////////////////////////////////
+      // if(FILTER.listingType != "") {
+      //   db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
+      //   + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+      //   + 'FROM listings, listing_commute, listing_type '
+      //   + 'WHERE (listing_type.id = listings.listing_type_id) AND (listings.id = listing_commute.listing_id) '
+      //           + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
+      //           + 'AND (listing_type.slug = ?) AND (listings.price >= ? AND listings.price <= ?) ' 
+      //           + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
+      //           + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+      //   + 'ORDER BY listings.id'
+      //   , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword, 
+      //      FILTER.listingType, FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
+      //      FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+      //   .then(([results, fields]) =>{
+      //     res.render('listing/index', {
+      //       objectArrayFromDb : results,
+      //       FILTER : FILTER 
+      //     });  
+      //   });
+      // }
+      // //else, all the listings, all types
+      // else {
+      //   db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
+      //   + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+      //   + 'FROM listings, listing_commute '
+      //   + 'WHERE (listings.id = listing_commute.listing_id) ' 
+      //           + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
+      //           + 'AND (listings.price >= ? AND listings.price <= ?) ' 
+      //           + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
+      //           + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+      //   + 'ORDER BY listings.id'
+      //   , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword,
+      //      FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
+      //      FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+      //   .then(([results, fields]) =>{
+      //     res.render('listing/index', {
+      //       objectArrayFromDb : results,
+      //       FILTER : FILTER 
+      //     });  
+      //   });
+      // }
+      ////////////////////////////////
+      console.log(FILTER.listingType);
       if(FILTER.listingType != "") {
         db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
-        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
-        + 'FROM listings, listing_commute, listing_type '
-        + 'WHERE (listing_type.id = listings.listing_type_id) AND (listings.id = listing_commute.listing_id) '
-                + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
-                + 'AND (listing_type.slug = ?) AND (listings.price >= ? AND listings.price <= ?) ' 
-                + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
-                + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+        + 'listings.thumb, listings.num_bed, listings.num_bath '
+        + 'FROM listings, listing_type '
+        + 'WHERE (listing_type.id = listings.listing_type_id) AND '
+                 + '(listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
+                 + 'AND (listing_type.slug = ?) '
         + 'ORDER BY listings.id'
         , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword, 
-           FILTER.listingType, FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
-           FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+           FILTER.listingType])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
@@ -165,20 +212,13 @@ listingRoutes.route('/')
           });  
         });
       }
-      //else, all the listings, all types
       else {
         db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
-        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
-        + 'FROM listings, listing_commute '
-        + 'WHERE (listings.id = listing_commute.listing_id) ' 
-                + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
-                + 'AND (listings.price >= ? AND listings.price <= ?) ' 
-                + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
-                + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+        + 'listings.thumb, listings.num_bed, listings.num_bath '
+        + 'FROM listings '
+        + 'WHERE (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
         + 'ORDER BY listings.id'
-        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword,
-           FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
-           FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
@@ -186,7 +226,7 @@ listingRoutes.route('/')
           });  
         });
       }
-    });
+    });  //end of post
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
 listingRoutes.route('/:id(\\d+)')
