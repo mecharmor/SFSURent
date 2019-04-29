@@ -5,6 +5,7 @@ const db = require('../model/database.js');
 //Save filtering options here
 var FILTER = {
   listingType : "",
+  keyword : "",
   minPrice : "",
   maxPrice : "",
   distance : "",
@@ -34,16 +35,55 @@ listingRoutes.route('/')
     //search query based on title, price, address, description using % Like search
     .post((req, res) => {
 
-      if(typeof(req.body.listingType) == "undefined") {
-        req.body.keyword = '';
+      //if search bar is clicked, change to new keyword
+      if(typeof(req.body.listingType) != "undefined") {
+        FILTER.keyword = req.body.keyword;
+        //req.body.keyword = '';
       }
-      req.body.keyword = '%' + req.body.keyword + '%';
+      //otherwise, keep the old keyword in search bar
 
       //Update Filters
       //assign new req.body if req.body not undefined and FILTER != req.body
       if(typeof(req.body.listingType) != "undefined" && FILTER.listingType != req.body.listingType) {
         FILTER.listingType = req.body.listingType;
       }
+      console.log("keyword: " + FILTER.keyword);
+      console.log("bed1: " + req.body.bed1);
+      console.log("bed2: " + req.body.bed2);
+      console.log("bed3: " + req.body.bed3);
+      console.log("bed4: " + req.body.bed4);
+      console.log("bed5: " + req.body.bed5);
+
+      if(typeof(req.body.bed1) == "undefined") {
+        req.body.bed1 = "0";
+      }
+      if(typeof(req.body.bed2) == "undefined") {
+        req.body.bed2 = "0";
+      }
+      if(typeof(req.body.bed3) == "undefined") {
+        req.body.bed3 = "0";
+      }
+      if(typeof(req.body.bed4) == "undefined") {
+        req.body.bed4 = "0";
+      }
+      if(typeof(req.body.bed5) == "undefined") {
+        req.body.bed5 = "0";
+      }
+      //if nothing in bedroom was checked, assign the range
+      if(req.body.bed1 == '0' && req.body.bed2 == '0'
+         && req.body.bed3 == '0' && req.body.bed4 == '0'
+         && req.body.bed5 == '0') {
+        FILTER.minBedrooms = 0;
+        FILTER.maxBedrooms = 10;
+      }
+      else {   //else don't assign the range
+        FILTER.minBedrooms = 0;
+        FILTER.maxBedrooms = 0;
+      }
+      //note:  1: all undefined
+      //       2: some undefined
+      //       3: bed 5 is different query
+
       /////////////////////////////
       // if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
       //   FILTER.minPrice = req.body.minPrice;
@@ -201,10 +241,10 @@ listingRoutes.route('/')
         + 'FROM listings, listing_type '
         + 'WHERE (listing_type.id = listings.listing_type_id) AND '
                  + '(listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
-                 + 'AND (listing_type.slug = ?) '
+                 + 'AND (listing_type.slug = ?) AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
         + 'ORDER BY listings.id'
-        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword, 
-           FILTER.listingType])
+        , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), 
+           FILTER.listingType, req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, FILTER.minBedrooms, FILTER.maxBedrooms])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
@@ -217,8 +257,10 @@ listingRoutes.route('/')
         + 'listings.thumb, listings.num_bed, listings.num_bath '
         + 'FROM listings '
         + 'WHERE (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
+                 + 'AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
         + 'ORDER BY listings.id'
-        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword])
+        , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'),
+           req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, FILTER.minBedrooms, FILTER.maxBedrooms])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
