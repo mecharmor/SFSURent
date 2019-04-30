@@ -3,25 +3,32 @@
   todo:
   - add more filters
 -->
-<div class="py-2">
-  <div class="cardSize card text-center">
-    <!--card head-->
-    <div class="card-header">
-      <strong>Filters</strong>
-    </div>
-    <form method="post" action="/listing/">
-      <div class="card-body">
-        <div class="form-check">
-          <!--housing type-->
-          <div id="checkbox-container" class="text-left">
-            <!--////////  PRICE  RANGE  //////////-->
-            <%- include('../_partials/filterItems/priceRange'); %>
-            <div class="dropdown-divider"></div>
-            <!--////////  BEDROOM  RANGE  //////////-->
-            <%- include('../_partials/filterItems/bedroomsRange'); %>
-            <div class="dropdown-divider"></div>
-            <!--////////  BATHROOM  RANGE  //////////-->
-            <%- include('../_partials/filterItems/bathroomsRange'); %>
+<div class="cardSize card text-center" style="margin-top:2em;margin-bottom:2em;">
+  <!--card head-->
+  <div class="card-header">
+    <strong>Filters</strong>
+  </div>
+  <form method="post" action="/listing/">
+    <input type="hidden" name="listingType" value="<%= body.listingType %>">
+    <input type="hidden" name="keyword" value="<%= body.keyword %>">
+    <div class="card-body">
+      <div class="form-check">
+        <!--housing type-->
+        <div class=" text-left">
+          <!--////////  PRICE  RANGE  //////////-->
+          <%- include('../_partials/filterItems/priceRange'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  BEDROOM  RANGE  //////////-->
+          <%- include('../_partials/filterItems/bedroomsRange'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  BATHROOM  RANGE  //////////-->
+          <%- include('../_partials/filterItems/bathroomsRange'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  MILES  FROM  SCHOOL  //////////-->
+          <%- include('../_partials/filterItems/milesFromCampus'); %>
+          <!--morefilters expanded-->
+          <div class="collapse" id="collapseExample">
+            <p></p>
             <div class="dropdown-divider"></div>
             <!--////////  MILES  FROM  SCHOOL  //////////-->
             <%- include('../_partials/filterItems/milesFromCampus'); %>
