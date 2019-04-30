@@ -11,6 +11,8 @@
     type="checkbox"
     value="bathroom1"
     id="bathroomCheck1"
+    name="bath1"
+    <%= (typeof body != 'undefined' && typeof body.bath1 != 'undefined')?'checked':'' %>
   />
   <label class="form-check-label" for="bathroomCheck1">
     1
@@ -23,6 +25,8 @@
     type="checkbox"
     value="bathroom2"
     id="bathroomCheck2"
+    name="bath2"
+    <%= (typeof body != 'undefined' && typeof body.bath2 != 'undefined')?'checked':'' %>
   />
   <label class="form-check-label" for="bathroomCheck2">
     2
@@ -35,6 +39,8 @@
     type="checkbox"
     value="bathroom3"
     id="bathroomCheck3"
+    name="bath3"
+    <%= (typeof body != 'undefined' && typeof body.bath3 != 'undefined')?'checked':'' %>
   />
   <label class="form-check-label" for="bathroomCheck3">
     3
@@ -47,6 +53,8 @@
     type="checkbox"
     value="bathroom4+"
     id="bathroomCheck4"
+    name="bath4"
+    <%= (typeof body != 'undefined' && typeof body.bath4 != 'undefined')?'checked':'' %>
   />
   <label class="form-check-label" for="bathroomCheck4">
     4+
