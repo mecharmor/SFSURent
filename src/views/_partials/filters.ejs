@@ -30,12 +30,18 @@
           <div class="collapse" id="collapseExample">
             <p></p>
             <div class="dropdown-divider"></div>
-            <!-- *** ENTER EXTRA FILTER OPTIONS BELOW ***-->
-            <p></p>
+            <!--////////  MILES  FROM  SCHOOL  //////////-->
+            <%- include('../_partials/filterItems/milesFromCampus'); %>
+            <!--morefilters expanded-->
+            <div class="collapse" id="collapseExample">
+              <p></p>
+              <div class="dropdown-divider"></div>
+              <!-- *** ENTER EXTRA FILTER OPTIONS BELOW ***-->
+              <p></p>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- More Filters buttom
+        <!-- More Filters buttom
       <a
         class="btn btn-outline-secondary"
         data-toggle="collapse"
@@ -46,18 +52,48 @@
       >
         More Filters
       </a> -->
-    </div>
-    <!--card footer-->
-    <div class="card-footer text-muted">
+      </div>
+      <!--card footer-->
+      <div class="card-footer text-muted">
         <div class="row">
-            <div class="col">
-                <button type="reset" class="btn btn-danger">Reset</button>
-            </div>
-            <div class="col">
-                <button type="submit" class="btn btn-success">Update</button>
-            </div>
+          <div class="col">
+            <button type="reset" id="filterReset" class="btn btn-danger">
+              Reset
+            </button>
           </div>
-      <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
-    </div>
-  </form>
+          <div class="col">
+            <button type="submit" id="filterUpdate" class="btn btn-success">
+              Update
+            </button>
+          </div>
+        </div>
+        <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
+      </div>
+    </form>
+  </div>
 </div>
+
+<!--Save FILTERING On clients local storage-->
+<script type="text/javascript">
+  var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
+    $checkboxes = $('#checkbox-container :checkbox');
+
+  // Set filters on page load
+  $.each(checkboxValues, function(key, value) {
+    $('#' + key).prop('checked', value);
+  });
+  //Reset Button Pressed
+  $('#filterReset').click(() => {
+    $checkboxes.each(function() {
+      checkboxValues[this.id] = false;
+    });
+    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
+  });
+  //Update Button Pressed
+  $('#filterUpdate').click(() => {
+    $checkboxes.each(function() {
+      checkboxValues[this.id] = this.checked;
+    });
+    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
+  });
+</script>
