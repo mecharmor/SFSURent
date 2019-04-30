@@ -9,9 +9,8 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="1"
+    value="bedroom1"
     id="bedroomCheck1"
-    name="bed1"
   />
   <label class="form-check-label" for="bedroomCheck1">
     1
@@ -22,9 +21,8 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="2"
+    value="bedroom2"
     id="bedroomCheck2"
-    name="bed2"
   />
   <label class="form-check-label" for="bedroomCheck2">
     2
@@ -35,9 +33,8 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="3"
+    value="bedroom3"
     id="bedroomCheck3"
-    name="bed3"
   />
   <label class="form-check-label" for="bedroomCheck3">
     3
@@ -48,9 +45,8 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="4"
+    value="bedroom4"
     id="bedroomCheck4"
-    name="bed4"
   />
   <label class="form-check-label" for="bedroomCheck4">
     4
@@ -61,11 +57,40 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="5"
+    value="bedroom5+"
     id="bedroomCheck5"
-    name="bed5"
   />
   <label class="form-check-label" for="bedroomCheck5">
     5+
   </label>
 </div>
+
+<!--
+  Min Bedrooms
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Min:</span>
+  </div>
+  <input
+    name="minBedrooms"
+    type="text"
+    class="form-control"
+    placeholder="Min"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.minBedrooms %>"
+  />
+  <!--Max Bedrooms
+  <div class="pr-1"></div>
+  <div class="input-group-prepend">
+    <span class="input-group-text">Max:</span>
+  </div>
+  <input
+    name="maxBedrooms"
+    type="text"
+    class="form-control"
+    placeholder="Max"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.maxBedrooms %>"
+  />
+</div>
+-->

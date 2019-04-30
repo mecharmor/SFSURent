@@ -1,128 +1,212 @@
-/*
-Author: Soheil Ansari, Cory Lewis
-Date: 4/30/19
-Description: These routes are specifically for listings. POST '/' route updates filters
-*/
-const express = require('express');
-const listingRoutes = express.Router();
+var express = require('express');
+var listingRoutes = express.Router();
 const db = require('../model/database.js');
 
-// listing tpye id - temp
-const listing_type = {
-  apartment: 1,
-  bungalow: 2,
-  room: 3,
+//Save filtering options here
+var FILTER = {
+  listingType : "",
+  minPrice : "",
+  maxPrice : "",
+  distance : "",
+  minBedrooms : "",
+  maxBedrooms : "",
+  minBathrooms : "",
+  maxBathrooms : ""
 };
 
-//Home page for site, Cory, Junwei, 4/1/19
+// default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
-  .get((req, res) => {
-    db.query('SELECT listings.id, listings.title, listings.description, listings.price, '
+    .get((req, res) => {
+
+      db.query('SELECT listings.id, listings.title, listings.description, listings.price, ' 
       + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
       + 'FROM listings LEFT JOIN listing_commute '
       + 'ON listings.id = listing_commute.listing_id '
       + 'ORDER BY listings.id')
-      .then(([results, fields]) => {
-        res.render('listing/index', {
-          objectArrayFromDb: results,
-          body: req.body,
+      .then(([results, fields]) =>{
+       //if (error) throw error;
+       res.render('listing/index', {
+         objectArrayFromDb : results,
+         FILTER : FILTER
         });
       });
-  })
-  //Search ALgorithm, build a string of SQL statements for clean query, Soheil, 4/30/19
-  .post((req, res) => {
-    let sql = 'SELECT * FROM listings LEFT JOIN listing_commute ON listings.id = listing_commute.listing_id';
-    const conditions = [];
+    })
+    //search query based on title, price, address, description using % Like search
+    .post((req, res) => {
 
+      if(typeof(req.body.listingType) == "undefined") {
+        req.body.keyword = '';
+      }
+      req.body.keyword = '%' + req.body.keyword + '%';
 
-    // listing type id - temp solution
-    if (req.body.listingType !== '') {
-      const id = listing_type[req.body.listingType];
-      conditions.push(`listings.listing_type_id = ${id}`);
-    }
+      //Update Filters
+      //assign new req.body if req.body not undefined and FILTER != req.body
+      if(typeof(req.body.listingType) != "undefined" && FILTER.listingType != req.body.listingType) {
+        FILTER.listingType = req.body.listingType;
+      }
+      if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
+        FILTER.minPrice = req.body.minPrice;
+      }
+      if(typeof(req.body.maxPrice) != "undefined" && FILTER.maxPrice != req.body.maxPrice) {
+        FILTER.maxPrice = req.body.maxPrice;
+      }
+      if(typeof(req.body.distance) != "undefined" && FILTER.distance != req.body.distance) {
+        FILTER.distance = req.body.distance;
+      }
+      if(typeof(req.body.minBedrooms) != "undefined" && FILTER.minBedrooms != req.body.minBedrooms) {
+        FILTER.minBedrooms = req.body.minBedrooms;
+      }
+      if(typeof(req.body.maxBedrooms) != "undefined" && FILTER.maxBedrooms != req.body.maxBedrooms) {
+        FILTER.maxBedrooms = req.body.maxBedrooms;
+      }
+      if(typeof(req.body.minBathrooms) != "undefined" && FILTER.minBathrooms != req.body.minBathrooms) {
+        FILTER.minBathrooms = req.body.minBathrooms;
+      }
+      if(typeof(req.body.maxBathrooms) != "undefined" && FILTER.maxBathrooms != req.body.maxBathrooms) {
+        FILTER.maxBathrooms = req.body.maxBathrooms;
+      }
 
-    if (req.body.keyword !== '') {
-      const k = db.escape(`%${req.body.keyword}%`);
-      conditions.push(`(listings.title LIKE ${k} OR listings.price LIKE ${k} OR listings.address LIKE ${k} OR listings.description LIKE ${k})`);
-    }
+      //checking the values from filter
+      //check if they are not numbers, assign to ""
 
-    //Prices
-    const prices = [];
-    if (typeof (req.body.price1) !== 'undefined') prices.push('listings.price <= 500');
-    if (typeof (req.body.price2) !== 'undefined') prices.push('listings.price >= 500 AND listings.price <= 1000');
-    if (typeof (req.body.price3) !== 'undefined') prices.push('listings.price >= 1000 AND listings.price <= 1500');
-    if (typeof (req.body.price4) !== 'undefined') prices.push('listings.price >= 1500 AND listings.price <= 2000');
-    if (typeof (req.body.price5) !== 'undefined') prices.push('listings.price >= 2000 AND listings.price <= 2500');
-    if (typeof (req.body.price6) !== 'undefined') prices.push('listings.price >= 2500 AND listings.price <= 3000');
-    if (typeof (req.body.price7) !== 'undefined') prices.push('listings.price >= 3000');
-    const priceSql = prices.join(' OR ');
-    if (priceSql !== '') conditions.push(priceSql);
+      //Check
+      // for(let value of FILTER){
+      //   if(isNaN(prpty)) {
+      //     prpty = "";
+      //   }
+      // }
 
-    //Bedroom
-    const bedrooms = [];
-    if (typeof (req.body.bed1) !== 'undefined') bedrooms.push('listings.num_bed = 1');
-    if (typeof (req.body.bed2) !== 'undefined') bedrooms.push('listings.num_bed = 2');
-    if (typeof (req.body.bed3) !== 'undefined') bedrooms.push('listings.num_bed = 3');
-    if (typeof (req.body.bed4) !== 'undefined') bedrooms.push('listings.num_bed = 4');
-    if (typeof (req.body.bed5) !== 'undefined') bedrooms.push('listings.num_bed >= 5');
-    const bedroomSql = bedrooms.join(' OR ');
-    if (bedroomSql !== '') conditions.push(bedroomSql);
+      if(isNaN(FILTER.minPrice)) {
+        FILTER.minPrice = "";
+      }
+      if(isNaN(FILTER.maxPrice)) {
+        FILTER.maxPrice = "";
+      }
+      if(isNaN(FILTER.distance)) {
+        FILTER.distance = "";
+      }
+      if(isNaN(FILTER.minBedrooms)) {
+        FILTER.minBedrooms = "";
+      }
+      if(isNaN(FILTER.maxBedrooms)) {
+        FILTER.maxBedrooms = "";
+      }
+      if(isNaN(FILTER.minBathrooms)) {
+        FILTER.minBathrooms = "";
+      }
+      if(isNaN(FILTER.maxBathrooms)) {
+        FILTER.maxBathrooms = "";
+      }
 
-    //Bathroom
-    const bathrooms = [];
-    if (typeof (req.body.bath1) !== 'undefined') bathrooms.push('listings.num_bath = 1');
-    if (typeof (req.body.bath2) !== 'undefined') bathrooms.push('listings.num_bath = 2');
-    if (typeof (req.body.bath3) !== 'undefined') bathrooms.push('listings.num_bath = 3');
-    if (typeof (req.body.bath4) !== 'undefined') bathrooms.push('listings.num_bath >= 4');
-    const bathroomSql = bathrooms.join(' OR ');
-    if (bathroomSql !== '') conditions.push(bathroomSql);
+      //if both are empty OR (min > max), assign a large range
+      //if distance is empty, assign to a large number
+      //note: number > "", so need FILTER.max != ""
+      if((FILTER.minPrice == "" && FILTER.maxPrice == "") 
+          || (FILTER.maxPrice != "" && FILTER.minPrice > FILTER.maxPrice)) {
+        FILTER.minPrice = "0";
+        FILTER.maxPrice = "10000";
+      }
+      if(FILTER.distance == "") {
+        FILTER.distance = "1000";
+      }
+      if((FILTER.minBedrooms == "" && FILTER.maxBedrooms == "") 
+          || (FILTER.maxBedrooms != "" && FILTER.minBedrooms > FILTER.maxBedrooms)) {  
+        FILTER.minBedrooms = "0";
+        FILTER.maxBedrooms = "10";
+        //console.log("1");
+      }
+      if((FILTER.minBathrooms == "" && FILTER.maxBathrooms == "") 
+          || (FILTER.maxBathrooms != "" && FILTER.minBathrooms > FILTER.maxBathrooms)) {
+        FILTER.minBathrooms = "0";
+        FILTER.maxBathrooms = "10";
+      }
+      //if min value is empty, assign min to 0
+      if(FILTER.minPrice == "" && FILTER.maxPrice != "") {
+        FILTER.minPrice = "0";
+      }
+      if(FILTER.minBedrooms == "" && FILTER.maxBedrooms != "") {
+        FILTER.minBedrooms = "0";
+        //console.log("2");
+      }
+      if(FILTER.minBathrooms == "" && FILTER.maxBathrooms != "") {
+        FILTER.minBathrooms = "0";
+      }
+      //if max value is empty, assign max to a large number
+      if(FILTER.minPrice != "" && FILTER.maxPrice == "") {
+        FILTER.maxPrice = "10000";
+      }
+      if(FILTER.minBedrooms != "" && FILTER.maxBedrooms == "") {
+        FILTER.maxBedrooms = "10";
+        //console.log("3");
+      }
+      if(FILTER.minBathrooms != "" && FILTER.maxBathrooms == "") {
+        FILTER.maxBathrooms = "10";
+      }
 
-    // TODO: Perform query on listing_commute so we can filter by distance, Cory 4/29/19
-    // //Distance
-    // const distances = [];
-    // if (typeof (req.body.distance1) !== 'undefined') distances.push('listings.price <= 500');
-    // if (typeof (req.body.distance2) !== 'undefined') distances.push('listings.price >= 500 AND listings.price <= 1000');
-    // if (typeof (req.body.distance3) !== 'undefined') distances.push('listings.price >= 1000 AND listings.price <= 1500');
-    // if (typeof (req.body.distance4) !== 'undefined') distances.push('listings.price >= 1500 AND listings.price <= 2000');
-    // if (typeof (req.body.distance5) !== 'undefined') distances.push('listings.price >= 2000 AND listings.price <= 2500');
-    // if (typeof (req.body.distance6) !== 'undefined') distances.push('listings.price >= 2500 AND listings.price <= 3000');
-    // if (typeof (req.body.distance7) !== 'undefined') distances.push('listings.price >= 3000');
-    // const distanceSql = distances.join(' OR ');
-    // if (distanceSql !== '') conditions.push(distanceSql);
-
-    //Build SQL String
-    if (conditions.length !== 0) {
-      sql += ' WHERE ';
-      sql += conditions.join(' AND ');
-    }
-    //Query from built SQL String
-    db.query(sql)
-      .then(([results, _]) => {
-        res.render('listing/index', {
-          body: req.body,
-          objectArrayFromDb: results,
+      //filter and search bar
+      //if listing type is not "", such as apartment, rooms
+      if(FILTER.listingType != "") {
+        db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
+        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+        + 'FROM listings, listing_commute, listing_type '
+        + 'WHERE (listing_type.id = listings.listing_type_id) AND (listings.id = listing_commute.listing_id) '
+                + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
+                + 'AND (listing_type.slug = ?) AND (listings.price >= ? AND listings.price <= ?) ' 
+                + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
+                + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+        + 'ORDER BY listings.id'
+        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword, 
+           FILTER.listingType, FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
+           FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+        .then(([results, fields]) =>{
+          res.render('listing/index', {
+            objectArrayFromDb : results,
+            FILTER : FILTER 
+          });  
         });
-      });
-  });
+      }
+      //else, all the listings, all types
+      else {
+        db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
+        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+        + 'FROM listings, listing_commute '
+        + 'WHERE (listings.id = listing_commute.listing_id) ' 
+                + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
+                + 'AND (listings.price >= ? AND listings.price <= ?) ' 
+                + 'AND (listing_commute.value <= ?) AND (listings.num_bed >= ? AND listings.num_bed <= ?) ' 
+                + 'AND (listings.num_bath >= ? AND listings.num_bath <= ?) '
+        + 'ORDER BY listings.id'
+        , [req.body.keyword, req.body.keyword, req.body.keyword, req.body.keyword,
+           FILTER.minPrice, FILTER.maxPrice, FILTER.distance, FILTER.minBedrooms, 
+           FILTER.maxBedrooms, FILTER.minBathrooms, FILTER.maxBathrooms])
+        .then(([results, fields]) =>{
+          res.render('listing/index', {
+            objectArrayFromDb : results,
+            FILTER : FILTER 
+          });  
+        });
+      }
+    });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
 listingRoutes.route('/:id(\\d+)')
-  .get((req, res) => {
-    db.query('SELECT * '
-    + 'FROM listings '
-    + 'WHERE id = ?', req.params.id).then(([results, fields]) => {
-      res.render('listing/item', { objectArrayFromDb: results });
-    });
-  });
+    .get((req, res) => {  
+      db.query('SELECT * ' +
+    'FROM listings ' +
+    'WHERE id = ?', req.params.id).then(([results, fields])=>{
+      res.render('listing/item', {objectArrayFromDb : results});
+    });   
+ });
 
-// load listing index page given a listing_type for selected listing {ex| bungalow, apartment, house}, Soheil, Poorva,  4/2/19
+ // load listing index page given a listing_type for selected listing {ex| bungalow, apartment, house}, Soheil, Poorva,  4/2/19
 listingRoutes.route('/:slug/')
-  .get((req, res) => {
-    db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb '
-      + 'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id '
-      + 'WHERE slug = ?', req.params.slug)
-      .then(([results, fields]) => {
-        res.render('listing/index', { objectArrayFromDb: results });
-      });
-  });
+    .get((req, res) => {  
+      db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, thumb ' +
+      'FROM listings JOIN listing_type ON listings.listing_type_id = listing_type.id ' +
+      'WHERE slug = ?', req.params.slug)
+      .then( ([results, fields]) => {
+        res.render('listing/index', {objectArrayFromDb : results});      
+      });     
+    })
+
 module.exports = listingRoutes;
