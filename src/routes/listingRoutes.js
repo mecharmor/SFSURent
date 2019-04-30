@@ -8,7 +8,8 @@ var FILTER = {
   keyword : "",
   minPrice : "",
   maxPrice : "",
-  distance : "",
+  minDistance : "",
+  maxDistance : "",
   minBedrooms : "",
   maxBedrooms : "",
   minBathrooms : "",
@@ -29,6 +30,22 @@ var PRICERANGE = {
   range51 : "",
   range52 : "",
   topRange : "20000"
+};
+
+//range for distance
+var DISTANCERANGE = {
+  bottomRange : "0",
+  range11 : "",
+  range12 : "",
+  range21 : "",
+  range22 : "",
+  range31 : "",
+  range32 : "",
+  range41 : "",
+  range42 : "",
+  range51 : "",
+  range52 : "",
+  topRange : "1000"
 };
 
 // default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
@@ -204,6 +221,78 @@ listingRoutes.route('/')
         FILTER.minBathrooms = "0";
         FILTER.maxBathrooms = "0";
       }
+
+      //distance check
+      //below 1
+      if(typeof(req.body.distance1) == "undefined") {
+        req.body.distance1 = "0";
+      }
+      //5 ranges
+      //1-2
+      if(typeof(req.body.distance2) == "undefined") {
+        DISTANCERANGE.range11 = "0";
+        DISTANCERANGE.range12 = "0";
+      }
+      else {
+        DISTANCERANGE.range11 = "1";
+        DISTANCERANGE.range12 = "2";
+      }
+      //2-3
+      if(typeof(req.body.distance3) == "undefined") {
+        DISTANCERANGE.range21 = "0";
+        DISTANCERANGE.range22 = "0";
+      }
+      else {
+        DISTANCERANGE.range21 = "2";
+        DISTANCERANGE.range22 = "3";
+      }
+      //3-4
+      if(typeof(req.body.distance4) == "undefined") {
+        DISTANCERANGE.range31 = "0";
+        DISTANCERANGE.range32 = "0";
+      }
+      else {
+        DISTANCERANGE.range31 = "3";
+        DISTANCERANGE.range32 = "4";
+      }
+      //4-5
+      if(typeof(req.body.distance5) == "undefined") {
+        DISTANCERANGE.range41 = "0";
+        DISTANCERANGE.range42 = "0";
+      }
+      else {
+        DISTANCERANGE.range41 = "4";
+        DISTANCERANGE.range42 = "5";
+      }
+      //5-6
+      if(typeof(req.body.distance6) == "undefined") {
+        DISTANCERANGE.range51 = "0";
+        DISTANCERANGE.range52 = "0";
+      }
+      else {
+        DISTANCERANGE.range51 = "5";
+        DISTANCERANGE.range52 = "6";
+      }
+
+      //above 3000
+      if(typeof(req.body.distance7) == "undefined") {
+        req.body.distance7 = "1000";
+      }
+      //if nothing in price was checked, assign the range
+      if(req.body.distance1 == "0" && 
+         typeof(req.body.distance2) == "undefined" && 
+         typeof(req.body.distance3) == "undefined" && 
+         typeof(req.body.distance4) == "undefined" && 
+         typeof(req.body.distance5) == "undefined" && 
+         typeof(req.body.distance6) == "undefined" && 
+         req.body.distance7 == "1000" ) {
+        FILTER.minDistance = "0";
+        FILTER.maxDistance = "1000";
+      }
+      else {   //else don't assign the range
+        FILTER.minDistance = "0";
+        FILTER.maxDistance = "0";
+      }
     
       console.log("button:" + PRICERANGE.bottomRange);
       console.log("price1: " + req.body.price1);
@@ -221,6 +310,23 @@ listingRoutes.route('/')
       console.log("top:" + PRICERANGE.topRange);
       console.log("minPrice: " + FILTER.minPrice);
       console.log("maxPrice: " + FILTER.maxPrice);
+
+      console.log("dbutton:" + DISTANCERANGE.bottomRange);
+      console.log("d1: " + req.body.distance1);
+      console.log("d11: " + DISTANCERANGE.range11);
+      console.log("d12: " + DISTANCERANGE.range12);
+      console.log("d21: " + DISTANCERANGE.range21);
+      console.log("d22: " + DISTANCERANGE.range22);
+      console.log("d31: " + DISTANCERANGE.range31);
+      console.log("d32: " + DISTANCERANGE.range32);
+      console.log("d41: " + DISTANCERANGE.range41);
+      console.log("d42: " + DISTANCERANGE.range42);
+      console.log("d51: " + DISTANCERANGE.range51);
+      console.log("d52: " + DISTANCERANGE.range52);
+      console.log("d7: " + req.body.distance7);
+      console.log("dtop:" + DISTANCERANGE.topRange);
+      console.log("mind: " + FILTER.minDistance);
+      console.log("maxd: " + FILTER.maxDistance);
 
       /////////////////////////////
       // if(typeof(req.body.minPrice) != "undefined" && FILTER.minPrice != req.body.minPrice) {
@@ -375,21 +481,26 @@ listingRoutes.route('/')
       console.log(FILTER.listingType);
       if(FILTER.listingType != "") {
         db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
-        + 'listings.thumb, listings.num_bed, listings.num_bath '
-        + 'FROM listings, listing_type '
-        + 'WHERE (listing_type.id = listings.listing_type_id) AND '
-                 + '(listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
+        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+        + 'FROM listings, listing_type, listing_commute '
+        + 'WHERE (listing_type.id = listings.listing_type_id) AND (listings.id = listing_commute.listing_id) '
+                 + 'AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) ' 
                  + 'AND (listing_type.slug = ?) AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed >= ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
                  + 'AND (listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath >= ? OR (listings.num_bath >= ? AND listings.num_bath <= ?)) '
                  + 'AND ((listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) '
                         + 'OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?)) '
+                 + 'AND ((listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) '
+                        + 'OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?)) '
         + 'ORDER BY listings.id'
         , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), 
            FILTER.listingType, req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, req.body.bed5, FILTER.minBedrooms, FILTER.maxBedrooms,
            req.body.bath1, req.body.bath2, req.body.bath3, req.body.bath4, FILTER.minBathrooms, FILTER.maxBathrooms,
            PRICERANGE.bottomRange, req.body.price1, PRICERANGE.range11, PRICERANGE.range12, PRICERANGE.range21, PRICERANGE.range22,
            PRICERANGE.range31, PRICERANGE.range32, PRICERANGE.range41, PRICERANGE.range42,
-           PRICERANGE.range51, PRICERANGE.range52, req.body.price7, PRICERANGE.topRange, FILTER.minPrice, FILTER.maxPrice])
+           PRICERANGE.range51, PRICERANGE.range52, req.body.price7, PRICERANGE.topRange, FILTER.minPrice, FILTER.maxPrice,
+           DISTANCERANGE.bottomRange, req.body.distance1, DISTANCERANGE.range11, DISTANCERANGE.range12, DISTANCERANGE.range21, DISTANCERANGE.range22,
+           DISTANCERANGE.range31, DISTANCERANGE.range32, DISTANCERANGE.range41, DISTANCERANGE.range42,
+           DISTANCERANGE.range51, DISTANCERANGE.range52, req.body.distance7, DISTANCERANGE.topRange, FILTER.minDistance, FILTER.maxDistance])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
@@ -399,20 +510,25 @@ listingRoutes.route('/')
       }
       else {
         db.query('SELECT listings.id, listings.title, listings.price, listings.address, listings.description, ' 
-        + 'listings.thumb, listings.num_bed, listings.num_bath '
-        + 'FROM listings '
-        + 'WHERE (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
+        + 'listings.thumb, listings.num_bed, listings.num_bath, listing_commute.value '
+        + 'FROM listings, listing_commute '
+        + 'WHERE (listings.id = listing_commute.listing_id) AND (listings.title LIKE ? OR listings.price LIKE ? OR listings.address LIKE ? OR listings.description LIKE ?) '
                  + 'AND (listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed = ? OR listings.num_bed >= ? OR (listings.num_bed >= ? AND listings.num_bed <= ?)) '
                  + 'AND (listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath = ? OR listings.num_bath >= ? OR (listings.num_bath >= ? AND listings.num_bath <= ?)) '
                  + 'AND ((listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) '
                         + 'OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?) OR (listings.price >= ? AND listings.price <= ?)) '
+                 + 'AND ((listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) '
+                        + 'OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?) OR (listing_commute.value >= ? AND listing_commute.value <= ?)) '
         + 'ORDER BY listings.id'
         , [('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'), ('%' + FILTER.keyword + '%'),
            req.body.bed1, req.body.bed2, req.body.bed3, req.body.bed4, req.body.bed5, FILTER.minBedrooms, FILTER.maxBedrooms,
            req.body.bath1, req.body.bath2, req.body.bath3, req.body.bath4, FILTER.minBathrooms, FILTER.maxBathrooms,
            PRICERANGE.bottomRange, req.body.price1, PRICERANGE.range11, PRICERANGE.range12, PRICERANGE.range21, PRICERANGE.range22,
            PRICERANGE.range31, PRICERANGE.range32, PRICERANGE.range41, PRICERANGE.range42,
-           PRICERANGE.range51, PRICERANGE.range52, req.body.price7, PRICERANGE.topRange, FILTER.minPrice, FILTER.maxPrice])
+           PRICERANGE.range51, PRICERANGE.range52, req.body.price7, PRICERANGE.topRange, FILTER.minPrice, FILTER.maxPrice,
+           DISTANCERANGE.bottomRange, req.body.distance1, DISTANCERANGE.range11, DISTANCERANGE.range12, DISTANCERANGE.range21, DISTANCERANGE.range22,
+           DISTANCERANGE.range31, DISTANCERANGE.range32, DISTANCERANGE.range41, DISTANCERANGE.range42,
+           DISTANCERANGE.range51, DISTANCERANGE.range52, req.body.distance7, DISTANCERANGE.topRange, FILTER.minDistance, FILTER.maxDistance])
         .then(([results, fields]) =>{
           res.render('listing/index', {
             objectArrayFromDb : results,
