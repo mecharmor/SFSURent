@@ -22,8 +22,8 @@ app.use(
   session({
     secret: 'CSC Class',
     saveUninitialized: false,
-    resave: false
-  })
+    resave: false,
+  }),
 );
 
 require('./src/config/passport.js')(app);
@@ -43,7 +43,6 @@ function authProtect(req, res, next) {
     res.redirect('/auth/register');
   }
 }
-
 
 app.use(morgan('tiny'));
 
@@ -76,6 +75,6 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-app.listen(80, function() {
+app.listen(80, () => {
   debug('listening on port 80');
 });
