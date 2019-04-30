@@ -9,6 +9,8 @@
     <strong>Filters</strong>
   </div>
   <form method="post" action="/listing/">
+    <input type="hidden" name="listingType" value="<%= body.listingType %>">
+    <input type="hidden" name="keyword" value="<%= body.keyword %>">
     <div class="card-body">
       <div class="form-check">
         <!--housing type-->
