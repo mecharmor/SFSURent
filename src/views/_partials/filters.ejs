@@ -8,7 +8,7 @@
   <div class="card-header">
     <strong>Filters</strong>
   </div>
-  <form method="post" action="/listing/">
+  <form id="filterForm" method="post" action="/listing/">
     <input type="hidden" name="listingType" value="<%= body.listingType %>">
     <input type="hidden" name="keyword" value="<%= body.keyword %>">
     <div class="card-body">
@@ -57,12 +57,11 @@
       <div class="card-footer text-muted">
         <div class="row">
           <div class="col">
-            <button type="reset" id="filterReset" class="btn btn-danger">
-              Reset
+              <input class="btn btn-danger" type="button" onclick="resetForm()" value="Reset">
             </button>
           </div>
           <div class="col">
-            <button type="submit" id="filterUpdate" class="btn btn-success">
+            <button type="submit" class="btn btn-success">
               Update
             </button>
           </div>
@@ -73,27 +72,15 @@
   </div>
 </div>
 
-<!--Save FILTERING On clients local storage-->
-<script type="text/javascript">
+<!-- Iterate Through Each Checkbox and set false-->
+<script>
+function resetForm() {
   var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
     $checkboxes = $('#checkbox-container :checkbox');
 
   // Set filters on page load
   $.each(checkboxValues, function(key, value) {
-    $('#' + key).prop('checked', value);
+    $('#' + key).prop('checked', false);
   });
-  //Reset Button Pressed
-  $('#filterReset').click(() => {
-    $checkboxes.each(function() {
-      checkboxValues[this.id] = false;
-    });
-    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
-  });
-  //Update Button Pressed
-  $('#filterUpdate').click(() => {
-    $checkboxes.each(function() {
-      checkboxValues[this.id] = this.checked;
-    });
-    localStorage.setItem('checkboxValues', JSON.stringify(checkboxValues));
-  });
+}
 </script>
