@@ -9,7 +9,7 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="1"
+    value="bathroom1"
     id="bathroomCheck1"
     name="bath1"
     <%= (typeof body != 'undefined' && typeof body.bath1 != 'undefined')?'checked':'' %>
@@ -23,7 +23,7 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="2"
+    value="bathroom2"
     id="bathroomCheck2"
     name="bath2"
     <%= (typeof body != 'undefined' && typeof body.bath2 != 'undefined')?'checked':'' %>
@@ -37,7 +37,7 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="3"
+    value="bathroom3"
     id="bathroomCheck3"
     name="bath3"
     <%= (typeof body != 'undefined' && typeof body.bath3 != 'undefined')?'checked':'' %>
@@ -51,7 +51,7 @@
   <input
     class="form-check-input"
     type="checkbox"
-    value="4"
+    value="bathroom4+"
     id="bathroomCheck4"
     name="bath4"
     <%= (typeof body != 'undefined' && typeof body.bath4 != 'undefined')?'checked':'' %>
@@ -60,3 +60,33 @@
     4+
   </label>
 </div>
+
+<!--
+    Min Bathrooms
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Min:</span>
+  </div>
+  <input
+    name="minBathrooms"
+    type="text"
+    class="form-control"
+    placeholder="Min"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.minBathrooms %>"
+  />
+  <!--Max Bathrooms
+  <div class="pr-1"></div>
+  <div class="input-group-prepend">
+    <span class="input-group-text">Max: </span>
+  </div>
+  <input
+    name="maxBathrooms"
+    type="text"
+    class="form-control"
+    placeholder="Max"
+    aria-label="Amount (to the nearest dollar)"
+    value="<%= FILTER.maxBathrooms %>"
+  />
+</div>
+-->
