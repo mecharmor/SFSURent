@@ -14,7 +14,7 @@
     <div class="card-body">
       <div class="form-check">
         <!--housing type-->
-        <div class=" text-left">
+        <div id="checkbox-container" class="text-left">
           <!--////////  PRICE  RANGE  //////////-->
           <%- include('../_partials/filterItems/priceRange'); %>
           <div class="dropdown-divider"></div>
@@ -57,7 +57,8 @@
       <div class="card-footer text-muted">
         <div class="row">
           <div class="col">
-              <input class="btn btn-danger" type="button" onclick="resetForm()" value="Reset">
+              <button id="resetButton" type="button" class="btn btn-danger">
+                Reset
             </button>
           </div>
           <div class="col">
@@ -72,15 +73,9 @@
   </div>
 </div>
 
-<!-- Iterate Through Each Checkbox and set false-->
+<!-- Reset all checkboxes-->
 <script>
-function resetForm() {
-  var checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {},
-    $checkboxes = $('#checkbox-container :checkbox');
-
-  // Set filters on page load
-  $.each(checkboxValues, function(key, value) {
-    $('#' + key).prop('checked', false);
+  $("#resetButton").click(()=>{
+    $('input[type=checkbox]').prop('checked',false);
   });
-}
 </script>
