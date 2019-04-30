@@ -34,17 +34,16 @@
           <% } %>
         </select>
         </div>
-        
         <% var keyword = ""; %>
         <% if(typeof body != 'undefined'){ %>
               <% keyword = body.keyword; %>
         <% } %>
-
         <input
           name="keyword"
           type="text"
           class="form-control form-control-lg"
           placeholder="Search"
+          maxlength="40"
           value="<%= keyword %>"
         />
         <span class="input-group-prepend">

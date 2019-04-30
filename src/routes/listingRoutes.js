@@ -14,7 +14,7 @@ const listing_type = {
   room: 3,
 };
 
-// default listing/index.ejs landing page for site, Cory, Junwei, 4/1/19
+//Home page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
   .get((req, res) => {
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, '
@@ -23,14 +23,13 @@ listingRoutes.route('/')
       + 'ON listings.id = listing_commute.listing_id '
       + 'ORDER BY listings.id')
       .then(([results, fields]) => {
-        // if (error) throw error;
         res.render('listing/index', {
           objectArrayFromDb: results,
           body: req.body,
         });
       });
   })
-// search query based on title, price, address, description using % Like search
+  //Search ALgorithm, build a string of SQL statements for clean query, Soheil, 4/30/19
   .post((req, res) => {
     let sql = 'SELECT * FROM listings LEFT JOIN listing_commute ON listings.id = listing_commute.listing_id';
     const conditions = [];
@@ -78,6 +77,7 @@ listingRoutes.route('/')
     const bathroomSql = bathrooms.join(' OR ');
     if (bathroomSql !== '') conditions.push(bathroomSql);
 
+    // TODO: Perform query on listing_commute so we can filter by distance, Cory 4/29/19
     // //Distance
     // const distances = [];
     // if (typeof (req.body.distance1) !== 'undefined') distances.push('listings.price <= 500');
@@ -90,12 +90,12 @@ listingRoutes.route('/')
     // const distanceSql = distances.join(' OR ');
     // if (distanceSql !== '') conditions.push(distanceSql);
 
-    // Put all the conditions together
+    //Build SQL String
     if (conditions.length !== 0) {
       sql += ' WHERE ';
       sql += conditions.join(' AND ');
     }
-    console.log(sql);
+    //Query from built SQL String
     db.query(sql)
       .then(([results, _]) => {
         res.render('listing/index', {
@@ -103,7 +103,7 @@ listingRoutes.route('/')
           objectArrayFromDb: results,
         });
       });
-  }); // end of post
+  });
 
 // load item page and pass listing data from id, (\\d+) one or more integers, Soheil, Poorva, 4/2/19
 listingRoutes.route('/:id(\\d+)')
@@ -125,5 +125,4 @@ listingRoutes.route('/:slug/')
         res.render('listing/index', { objectArrayFromDb: results });
       });
   });
-
 module.exports = listingRoutes;
