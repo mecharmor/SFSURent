@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
@@ -21,8 +22,8 @@ app.use(
   session({
     secret: 'CSC Class',
     saveUninitialized: false,
-    resave: false
-  })
+    resave: false,
+  }),
 );
 
 require('./src/config/passport.js')(app);
@@ -48,7 +49,7 @@ const mysqlRouter = require('./src/routes/mysqlRoutes');
 const listingRoutes = require('./src/routes/listingRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-//USE ROUTES
+// USE ROUTES
 app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
@@ -67,6 +68,6 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-app.listen(80, function() {
+app.listen(80, () => {
   debug('listening on port 80');
 });
