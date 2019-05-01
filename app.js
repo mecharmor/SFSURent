@@ -6,6 +6,7 @@ app.set('views', './src/views');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const expressValidator = require('express-validator')
 /* Morgan is used for logging http request in the console */
 const morgan = require('morgan');
 /* Debug is used for printing message on cosole in different categories.
@@ -16,6 +17,8 @@ const debug = require('debug')('app');
 // will allow to get form submited data using request.body
 // app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(expressValidator())
 
 // use express session
 app.use(
