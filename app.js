@@ -18,7 +18,7 @@ const debug = require('debug')('app');
 // app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(expressValidator())
+app.use(expressValidator());
 
 // use express session
 app.use(
