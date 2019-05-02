@@ -18,40 +18,34 @@
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
-          <select class="form-control" name="listingType" style =" -webkit-appearance: none;
+          <select class="form-control" name="listingType" style=" -webkit-appearance: none;
           -webkit-border-radius: 0px;height: 100%;">
-          <% if(typeof body == 'undefined' || body.listingType == ""){ %>
+            <% if(typeof body == 'undefined' || body.listingType == ""){ %>
             <option value="" selected>All</option>
-          <% }else{ %>
-            <option value="">All</option>
-          <% } %>
-          <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
-            <% if(typeof body != 'undefined' && body.listingType == listTypeDropdownValues[i]){ %>
-              <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
             <% }else{ %>
-              <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
+            <option value="">All</option>
             <% } %>
-          <% } %>
-        </select>
+            <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
+            <% if(typeof body != 'undefined' && body.listingType == listTypeDropdownValues[i]){ %>
+            <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
+            <% }else{ %>
+            <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
+            <% } %>
+            <% } %>
+          </select>
         </div>
         <% var keyword = ""; %>
         <% if(typeof body != 'undefined'){ %>
-              <% keyword = body.keyword; %>
+        <% keyword = body.keyword; %>
         <% } %>
-        <input
-          name="keyword"
-          type="text"
-          class="form-control form-control-lg"
-          placeholder="Search"
-          maxlength="40"
-          value="<%= keyword %>"
-        />
+        <input name="keyword" type="text" class="form-control form-control-md" placeholder="Search" maxlength="40"
+          value="<%= keyword %>" />
         <span class="input-group-prepend">
           <button class="btn btn-primary" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
+            <i class="fa fa-search" aria-hidden="true"></i>
           </button>
         </span>
-      </div> 
+      </div>
     </div>
   </form>
 </header>
