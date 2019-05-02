@@ -11,6 +11,7 @@ todo:
     border-bottom: #008ed6 3px solid;
     background-color: #343a40;
   }
+
   body {
     color: #333;
   }
@@ -22,11 +23,7 @@ todo:
     <h3 class="d-inline align-middle">SFSU Rent</h3>
   </a>
   <!--navbar collapse toggler button-->
-  <button
-    class="navbar-toggler"
-    data-toggle="collapse"
-    data-target="#navbarCollapse"
-  >
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
     <span class="navbar-toggler-icon"></span>
   </button>
   <!--navbar items-->
@@ -38,30 +35,28 @@ todo:
     <ul class="navbar-nav ml-auto">
       <!--post-->
       <li class="nav-item">
-        <a class="nav-link" href="/create-post">Post</a>
+        <a class="nav-link" href="/create-post">
+          <h4>Post</h4>
+        </a>
       </li>
       <!-- Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard">Dashboard</a>
+        <a class="nav-link" href="/dashboard">
+          <h4>Dashboard</h4>
+        </a>
       </li>
       <%if (false ) { %>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            href="/dashboard"
-            >Dashboard</a
-          >
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">
+          <h4>Dashboard</h4>
+        </a>
+      </li>
       <% }else{ %>
       <!--login/register - triggers modal-->
       <li class="nav-item">
-        <a
-          class="nav-link"
-          href="#loginModal"
-          data-toggle="modal"
-          data-target="#loginModal"
-          >Login/Register</a
-        >
+        <a class="nav-link" href="#loginModal" data-toggle="modal" data-target="#loginModal">
+          <h4>Login/Register</h4>
+        </a>
       </li>
       <% } %>
 
@@ -77,25 +72,14 @@ todo:
 </div>
 
 <!--Modal for login/register-->
-<div
-  class="modal fade"
-  id="loginModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="loginModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  aria-hidden="true">
   <!--modal dialog-->
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="loginModalLabel">Login/Register</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -108,26 +92,12 @@ todo:
             <p>Please fill out this form to login</p>
             <form action="/auth/login/" method="POST">
               <div class="form-group">
-                <input
-                  name="username"
-                  type="email"
-                  class="form-control form-control-lg"
-                  placeholder="Email"
-                />
+                <input name="username" type="email" class="form-control form-control-lg" placeholder="Email" />
               </div>
               <div class="form-group">
-                <input
-                  name="password"
-                  type="password"
-                  class="form-control form-control-lg"
-                  placeholder="Password"
-                />
+                <input name="password" type="password" class="form-control form-control-lg" placeholder="Password" />
               </div>
-              <input
-                type="submit"
-                value="Login"
-                class="btn btn-primary btn-block"
-              />
+              <input type="submit" value="Login" class="btn btn-primary btn-block" />
               Forgot Your Password? <a href="#">Click Here</a>
             </form>
           </div>
@@ -139,9 +109,7 @@ todo:
             <h3>Dont have an account?</h3>
             <p>Create an account today!</p>
             <form>
-              <a href="/auth/register" class="btn btn-primary btn-block"
-                >Register</a
-              >
+              <a href="/auth/register" class="btn btn-primary btn-block">Register</a>
               <p></p>
             </form>
           </div>
@@ -151,4 +119,3 @@ todo:
     </div>
   </div>
 </div>
-
