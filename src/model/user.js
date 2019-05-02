@@ -23,7 +23,7 @@ class User {
 
   static async checkValid(email, pass) {
     return db.query('SELECT * FROM users WHERE email = ?', email)
-      .then((rows) => {
+      .then(([rows, fields]) => {
         if (!rows || rows == null || rows.length !== 1) {
           return false;
         }

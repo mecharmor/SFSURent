@@ -12,7 +12,10 @@ Description: Routes for authentication
 
 const express = require('express');
 const passport = require('passport');
+const { validationResult } = require('express-validator/check');
 const { User } = require('../model/user.js');
+const { validateCreateUser } = require('../validators/user.js');
+
 
 const authRouter = express.Router();
 
@@ -20,14 +23,13 @@ authRouter.route('/register')
   .get((req, res) => {
     res.render('register');
   })
-  .post((req, res) => {
-    // validate
-    // .....
-
-    // create user
+  .post(validateCreateUser(), (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     User.register(req.body.name, req.body.email, req.body.password);
-
-    res.send('done');
+    return res.send('done');
   });
 
 authRouter.route('/login')
