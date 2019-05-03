@@ -14,7 +14,7 @@ const DropTables = async () => {
   await db.query('DROP TABLE IF EXISTS favorite');
   await db.query('DROP TABLE IF EXISTS message');
   await db.query('DROP TABLE IF EXISTS listing_image');
-  await db.query('DROP TABLE IF EXISTS listing_commute');
+  // await db.query('DROP TABLE IF EXISTS listing_commute');
   await db.query('DROP TABLE IF EXISTS listing_feature');
   await db.query('DROP TABLE IF EXISTS features');
   await db.query('DROP TABLE IF EXISTS listing_type');
@@ -101,14 +101,14 @@ const CreateTables = async () => {
       + ')');
 
 
-  await db.query('Create TABLE listing_commute ( '
-    + 'id INT AUTO_INCREMENT PRIMARY KEY,'
-    + 'unit VARCHAR(150) NOT NULL,'
-    + 'type VARCHAR(150) NOT NULL,'
-    + 'value DOUBLE,'
-    + 'listing_id int NOT NULL,'
-    + 'FOREIGN KEY (listing_id) REFERENCES listings(id)'
-      + ')');
+  // await db.query('Create TABLE listing_commute ( '
+  //   + 'id INT AUTO_INCREMENT PRIMARY KEY,'
+  //   + 'unit VARCHAR(150) NOT NULL,'
+  //   + 'type VARCHAR(150) NOT NULL,'
+  //   + 'value DOUBLE,'
+  //   + 'listing_id int NOT NULL,'
+  //   + 'FOREIGN KEY (listing_id) REFERENCES listings(id)'
+  //     + ')');
 
 
   await db.query('Create TABLE listing_image ( '
@@ -128,7 +128,7 @@ const DeleteAllData = async () => {
   await db.query('DELETE FROM favorite');
   await db.query('DELETE FROM message');
   await db.query('DELETE FROM listing_image');
-  await db.query('DELETE FROM listing_commute');
+  // await db.query('DELETE FROM listing_commute');
   await db.query('DELETE FROM listing_feature');
   await db.query('DELETE FROM features');
   await db.query('DELETE FROM listing_type');
