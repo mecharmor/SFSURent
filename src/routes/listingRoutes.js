@@ -59,6 +59,8 @@ listingRoutes.route('/')
     const priceSql = prices.join(' OR ');
     if (priceSql !== '') conditions.push(priceSql);
 
+
+    console.log(req.body.distance1);
     // Distances
     const distances = [];
     if (typeof (req.body.distance1) !== 'undefined') distances.push('listings.distance_to_sfsu <= 1');
@@ -68,7 +70,7 @@ listingRoutes.route('/')
     if (typeof (req.body.distance5) !== 'undefined') distances.push('listings.distance_to_sfsu >= 4 AND listings.price <= 5');
     if (typeof (req.body.distance6) !== 'undefined') distances.push('listings.distance_to_sfsu >= 5 AND listings.price <= 6');
     if (typeof (req.body.distance7) !== 'undefined') distances.push('listings.distance_to_sfsu >= 6');
-    const distanceSql = prices.join(' OR ');
+    const distanceSql = distances.join(' OR ');
     if (distanceSql !== '') conditions.push(distanceSql);
 
     // Bedroom

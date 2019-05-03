@@ -59,7 +59,7 @@ const CreateTables = async () => {
     + 'num_bath int,'
     + 'size int,'
     + 'distance_to_sfsu double,'
-    + '`status` enum("approved","rejected","pending") NOT NULL DEFAULT "pending",'
+    + '`status` enum("approved","rejected","pending","deleted") NOT NULL DEFAULT "pending",'
     + 'listing_type_id int NOT NULL,'
     + 'user_id INT NOT NULL,'
     + 'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id),'
