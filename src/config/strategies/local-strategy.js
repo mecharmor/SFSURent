@@ -7,8 +7,8 @@ const strategy = new LocalStrategy(
   ((email, password, done) => {
     const isValid = User.checkValid(email, password);
     isValid.then((res) => {
-      if (res) {
-        return done(null, email);
+      if (res != false) {
+        return done(null, res);
       }
       return done(null, false, { message: 'Invalid email or password.' });
     });

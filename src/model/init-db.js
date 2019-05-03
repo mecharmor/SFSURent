@@ -14,7 +14,7 @@ const DropTables = async () => {
   await db.query('DROP TABLE IF EXISTS favorite');
   await db.query('DROP TABLE IF EXISTS message');
   await db.query('DROP TABLE IF EXISTS listing_image');
-  await db.query('DROP TABLE IF EXISTS listing_commute');
+  // await db.query('DROP TABLE IF EXISTS listing_commute');
   await db.query('DROP TABLE IF EXISTS listing_feature');
   await db.query('DROP TABLE IF EXISTS features');
   await db.query('DROP TABLE IF EXISTS listing_type');
@@ -58,7 +58,8 @@ const CreateTables = async () => {
     + 'num_bed int,'
     + 'num_bath int,'
     + 'size int,'
-    + 'score int,'
+    + 'distance_to_sfsu double,'
+    + '`status` enum("approved","rejected","pending") NOT NULL DEFAULT "pending",'
     + 'listing_type_id int NOT NULL,'
     + 'user_id INT NOT NULL,'
     + 'FOREIGN KEY (listing_type_id) REFERENCES listing_type(id),'
@@ -100,14 +101,14 @@ const CreateTables = async () => {
       + ')');
 
 
-  await db.query('Create TABLE listing_commute ( '
-    + 'id INT AUTO_INCREMENT PRIMARY KEY,'
-    + 'unit VARCHAR(150) NOT NULL,'
-    + 'type VARCHAR(150) NOT NULL,'
-    + 'value DOUBLE,'
-    + 'listing_id int NOT NULL,'
-    + 'FOREIGN KEY (listing_id) REFERENCES listings(id)'
-      + ')');
+  // await db.query('Create TABLE listing_commute ( '
+  //   + 'id INT AUTO_INCREMENT PRIMARY KEY,'
+  //   + 'unit VARCHAR(150) NOT NULL,'
+  //   + 'type VARCHAR(150) NOT NULL,'
+  //   + 'value DOUBLE,'
+  //   + 'listing_id int NOT NULL,'
+  //   + 'FOREIGN KEY (listing_id) REFERENCES listings(id)'
+  //     + ')');
 
 
   await db.query('Create TABLE listing_image ( '
@@ -127,7 +128,7 @@ const DeleteAllData = async () => {
   await db.query('DELETE FROM favorite');
   await db.query('DELETE FROM message');
   await db.query('DELETE FROM listing_image');
-  await db.query('DELETE FROM listing_commute');
+  // await db.query('DELETE FROM listing_commute');
   await db.query('DELETE FROM listing_feature');
   await db.query('DELETE FROM features');
   await db.query('DELETE FROM listing_type');
@@ -228,7 +229,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 2, '
   + 'num_bath = 2, '
   + 'size = 3, '
-  + 'score = 5, '
+  + 'distance_to_sfsu = 2.3, '
   + 'user_id = 2,'
   + 'listing_type_id = 1', img1);
 
@@ -243,7 +244,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 3, '
   + 'num_bath = 3, '
   + 'size = 3, '
-  + 'score = 4, '
+  + 'distance_to_sfsu = 4, '
   + 'user_id = 3,'
   + 'listing_type_id = 2', img2);
 
@@ -257,7 +258,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 2, '
   + 'num_bath = 2, '
   + 'size = 3, '
-  + 'score = 5, '
+  + 'distance_to_sfsu = 1.1, '
   + 'user_id = 4,'
   + 'listing_type_id = 1', img3);
 
@@ -271,7 +272,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 2, '
   + 'num_bath = 2, '
   + 'size = 3, '
-  + 'score = 4, '
+  + 'distance_to_sfsu = 4.5, '
   + 'user_id = 5,'
   + 'listing_type_id = 2', img4);
 
@@ -285,7 +286,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 2, '
   + 'num_bath = 2, '
   + 'size = 3, '
-  + 'score = 3, '
+  + 'distance_to_sfsu = 0.3, '
   + 'user_id = 2,'
   + 'listing_type_id = 1', img5);
 
@@ -299,7 +300,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 3, '
   + 'num_bath = 2, '
   + 'size = 2, '
-  + 'score = 5, '
+  + 'distance_to_sfsu = 0.3, '
   + 'user_id = 6,'
   + 'listing_type_id = 2', img6);
 
@@ -313,7 +314,7 @@ const InsertTestListings = async () => {
   + 'num_bed = 2, '
   + 'num_bath = 2, '
   + 'size = 3, '
-  + 'score = 3, '
+  + 'distance_to_sfsu = 1.3, '
   + 'user_id = 5,'
   + 'listing_type_id = 1', img7);
 };

@@ -23,11 +23,15 @@ class User {
 
   static async checkValid(email, pass) {
     return db.query('SELECT * FROM users WHERE email = ?', email)
-      .then((rows) => {
+      .then(([rows, fields]) => {
         if (!rows || rows == null || rows.length !== 1) {
           return false;
         }
-        return bcrypt.compareSync(pass, rows[0].password);
+        if(bcrypt.compareSync(pass, rows[0].password)){
+          return rows[0];
+        }else{
+          return false;
+        }
       });
   }
 }

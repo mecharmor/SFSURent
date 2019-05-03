@@ -29,19 +29,34 @@ Header includes CDNs required to use Bootstrap4, FontAwesome
       max-width: 500px;
     }
     .main{
-    background: url(/images/sfsuCampus1.png) !important; 
-    /*background: url(/images/backgroundFade.jpg);*/
+    background-color: #f0f0f3 !important; 
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed !important;
     min-height: 75vh;
   }
-
-    input[type=file] {
-      background: white;
-    }
+  .card{
+    margin-bottom: 1em;
+  }
+  input[type=file] {
+    background: white;
+  }
+  .fixed-top {
+  top: 35px !important;
+  z-index: 1001 !important;
+  }
   </style>
   <title>Index</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139517576-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-139517576-1');
+  </script>
+  
   <%- include('disclaimer'); %>
     <%- include('nav'); %>
 </head>
