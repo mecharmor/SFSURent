@@ -27,7 +27,11 @@ class User {
         if (!rows || rows == null || rows.length !== 1) {
           return false;
         }
-        return bcrypt.compareSync(pass, rows[0].password);
+        if(bcrypt.compareSync(pass, rows[0].password)){
+          return rows[0];
+        }else{
+          return false;
+        }
       });
   }
 }
