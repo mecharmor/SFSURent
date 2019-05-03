@@ -11,9 +11,15 @@ module.exports.validateLogin = () => [
 ];
 
 module.exports.validateCreateUser = () => [
-  check('name', 'Name must be only characters and spaces.').exists().matches(/^[a-z ]+$/i),
-  check('email', 'Invalid email').exists().isEmail(),
-  check('password', 'Password must be between 6 and 18 characters.').exists().isLength({ min: 6, max: 18 }),
+  check('name',
+    'Name must be only characters and spaces and be between 2 and 15 characters long.')
+    .exists().matches(/^[a-z ]+$/i).isLength({ min: 2, max: 15 }),
+  check('email',
+    'Invalid email address.')
+    .exists().isEmail(),
+  check('password',
+    'Password must be between 6 and 18 characters.')
+    .exists().isLength({ min: 6, max: 18 }),
   check('password_confirm').custom((value, { req }) => {
     if (value !== req.body.password_confirm) {
       throw new Error('Password confirmation does not match password');
