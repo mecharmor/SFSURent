@@ -8,21 +8,27 @@
                     <div class="card-header">
                         <h4 class="mb-0">Create a Listing</h4>
                     </div>
+                    <div class="text-right">
+                            <label class="col-lg-5 col-form-label form-control-label">mandatory fields marked by *</label>
+                        </div>
                     <div class="card-body">
                         <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" enctype="multipart/form-data" method="post">
+                            
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Title</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Title*</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="text" name="title">
                                 </div>
                             </div>
+
+
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Type</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Type*</label>
                                 <div class="col-lg-9">
                                     <select class="form-control" name="listing_type_id">
-                                        <option value="1">Apartment</option>
-                                        <option value="2">Bungalow</option>
-                                        <option value="3">Room</option>
+                                        <option value="1">Apartment*</option>
+                                        <option value="2">Bungalow*</option>
+                                        <option value="3">Room*</option>
 
                                     </select>
                                 </div>
@@ -32,11 +38,12 @@
                             <!-- Address Input including Autocomplete -->
 
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Address*</label>
                                 <div class="col-lg-9">
 
                                     <div id="locationField">
-                                        <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" name="address"/>
+                                        <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" name="address"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -58,45 +65,24 @@
                                     // geographical location types.
                                     autocomplete = new google.maps.places.Autocomplete(
                                         document.getElementById('autocomplete'), { types: ['geocode'] });
-
-                                    // Avoid paying for data that you don't need by restricting the set of
-                                    // place fields that are returned to just the address components.
-                                    autocomplete.setFields(['address_component']);
-
-                                    // When the user selects an address from the drop-down, populate the
-                                    // address fields in the form.
-                                    autocomplete.addListener('place_changed', fillInAddress);
+                                        autocomplete.addListener('place_changed', getLocation);
                                 }
 
-                                function fillInAddress() {
-                                    // Get the place details from the autocomplete object.
-                                    var place = autocomplete.getPlace();
-
-                                    for (var component in componentForm) {
-                                        document.getElementById(component).value = '';
-                                        document.getElementById(component).disabled = false;
-                                    }
-
-                                    // Get each component of the address from the place details,
-                                    // and then fill-in the corresponding field on the form.
-                                    for (var i = 0; i < place.address_components.length; i++) {
-                                        var addressType = place.address_components[i].types[0];
-                                        if (componentForm[addressType]) {
-                                            var val = place.address_components[i][componentForm[addressType]];
-                                            document.getElementById(addressType).value = val;
-                                        }
-                                    }
+                                function getLocation() {
+                                    // Get the location details from the autocomplete object.
+                                    var place = autocomplete.getPlace(); 
+                                    var latitude = place.geometry.location.lat();                                   
+                                    var longitude =  place.geometry.location.lng(); 
+                                    console.log(latitude, longitude);                                  
                                 }
 
-                                // Bias the autocomplete object to the user's geographical location,
-                                // as supplied by the browser's 'navigator.geolocation' object.
                                 function geolocate() {
                                     if (navigator.geolocation) {
                                         navigator.geolocation.getCurrentPosition(function (position) {
                                             var geolocation = {
                                                 lat: position.coords.latitude,
                                                 lng: position.coords.longitude
-                                            };
+                                            };                                            
                                             var circle = new google.maps.Circle(
                                                 { center: geolocation, radius: position.coords.accuracy });
                                             autocomplete.setBounds(circle.getBounds());
@@ -110,25 +96,25 @@
 
 
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Rent</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Rent*</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="text" name="price">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Size</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Size*</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="text" name="size">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Bedrooms</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Bedrooms*</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="text" name="num_bed">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Bathrooms</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Bathrooms*</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="text" name="num_bath">
                                 </div>
@@ -150,14 +136,14 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Description</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Description*</label>
                                 <div class="col-lg-9">
                                     <textarea class="form-control" rows="5" id="description" name="description"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row"></div>
-                            <label class="col-lg-3 col-form-label form-control-label">Upload an Image</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Upload an Image*</label>
                             <div class="col-lg-9">
                                 <input type='file' onchange="readURL(this);" name="thumb" />
                             </div>
@@ -186,12 +172,21 @@
                     <br>
                     <br>
 
+                    <div class="text-center">
+
+                        <p>Your listing will be evaluated for approval within 24 hours</p>
+                    </div>
+                    <br>
+                    <br>
+
                     <!-- Post & Cancel Buttons -->
                     <div class="text-center form-group row">
                         <div class="col-md-6">
-                            <input type="reset" href="/listing" onclick="window.location.href = '/listing';" class="btn btn-secondary" value="Cancel"></div>
+                            <input type="reset" href="/listing" onclick="window.location.href = '/listing';" class="btn btn-secondary" value="Cancel">
+                        </div>
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value="Post"></div>
+                            <input type="submit" class="btn btn-primary" value="Post">
+                        </div>
                     </div>
                     </form>
                 </div>
