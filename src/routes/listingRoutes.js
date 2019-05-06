@@ -18,7 +18,7 @@ const listing_type = {
 // Home page for site, Cory, Junwei, 4/1/19
 listingRoutes.route('/')
   .get((req, res) => {
-    db.query('SELECT listings.id, listings.title, listings.description, listings.price, '
+    db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
       + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
       + 'FROM listings '
       + 'WHERE status = "approved" '
@@ -30,24 +30,23 @@ listingRoutes.route('/')
         });
       });
   })
-  // Search ALgorithm, build a string of SQL statements for clean query, Soheil, 4/30/19
+  // Search Algorithm, build a string of SQL statements for clean query, Soheil, 4/30/19
   .post((req, res) => {
     let sql = 'SELECT * FROM listings WHERE status = "approved" ';
     const conditions = [];
-
 
     // listing type id - temp solution
     if (req.body.listingType !== '') {
       const id = listing_type[req.body.listingType];
       conditions.push(`listings.listing_type_id = ${id}`);
     }
-
+    // %Like search
     if (req.body.keyword !== '') {
       const k = db.escape(`%${req.body.keyword}%`);
       conditions.push(`(listings.title LIKE ${k} OR listings.price LIKE ${k} OR listings.address LIKE ${k} OR listings.description LIKE ${k})`);
     }
 
-    // Prices
+    // Prices query string
     const prices = [];
     if (typeof (req.body.price1) !== 'undefined') prices.push('listings.price <= 500');
     if (typeof (req.body.price2) !== 'undefined') prices.push('listings.price >= 500 AND listings.price <= 1000');
@@ -59,19 +58,19 @@ listingRoutes.route('/')
     const priceSql = prices.join(' OR ');
     if (priceSql !== '') conditions.push(priceSql);
 
-    // Distances
+    // Distances query string
     const distances = [];
     if (typeof (req.body.distance1) !== 'undefined') distances.push('listings.distance_to_sfsu <= 1');
-    if (typeof (req.body.distance2) !== 'undefined') distances.push('listings.distance_to_sfsu >= 1 AND listings.price <= 2');
-    if (typeof (req.body.distance3) !== 'undefined') distances.push('listings.distance_to_sfsu >= 2 AND listings.price <= 3');
-    if (typeof (req.body.distance4) !== 'undefined') distances.push('listings.distance_to_sfsu >= 3 AND listings.price <= 4');
-    if (typeof (req.body.distance5) !== 'undefined') distances.push('listings.distance_to_sfsu >= 4 AND listings.price <= 5');
-    if (typeof (req.body.distance6) !== 'undefined') distances.push('listings.distance_to_sfsu >= 5 AND listings.price <= 6');
+    if (typeof (req.body.distance2) !== 'undefined') distances.push('listings.distance_to_sfsu >= 1 AND listings.distance_to_sfsu <= 2');
+    if (typeof (req.body.distance3) !== 'undefined') distances.push('listings.distance_to_sfsu >= 2 AND listings.distance_to_sfsu <= 3');
+    if (typeof (req.body.distance4) !== 'undefined') distances.push('listings.distance_to_sfsu >= 3 AND listings.distance_to_sfsu <= 4');
+    if (typeof (req.body.distance5) !== 'undefined') distances.push('listings.distance_to_sfsu >= 4 AND listings.distance_to_sfsu <= 5');
+    if (typeof (req.body.distance6) !== 'undefined') distances.push('listings.distance_to_sfsu >= 5 AND listings.distance_to_sfsu <= 6');
     if (typeof (req.body.distance7) !== 'undefined') distances.push('listings.distance_to_sfsu >= 6');
-    const distanceSql = prices.join(' OR ');
+    const distanceSql = distances.join(' OR ');
     if (distanceSql !== '') conditions.push(distanceSql);
 
-    // Bedroom
+    // Bedroom query string
     const bedrooms = [];
     if (typeof (req.body.bed1) !== 'undefined') bedrooms.push('listings.num_bed = 1');
     if (typeof (req.body.bed2) !== 'undefined') bedrooms.push('listings.num_bed = 2');
@@ -81,7 +80,7 @@ listingRoutes.route('/')
     const bedroomSql = bedrooms.join(' OR ');
     if (bedroomSql !== '') conditions.push(bedroomSql);
 
-    // Bathroom
+    // Bathroom query string
     const bathrooms = [];
     if (typeof (req.body.bath1) !== 'undefined') bathrooms.push('listings.num_bath = 1');
     if (typeof (req.body.bath2) !== 'undefined') bathrooms.push('listings.num_bath = 2');
@@ -89,19 +88,6 @@ listingRoutes.route('/')
     if (typeof (req.body.bath4) !== 'undefined') bathrooms.push('listings.num_bath >= 4');
     const bathroomSql = bathrooms.join(' OR ');
     if (bathroomSql !== '') conditions.push(bathroomSql);
-
-    // TODO: Perform query on listing_commute so we can filter by distance, Cory 4/29/19
-    // //Distance
-    // const distances = [];
-    // if (typeof (req.body.distance1) !== 'undefined') distances.push('listings.price <= 500');
-    // if (typeof (req.body.distance2) !== 'undefined') distances.push('listings.price >= 500 AND listings.price <= 1000');
-    // if (typeof (req.body.distance3) !== 'undefined') distances.push('listings.price >= 1000 AND listings.price <= 1500');
-    // if (typeof (req.body.distance4) !== 'undefined') distances.push('listings.price >= 1500 AND listings.price <= 2000');
-    // if (typeof (req.body.distance5) !== 'undefined') distances.push('listings.price >= 2000 AND listings.price <= 2500');
-    // if (typeof (req.body.distance6) !== 'undefined') distances.push('listings.price >= 2500 AND listings.price <= 3000');
-    // if (typeof (req.body.distance7) !== 'undefined') distances.push('listings.price >= 3000');
-    // const distanceSql = distances.join(' OR ');
-    // if (distanceSql !== '') conditions.push(distanceSql);
 
     // Build SQL String
     if (conditions.length !== 0) {
