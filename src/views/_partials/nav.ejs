@@ -36,21 +36,34 @@ todo:
       <!--post-->
       <li class="nav-item">
         <a class="nav-link" href="/create-post">
-          <h6>Post</h6>
+          <h6>Create Post</h6>
         </a>
       </li>
       <!-- Dashboard -->
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">
-          <h6>Dashboard</h6>
+          <h6>My Profile</h6>
         </a>
       </li>
+
+
       <%if (false ) { %>
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">
-          <h6>Dashboard</h6>
+          <h6>My Profile</h6>
         </a>
       </li>
+
+
+
+      <li class="nav-item">
+        <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+          title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">My
+          Profile</a>
+      </li>
+
+
+
       <% }else{ %>
       <!--login/register - triggers modal-->
       <li class="nav-item">
@@ -119,3 +132,9 @@ todo:
     </div>
   </div>
 </div>
+
+<script>
+  $('.popover-dismiss').popover({
+    trigger: 'focus'
+  })
+</script>
