@@ -63,7 +63,7 @@ app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
 app.use('/auth/', authRoutes);
-app.use('/dashboard/', authProtect, dashboardRoutes);
+app.use('/dashboard/', dashboardRoutes); // authProtect
 
 app.get('/', (req, res) => {
   res.redirect('/listing/');
@@ -74,9 +74,9 @@ app.get('/create-post', (req, res) => {
   res.render('create-post');
 });
 
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
-});
+// app.get('/dashboard', (req, res) => {
+//   res.render('dashboard');
+// });
 
 app.listen(80, () => {
   debug('listening on port 80');

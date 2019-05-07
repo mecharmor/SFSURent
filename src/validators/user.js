@@ -21,8 +21,9 @@ module.exports.validateCreateUser = () => [
     'Password must be between 6 and 18 characters.')
     .exists().isLength({ min: 6, max: 18 }),
   check('password_confirm').custom((value, { req }) => {
-    if (value !== req.body.password_confirm) {
+    if (value !== req.body.password) {
       throw new Error('Password confirmation does not match password');
     }
+    return true;
   }),
 ];

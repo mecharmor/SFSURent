@@ -7,8 +7,8 @@ listings and messages here.
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
+const Jimp = require('jimp');
 const db = require('../model/database.js');
-
 
 // Set storage for file uploads - Soheil 4/29/19
 const storage = multer.diskStorage({
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads');
   },
   filename(req, file, cb) {
-    cb(null, `${file.fieldname }-${Date.now()}`);
+    cb(null, `${file.fieldname}-${Date.now()}`);
   },
 });
 
@@ -36,27 +36,70 @@ dashboardRoutes.route('/listing')
     res.render('create-post');
   });
 
-dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
 
-  let img = fs.readFileSync(req.file.path);
+async function makeThumb(path) {
+  try {
+    const buffer = await Jimp.read(path)
+      .then(lenna => lenna
+        .resize(300, Jimp.AUTO) // resize
+        .quality(60) // set JPEG quality
+        .getBufferAsync(Jimp.MIME_JPEG));
+    return buffer;
+  } catch (err) {
+    // console.log(err);
+    return 'err';
+  }
+}
+
+async function makeImage(path) {
+  try {
+    const buffer = await Jimp.read(path)
+      .then(lenna => lenna
+        .resize(1000, Jimp.AUTO) // resize
+        .quality(85) // set JPEG quality
+        .getBufferAsync(Jimp.MIME_JPEG));
+    return buffer;
+  } catch (err) {
+    // console.log(err);
+    return 'err';
+  }
+}
+
+dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
+  // const img = fs.readFileSync(req.file.path);
+
+  (async () => {
+    const thumb = await makeThumb(req.file.path);
+    const image = await makeImage(req.file.path);
+
+    if (thumb === 'err' || image === 'err') {
+      res.send('error on the images');
+      return;
+    }
+
+    const insertRes = await db.query(`INSERT INTO listings (
+      price, title, description, address,
+      thumb, zipcode, num_bed, num_bath,
+      size, listing_type_id, user_id
+      ) VALUES (?,?,?,?,?,?,?,?,?,?,?) `,
+    [req.body.price, req.body.title, req.body.description, req.body.address,
+      thumb, 0, req.body.num_bed, req.body.num_bath,
+      req.body.size, req.body.listing_type_id, 1]);
+
+    await db.query(`INSERT INTO listing_image (
+      title, image, orders, listing_id
+      ) VALUES (?,?,?,?) `,
+    ['', image, 0, insertRes[0].insertId]);
+
+    res.redirect('/dashboard/?added=listing');
+  })();
+
   // let encode_image = img.toString('base64');
 
   // let finalImg = {
   //   contentType: req.file.mimetype,
   //   image: new Buffer(encode_image, 'base64'),
   // };
-
-  db.query(`INSERT INTO listings (
-      price, title, description, address,
-      thumb, zipcode, num_bed, num_bath,
-      size, score, listing_type_id, user_id
-      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `,
-  [req.body.price, req.body.title, req.body.description, req.body.address,
-    img, 0, req.body.num_bed, req.body.num_bath,
-    req.body.size, 0, req.body.listing_type_id, 1])
-    .then(() => {
-      res.redirect('/dashboard/?added=listing');
-    });
 });
 
 module.exports = dashboardRoutes;
