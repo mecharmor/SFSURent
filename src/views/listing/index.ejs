@@ -1,3 +1,9 @@
+<!--
+  Things to do:
+  - connect "items per page / item count" to backend 
+  - connect "contact landlord" button to messages
+-->
+
 <%- include('../_partials/header'); %>
 
 <style>
@@ -34,7 +40,11 @@
 
     <!--grid right (card items)-->
     <div class="col-sm-6 col-md-8 col-lg-9 ">
-      <h2 class="text-center">Available For Rent</h2>
+      <div>
+        <!--items per page / item count-->
+        <h6 class="float-left">1-10 of 50 results</h6>
+        <h2 class="text-center">Available For Rent</h2>
+      </div>
       <div class="row">
         <% if(objectArrayFromDb.length < 1) { %>
         <h2>No Result</h2>
