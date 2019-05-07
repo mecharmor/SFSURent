@@ -43,8 +43,10 @@
 
         <div class="myCardPadding pt-2 pr-2">
           <div class="myCard card" style="width: 19rem; height: 28rem;">
-            <img class="card-img-top" style="width:100%; height:15rem;" src="data:image/jpg;base64,<%= image_b64 %>"
-              alt="<%= objectArrayFromDb[i].title %>" />
+            <a href="/listing/<%= objectArrayFromDb[i].id %>">
+              <img class="card-img-top" style="width:100%; height:15rem;" src="data:image/jpg;base64,<%= image_b64 %>"
+                alt="<%= objectArrayFromDb[i].title %>" />
+            </a>
             <div class="card-body">
               <h5 class="card-title"><%= objectArrayFromDb[i].title %></h5>
               <p class="card-text">
