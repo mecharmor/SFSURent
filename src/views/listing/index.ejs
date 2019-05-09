@@ -1,3 +1,9 @@
+<!--
+  Things to do:
+  - connect "items per page / item count" to backend 
+  - connect "contact landlord" button to messages
+-->
+
 <%- include('../_partials/header'); %>
 
 <style>
@@ -34,6 +40,11 @@
 
     <!--grid right (card items)-->
     <div class="col-sm-6 col-md-8 col-lg-9 ">
+      <div>
+        <!--items per page / item count-->
+        <h6 class="float-left">1-10 of 50 results</h6>
+        <h2 class="text-center">Available For Rent</h2>
+      </div>
       <div class="row">
         <% if(objectArrayFromDb.length < 1) { %>
         <h2>No Result</h2>
@@ -43,8 +54,10 @@
 
         <div class="myCardPadding pt-2 pr-2">
           <div class="myCard card" style="width: 19rem; height: 28rem;">
-            <img class="card-img-top" style="width:100%; height:15rem;" src="data:image/jpg;base64,<%= image_b64 %>"
-              alt="<%= objectArrayFromDb[i].title %>" />
+            <a href="/listing/<%= objectArrayFromDb[i].id %>">
+              <img class="card-img-top" style="width:100%; height:15rem;" src="data:image/jpg;base64,<%= image_b64 %>"
+                alt="<%= objectArrayFromDb[i].title %>" />
+            </a>
             <div class="card-body">
               <h5 class="card-title"><%= objectArrayFromDb[i].title %></h5>
               <p class="card-text">
@@ -58,6 +71,8 @@
                 <strong><%=objectArrayFromDb[i].distance_to_sfsu %></strong> mile(s)
               </p>
               <a href="/listing/<%= objectArrayFromDb[i].id %>" class="btn btn-primary">View Listing</a>
+              <!--contact landlord button-->
+              <a href="#" class="btn float-right btn-primary">Contact Landlord</a>
             </div>
           </div>
         </div>
