@@ -12,7 +12,7 @@
       </h4>
     </div>
     <div class="col-md-2">
-      <button class="btn" onclick="location.href='/'" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button>
+      <button class="btn" onclick="location.href='/'" style="background-color:#463077; color:#f8f8f8">Contact the Owner</button>
     </div>
   </div>
   <br>
@@ -58,19 +58,19 @@
         <div class="text-center row">
 
 
-          <div class="col-md-3">
+          <div style="padding-bottom:10px" class="col-md-3">
             <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
           </div>
 
-          <div class="col-md-3">
+          <div style="padding-bottom:10px" class="col-md-3">
             <button style="background-color:#463077" type="button" class="btn btn-info">Parking</button>
           </div>
 
-          <div class="col-md-3">
+          <div style="padding-bottom:10px" class="col-md-3">
             <button style="background-color:#463077" type="button" class="btn btn-info">Heater</button>
           </div>
 
-          <div class="col-md-3">
+          <div style="padding-bottom:10px" class="col-md-3">
             <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
           </div>
 
@@ -148,20 +148,16 @@
       <div>
         <br>
         <h3>Description</h3>
-        <br>
+        
         <p>
           <%= objectArrayFromDb[0].description %>
         </p>
       </div>
     </div>
-
-
       <br>
       <br>
       <div class="col-md-5 rounded"> 
-          <div id="map" style="width:100%;height:400px;"></div>
-
-
+          <div id="map" style="height:300px;"></div>
     <br>
     <br>
     <div class="col-md-5 rounded">
@@ -286,11 +282,15 @@
 <br>
 <br>
 
-<div align="center">
-    <div class="col-md-6 text-center">
-      <button style="color:white; width:500px; height:75px; background-color:#463077" class="btn" onclick="location.href='/'" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button>
+
+<div class="text-center row">
+    <div class="col-md-4 text-center"></div>
+    <div class="col-md-4 text-center" style="background-color:#463077">
+      <button style="color:white; height:75px" class="btn" onclick="location.href='/'" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button>
     </div>
+    <div class="col-md-4 text-center"></div>
   </div>
+  
   <br>
   <br>
 
