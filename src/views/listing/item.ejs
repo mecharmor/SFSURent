@@ -7,7 +7,7 @@
       <a href="/listing/" class="btn btn-primary">Go Back</a>
     </div>
     <div class="col-md-8">
-      <h4 style="color: white;">
+      <h4 style="color: black;">
         <%= objectArrayFromDb[0].title %>
       </h4>
     </div>
@@ -21,6 +21,79 @@
   <div class="text-center row" style="color:black">
 
     <div class="col-md-1"></div>
+
+
+    <div class="col-md-5 rounded" style="background-color: white;">
+      <br>
+
+      <div>
+        <h3>Information</h3>
+        <br>
+        <h6>Type :
+          <%= objectArrayFromDb[0].listing_type_id %>
+        </h6>
+        <h6>Address :
+          <%= objectArrayFromDb[0].address %>
+        </h6>
+        <h6>Rent :
+          <%= objectArrayFromDb[0].price %>
+        </h6>
+        <br>
+        <div class="text-center row">
+          <div class="col-md-4">
+            <h6>Size :
+              <%= objectArrayFromDb[0].size %> sq.feet</h6>
+          </div>
+          <div class="col-md-4">
+            <h6>Bedrooms :
+              <%= objectArrayFromDb[0].num_bed %> sq.feet</h6>
+          </div>
+          <div class="col-md-4">
+            <h6>Bathrooms :
+              <%= objectArrayFromDb[0].size %> sq.feet</h6>
+          </div>
+        </div>
+        <br>
+
+        <div class="text-center row">
+
+
+          <div class="col-md-3">
+            <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
+          </div>
+
+          <div class="col-md-3">
+            <button style="background-color:#463077" type="button" class="btn btn-info">Parking</button>
+          </div>
+
+          <div class="col-md-3">
+            <button style="background-color:#463077" type="button" class="btn btn-info">Heater</button>
+          </div>
+
+          <div class="col-md-3">
+            <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
+          </div>
+
+        </div>
+
+        <br>
+        <br>
+        <div class="text-center row">
+          <div class="col-md-4">
+            <h6>Walk : 10 minutes </h6>
+          </div>
+          <div class="col-md-4">
+            <h6>Car : 3 minutes</h6>
+          </div>
+          <div class="col-md-4">
+            <h6>Bike : 5 minutes</h6>
+          </div>
+        </div>
+        <br>
+
+      </div>
+
+    </div>
 
     <div class="col-md-5" style="padding-top: 25px">
 
@@ -63,88 +136,15 @@
 
 
 
-    <div class="col-md-5 rounded" style="background-color: lightgrey;">
-      <br>
-
-      <div>
-        <h3>Information</h3>
-        <br>
-        <h6>Type :
-          <%= objectArrayFromDb[0].listing_type_id %>
-        </h6>
-        <h6>Address :
-          <%= objectArrayFromDb[0].address %>
-        </h6>
-        <h6>Rent :
-          <%= objectArrayFromDb[0].price %>
-        </h6>
-        <br>
-        <div class="text-center row">
-          <div class="col-md-4">
-            <h6>Size :
-              <%= objectArrayFromDb[0].size %> sq.feet</h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bedrooms :
-              <%= objectArrayFromDb[0].num_bed %> sq.feet</h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bathrooms :
-              <%= objectArrayFromDb[0].size %> sq.feet</h6>
-          </div>
-        </div>
-        <br>
-
-        <div class="text-center row">
-
-
-          <div class="col-md-3">
-            <button type="button" class="btn btn-info">Laundry</button>
-          </div>
-
-          <div class="col-md-3">
-            <button type="button" class="btn btn-info">Parking</button>
-          </div>
-
-          <div class="col-md-3">
-            <button type="button" class="btn btn-info">Heater</button>
-          </div>
-
-          <div class="col-md-3">
-            <button type="button" class="btn btn-info">Laundry</button>
-          </div>
-
-        </div>
-
-        <br>
-        <br>
-        <div class="text-center row">
-          <div class="col-md-4">
-            <h6>Walk : 10 minutes </h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Car : 3 minutes</h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bike : 5 minutes</h6>
-          </div>
-        </div>
-        <br>
-
-      </div>
-
-    </div>
     <div class="col-md-1"></div>
   </div>
 
-  <br>
-  <br>
-  <br>
+
 
 
   <div class="text-center row" style="color:black">
     <div class="col-md-1"></div>
-    <div class="col-md-5 rounded" style="background-color:lightgrey; padding-right:10px">
+    <div class="col-md-5 rounded" style="background-color:white; padding-right:10px">
       <div>
         <br>
         <h3>Description</h3>
@@ -155,35 +155,38 @@
       </div>
     </div>
 
-      <div class="col-md-1"></div>
-      <div class="col-md-1"></div>
+
       <br>
       <br>
-      <div class="col-md-5 rounded" style="background-color:#964dd6;"> 
+      <div class="col-md-5 rounded"> 
           <div id="map" style="width:100%;height:400px;"></div>
 
 
     <br>
     <br>
-    <div class="col-md-5 rounded" style="background-color:white;">
-      <div id="googleMap" style="width:100%;height:400px;"></div>
+    <div class="col-md-5 rounded">
+        <div class="panel panel-info" style="color:black">
+            <b>Mode of Travel: </b>
+            <select id="mode">
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="BICYCLING">Bicycling</option>
+              <option value="TRANSIT">Transit</option>
+            </select>
+            </div>
+      <div id="googleMap" style="width:100%;height:100px;"></div>
 
     </div>
+
     <div class="col-md-1"></div>
 
   </div>
+</div>
+
   <br>
   <br>
 
-  <div class="panel panel-info" style="color:aliceblue">
-      <b>Mode of Travel: </b>
-      <select id="mode">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-        <option value="TRANSIT">Transit</option>
-      </select>
-      </div>
+
 
 
   <script>
@@ -280,7 +283,16 @@
   <script src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE&callback=initMap"
   async defer></script>
   
+<br>
+<br>
 
+<div align="center">
+    <div class="col-md-6 text-center">
+      <button style="color:white; width:500px; height:75px; background-color:#463077" class="btn" onclick="location.href='/'" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button>
+    </div>
+  </div>
+  <br>
+  <br>
 
 
   <%- include('../_partials/footer'); %>
