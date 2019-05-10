@@ -12,6 +12,36 @@
   }
 </style>
 
+  <!-- Modal -->
+  <div class="modal fade" id="contactLandlordModal" tabindex="-1" role="dialog" aria-labelledby="contactLandlordModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Type your message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form class="form" role="form" autocomplete="off" action="/dashboard/listing/message" method="post">
+              <input type="hidden" name="messageListingId"/>
+            <div class="modal-body">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+          </form>
+          </div>
+      </div>
+    </div>
+    <script>
+      $('#contactLandlordModal').on('show.bs.modal', function(e) {
+        var listingId = $(e.relatedTarget).data('listing-id');
+        $(e.currentTarget).find('input[name="messageListingId"]').val(listingId);
+      });
+    </script>
+
 <footer id="main-footer" class="bg-dark">
   <div class="container" style="padding-top:1em;">
     <div class="row">

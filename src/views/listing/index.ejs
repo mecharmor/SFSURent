@@ -86,7 +86,13 @@
             <div class="card-footer" style="padding:0 !important;">
                 <div class="btn-group" role="group" style="width:100%;">
                     <button style="border-radius:0;" type="button" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';"  class="btn btn-primary">Details</button>
-                    <button style="border-radius:0;" type="button" class="btn btn-secondary">Contact</button><!--open modal-->
+                    <button style="border-radius:0;" 
+                            type="button" class="btn" 
+                            data-toggle="modal" 
+                            data-target="#contactLandlordModal" 
+                            class="btn btn-secondary"
+                            data-listing-id="<%= objectArrayFromDb[i].id %>"
+                            >Contact</button><!--open modal-->
                   </div>
             </div>
           </div>
