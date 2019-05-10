@@ -66,7 +66,6 @@
                   <div class="container">
                       <div class="row">
                         <div class="col">
-                            <i class="far fa-money-bill-alt"></i>:
                             <strong>$<%= objectArrayFromDb[i].price %></strong>
                             <i class="fas fa-bed"></i>:
                             <strong><%= objectArrayFromDb[i].num_bed %></strong>
@@ -76,18 +75,19 @@
                       </div>
                       <div class="row">
                         <div class="col">
-                            <i class="fas fa-road"></i>:
                             <strong><%=objectArrayFromDb[i].distance_to_sfsu %> mi to SFSU</strong>
                         </div>
                       </div>
                     </div> 
               </p>
-              <div class="btn-group" role="group">
-                <button type="button" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';"  class="btn btn-primary">Details</button>
-                <button type="button" class="btn btn-secondary">Contact</button><!--open modal-->
-              </div>
               <!-- <a href="/listing/<%= objectArrayFromDb[i].id %>" class="btn btn-primary">View Listing</a>
               <a href="#" class="btn float-right btn-primary">Contact Landlord</a> -->
+            </div>
+            <div class="card-footer" style="padding:0 !important;">
+                <div class="btn-group" role="group" style="width:100%;">
+                    <button style="border-radius:0;" type="button" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';"  class="btn btn-primary">Details</button>
+                    <button style="border-radius:0;" type="button" class="btn btn-secondary">Contact</button><!--open modal-->
+                  </div>
             </div>
           </div>
         </div>
