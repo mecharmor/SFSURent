@@ -15,7 +15,7 @@ const listing_type = {
   room: 3,
 };
 
-// Home page for site, Cory, Junwei, 4/1/19
+// Home page for site, Cory, Junwei, 5/6/19
 listingRoutes.route('/')
   .get((req, res) => {
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
