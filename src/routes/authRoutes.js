@@ -19,6 +19,11 @@ const { validateCreateUser } = require('../validators/user.js');
 
 const authRouter = express.Router();
 
+authRouter.route('/login')
+  .get((req, res) => {
+    res.render('register', { login: true });
+  });
+
 authRouter.route('/register')
   .get((req, res) => {
     res.render('register');

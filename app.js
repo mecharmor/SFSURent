@@ -43,7 +43,7 @@ function authProtect(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/auth/register');
+    res.redirect('/auth/login');
   }
 }
 

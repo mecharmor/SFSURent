@@ -27,6 +27,25 @@
     margin-right: 0px !important;
     margin-left: 0px !important;
   }
+  
+  .price-overlay{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #00000075;
+    color: white;
+    padding: 4px;
+    
+  }
+
+  .info-overlay{
+    position: absolute;
+    bottom: 0;
+    background-color: #00000075;
+    color: white;
+    padding: 4px 8px;
+    width: 100%;
+  }
 </style>
 
 <!--///////////////////////////////////-->
@@ -42,8 +61,8 @@
     <div class="col-sm-6 col-md-8 col-lg-9 ">
       <div>
         <!--items per page / item count-->
-        <h6 class="float-left">1-10 of 50 results</h6>
-        <h2 class="text-center">Available For Rent</h2>
+        <h2 style="padding-top: 15px">Available For Rent</h2>
+        <h6>1-10 of 50 results</h6>
       </div>
       <div class="row">
         <% if(objectArrayFromDb.length < 1) { %>
@@ -52,41 +71,43 @@
         <% var image_b64 = new
         Buffer(objectArrayFromDb[i].thumb).toString('base64') %>
 
-        <div class="myCardPadding pt-2 pr-2">
-          <div class="myCard card" style="width: 19rem; height: 28rem;">
-            <a href="/listing/<%= objectArrayFromDb[i].id %>">
-              <img class="card-img-top" style="width:100%; height:15rem;" 
-                onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';" 
-                src="data:image/jpg;base64,<%= image_b64 %>"
-                alt="<%= objectArrayFromDb[i].title %>" />
-            </a>
-            <div class="card-body">
-              <h6 class="card-title" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';" ><%= objectArrayFromDb[i].title %></h6>
-              <p class="card-text">
-                  <div class="container">
-                      <div class="row">
-                        <div class="col">
-                            <strong>$<%= objectArrayFromDb[i].price %></strong>
-                            <i class="fas fa-bed"></i>:
-                            <strong><%= objectArrayFromDb[i].num_bed %></strong>
-                            <i class="fa fa-bath" aria-hidden="true"></i>:
-                            <strong><%=objectArrayFromDb[i].num_bath %></strong>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                            <strong><%=objectArrayFromDb[i].distance_to_sfsu %> mi to SFSU</strong>
-                        </div>
-                      </div>
-                    </div> 
-              </p>
+        <div class="myCardPadding pt-4 pr-4">
+          <div class="myCard card" style="width: 19rem; height: 22rem;">
+            <div style="position: relative;">
+              <strong class="price-overlay">
+                  $<%= objectArrayFromDb[i].price %>
+                </strong>
+                <a href="/listing/<%= objectArrayFromDb[i].id %>">
+                  <img class="card-img-top" style="width:100%; height:15rem;" 
+                    onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';" 
+                    src="data:image/jpg;base64,<%= image_b64 %>"
+                    alt="<%= objectArrayFromDb[i].title %>" />
+                </a>
+                <div class="row info-overlay">
+                  <div class="col">
+                    <i class="fas fa-bed"></i>: <%= objectArrayFromDb[i].num_bed %>
+                  </div>
+                  <div class="col">
+                    <i class="fa fa-bath" aria-hidden="true"></i>: <%=objectArrayFromDb[i].num_bath %>
+                  </div>
+                  <div>
+                    <b><%=objectArrayFromDb[i].distance_to_sfsu %> mi to SFSU</b>
+                  </div>
+                </div>
+
+            </div>
+            
+
+            <div class="card-body" style="padding: 8px">
+              <a class="card-title" style="color: #333333" href="/listing/<%= objectArrayFromDb[i].id %>" ><%= objectArrayFromDb[i].title %></a>
+
               <!-- <a href="/listing/<%= objectArrayFromDb[i].id %>" class="btn btn-primary">View Listing</a>
               <a href="#" class="btn float-right btn-primary">Contact Landlord</a> -->
             </div>
             <div class="card-footer" style="padding:0 !important;">
                 <div class="btn-group" role="group" style="width:100%;">
-                    <button style="border-radius:0;" type="button" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';"  class="btn btn-primary">Details</button>
-                    <button style="border-radius:0;" type="button" class="btn btn-secondary">Contact</button><!--open modal-->
+                    <button style="border-radius:0;" type="button" onclick="window.location.href = '/listing/<%= objectArrayFromDb[i].id %>';"  class="btn btn-secondary">Details</button>
+                    <button style="border-radius:0;" type="button" class="btn btn-primary">Contact</button><!--open modal-->
                   </div>
             </div>
           </div>
