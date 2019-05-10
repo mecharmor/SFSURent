@@ -70,14 +70,6 @@ app.get('/', (req, res) => {
   // res.render('listing/index');
 });
 
-app.get('/create-post', (req, res) => {
-  res.render('create-post');
-});
-
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
-});
-
 app.listen(80, () => {
   debug('listening on port 80');
 });
