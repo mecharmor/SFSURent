@@ -75,7 +75,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/contact/admin', (req, res) => {
-  res.render('contact-admin');
+  res.render('contact-admin', { isLoggedIn: req.isAuthenticated() });
   // res.render('listing/index');
 });
 
