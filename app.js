@@ -41,9 +41,13 @@ passport.deserializeUser((id, done) => {
 
 function authProtect(req, res, next) {
   if (req.isAuthenticated()) {
-    next();
+    if (req.user.isBlocked === 1) {
+      res.redirect('/contact/admin');
+    } else {
+      next();
+    }
   } else {
-    res.redirect('/auth/register');
+    res.redirect('/auth/login');
   }
 }
 
@@ -70,13 +74,10 @@ app.get('/', (req, res) => {
   // res.render('listing/index');
 });
 
-app.get('/create-post', (req, res) => {
-  res.render('create-post');
+app.get('/contact/admin', (req, res) => {
+  res.render('contact-admin', { isLoggedIn: req.isAuthenticated() });
+  // res.render('listing/index');
 });
-
-// app.get('/dashboard', (req, res) => {
-//   res.render('dashboard');
-// });
 
 app.listen(80, () => {
   debug('listening on port 80');

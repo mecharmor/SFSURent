@@ -27,6 +27,7 @@ listingRoutes.route('/')
         res.render('listing/index', {
           objectArrayFromDb: results,
           body: req.body,
+          isLoggedIn: req.isAuthenticated(),
         });
       });
   })
@@ -101,6 +102,7 @@ listingRoutes.route('/')
         res.render('listing/index', {
           body: req.body,
           objectArrayFromDb: results,
+          isLoggedIn: req.isAuthenticated(),
         });
       });
   });
@@ -117,7 +119,7 @@ listingRoutes.route('/:id(\\d+)')
         return;
       }
 
-      res.render('listing/item', { objectArrayFromDb: results });
+      res.render('listing/item', { objectArrayFromDb: results, isLoggedIn: req.isAuthenticated() });
     });
   });
 

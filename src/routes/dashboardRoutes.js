@@ -27,13 +27,13 @@ const dashboardRoutes = express.Router();
 dashboardRoutes.route('/')
   .get((req, res) => {
     console.log(req.user);
-    res.render('dashboard');
+    res.render('dashboard', { isLoggedIn: req.isAuthenticated() });
   });
 
 dashboardRoutes.route('/listing')
   .get((req, res) => {
     console.log(req.user);
-    res.render('create-post');
+    res.render('create-post', { isLoggedIn: req.isAuthenticated() });
   });
 
 
@@ -93,13 +93,20 @@ dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
 
     res.redirect('/dashboard/?added=listing');
   })();
-
   // let encode_image = img.toString('base64');
 
   // let finalImg = {
   //   contentType: req.file.mimetype,
   //   image: new Buffer(encode_image, 'base64'),
   // };
+});
+
+dashboardRoutes.post('/listing/:id/message', (req, res) => {
+  db.query('INSERT INTO message ( body, user_id, listing_id ) VALUES (?,?,?)',
+    [req.body.messageBody, req.user.id, req.params.id])
+    .then(() => {
+      res.send({ status: true });
+    });
 });
 
 module.exports = dashboardRoutes;
