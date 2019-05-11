@@ -74,6 +74,11 @@ app.get('/', (req, res) => {
   // res.render('listing/index');
 });
 
+app.get('/contact/admin', (req, res) => {
+  res.render('contact-admin');
+  // res.render('listing/index');
+});
+
 app.listen(80, () => {
   debug('listening on port 80');
 });
