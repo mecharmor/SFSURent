@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads');
   },
   filename(req, file, cb) {
-    cb(null, `${file.fieldname }-${Date.now()}`);
+    cb(null, `${file.fieldname}-${Date.now()}`);
   },
 });
 
@@ -37,8 +37,7 @@ dashboardRoutes.route('/listing')
   });
 
 dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
-
-  let img = fs.readFileSync(req.file.path);
+  const img = fs.readFileSync(req.file.path);
   // let encode_image = img.toString('base64');
 
   // let finalImg = {
@@ -47,15 +46,23 @@ dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
   // };
 
   db.query(`INSERT INTO listings (
-      price, title, description, address,
-      thumb, zipcode, num_bed, num_bath,
-      size, score, listing_type_id, user_id
-      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `,
+        price, title, description, address,
+        thumb, zipcode, num_bed, num_bath,
+        size, score, listing_type_id, user_id
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `,
   [req.body.price, req.body.title, req.body.description, req.body.address,
     img, 0, req.body.num_bed, req.body.num_bath,
     req.body.size, 0, req.body.listing_type_id, 1])
     .then(() => {
       res.redirect('/dashboard/?added=listing');
+    });
+});
+
+dashboardRoutes.post('/listing/:id/message', (req, res) => {
+  db.query('INSERT INTO message ( body, user_id, listing_id ) VALUES (?,?,?)',
+    [req.body.messageBody, req.user.id, req.params.id])
+    .then(() => {
+      res.send({ status: true });
     });
 });
 

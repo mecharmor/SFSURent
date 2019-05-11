@@ -41,7 +41,11 @@ passport.deserializeUser((id, done) => {
 
 function authProtect(req, res, next) {
   if (req.isAuthenticated()) {
-    next();
+    if (req.user.isBlocked === 1) {
+      res.redirect('/contact/admin');
+    } else {
+      next();
+    }
   } else {
     res.redirect('/auth/login');
   }

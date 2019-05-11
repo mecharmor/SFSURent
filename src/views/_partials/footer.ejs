@@ -23,23 +23,56 @@
               </button>
             </div>
             <form class="form" role="form" autocomplete="off" action="/dashboard/listing/message" method="post">
-              <input type="hidden" name="messageListingId"/>
+              <input type="hidden" id="messageListingId"/>
             <div class="modal-body">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="messageBody" rows="3"></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Send Message</button>
+              <button type="button" class="btn btn-primary" id="sendMsg" >Send Message</button>
             </div>
           </form>
           </div>
       </div>
     </div>
     <script>
+
+
+
       $('#contactLandlordModal').on('show.bs.modal', function(e) {
+        setSendingDone();
         var listingId = $(e.relatedTarget).data('listing-id');
-        $(e.currentTarget).find('input[name="messageListingId"]').val(listingId);
+        $(e.currentTarget).find('#messageListingId').val(listingId);
       });
+
+      $('#sendMsg').click(() => {
+        setSending();
+        
+        var jqxhr = $.post( "/dashboard/listing/" + $('#messageListingId').val() + "/message",
+        {
+          messageBody: $('#messageBody').val()
+        },
+         function() {
+          alert( "Message sent!" );
+          $('#contactLandlordModal').modal('hide')
+        })
+        .fail(function() {
+          alert( "Error sending message!" );
+        })
+        .always(function() {
+        });
+      });
+
+      function setSending(){
+        $('#sendMsg').attr("disabled", true);
+        $('#sendMsg').html('<i class="fa fa-spinner fa-spin"></i>');
+      }
+
+      function setSendingDone(){
+        $('#sendMsg').attr("disabled", false);
+        $('#sendMsg').html('Send Message');
+      }
+ 
     </script>
 
 <footer id="main-footer" class="bg-dark">
