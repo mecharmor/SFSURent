@@ -39,11 +39,14 @@
 
 
 
-      $('#contactLandlordModal').on('show.bs.modal', function(e) {
-        setSendingDone();
-        var listingId = $(e.relatedTarget).data('listing-id');
-        $(e.currentTarget).find('#messageListingId').val(listingId);
-      });
+
+        // $('#contactLandlordModal').on('show.bs.modal', function(e) {
+        //   setSendingDone();
+        //   var listingId = $(e.relatedTarget).data('listing-id');
+        //   $(e.currentTarget).find('#messageListingId').val(listingId);
+        // });
+
+
 
       $('#sendMsg').click(() => {
         setSending();
@@ -54,7 +57,7 @@
         },
          function() {
           alert( "Message sent!" );
-          $('#contactLandlordModal').modal('hide')
+          $('#contactLandlordModal').modal('hide');
         })
         .fail(function() {
           alert( "Error sending message!" );
@@ -71,6 +74,17 @@
       function setSendingDone(){
         $('#sendMsg').attr("disabled", false);
         $('#sendMsg').html('Send Message');
+      }
+
+      function ShowSendMessageDialog(listing_id){
+        let isLoggedIn = <%= isLoggedIn %>;
+        if(isLoggedIn){
+          setSendingDone();
+          $('#messageListingId').val(listing_id);
+          $('#contactLandlordModal').modal('show');
+        }else{
+          $('#loginModal').modal('show');
+        }
       }
  
     </script>

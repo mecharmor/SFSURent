@@ -27,13 +27,13 @@ const dashboardRoutes = express.Router();
 dashboardRoutes.route('/')
   .get((req, res) => {
     console.log(req.user);
-    res.render('dashboard');
+    res.render('dashboard', { isLoggedIn: req.isAuthenticated() });
   });
 
 dashboardRoutes.route('/listing')
   .get((req, res) => {
     console.log(req.user);
-    res.render('create-post');
+    res.render('create-post', { isLoggedIn: req.isAuthenticated() });
   });
 
 dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {

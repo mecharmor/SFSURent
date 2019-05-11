@@ -39,12 +39,7 @@ todo:
           <h6>Create Post</h6>
         </a>
       </li>
-      <!-- Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="/dashboard">
-          <h6>My Profile</h6>
-        </a>
-      </li>
+
       <!--about-->
       <li class="nav-item">
         <a class="nav-link" href="/about">
@@ -53,22 +48,18 @@ todo:
       </li>
 
 
-      <%if (false ) { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/dashboard">
-          <h6>My Profile</h6>
-        </a>
-      </li>
+      <%if (isLoggedIn ) { %>
 
-
-
-      <li class="nav-item">
-        <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
-          title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">My
-          Profile</a>
-      </li>
-
-
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <h6>Dashboard</h6>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">
+              <h6>Logout</h6>
+            </a>
+          </li>
 
       <% }else{ %>
       <!--login/register - triggers modal-->
