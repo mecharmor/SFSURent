@@ -114,7 +114,7 @@ listingRoutes.route('/:id(\\d+)')
     + 'FROM listings '
     + 'WHERE id = ?', req.params.id).then(([results, fields]) => {
 
-      if (!results || results.length != 1 || results[0].status !== 'approved') {
+      if (!results || results.length !== 1 || results[0].status !== 'approved') {
         res.status(404).send('404 - Page Not found');
         return;
       }
