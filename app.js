@@ -41,11 +41,7 @@ passport.deserializeUser((id, done) => {
 
 function authProtect(req, res, next) {
   if (req.isAuthenticated()) {
-    if (req.user.isBlocked === 1) {
-      res.redirect('/contact/admin');
-    } else {
-      next();
-    }
+    next();
   } else {
     res.redirect('/auth/login');
   }
@@ -71,6 +67,11 @@ app.use('/dashboard/', authProtect, dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.redirect('/listing/');
+  // res.render('listing/index');
+});
+
+app.get('/contact/admin', (req, res) => {
+  res.render('contact-admin');
   // res.render('listing/index');
 });
 
