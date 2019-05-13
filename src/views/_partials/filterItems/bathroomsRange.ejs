@@ -1,0 +1,62 @@
+<!--
+    Checkbox options for number of bathrooms
+    Todo: Implement the filter based on user input
+-->
+
+<strong>Bathrooms:</strong>
+<!-- Bathrooms: 1 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="1"
+    id="bathroomCheck1"
+    name="bath1"
+    <%= (typeof body != 'undefined' && typeof body.bath1 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="bathroomCheck1">
+    1
+  </label>
+</div>
+<!-- Bathrooms: 2 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="2"
+    id="bathroomCheck2"
+    name="bath2"
+    <%= (typeof body != 'undefined' && typeof body.bath2 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="bathroomCheck2">
+    2
+  </label>
+</div>
+<!-- Bathrooms: 3 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="3"
+    id="bathroomCheck3"
+    name="bath3"
+    <%= (typeof body != 'undefined' && typeof body.bath3 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="bathroomCheck3">
+    3
+  </label>
+</div>
+<!-- Bathrooms: 4+ -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="4"
+    id="bathroomCheck4"
+    name="bath4"
+    <%= (typeof body != 'undefined' && typeof body.bath4 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="bathroomCheck4">
+    4+
+  </label>
+</div>

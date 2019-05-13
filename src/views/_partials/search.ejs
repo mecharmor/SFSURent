@@ -1,0 +1,51 @@
+<style>
+  #search-section {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 40px;
+  }
+
+  #search-section .search-inner {
+    padding-top: 0;
+  }
+</style>
+
+<!--/////////////////////////////////////////////////////////////////////-->
+
+<header id="search-section">
+  <form method="post" action="/listing/">
+    <div class="search-inner px-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <% let listTypeDropdownValues = ["apartment","bungalow","room"]; %>
+          <select class="form-control" name="listingType" style=" -webkit-appearance: none;
+          -webkit-border-radius: 0px;height: 100%;">
+            <% if(typeof body == 'undefined' || body.listingType == ""){ %>
+            <option value="" selected>All</option>
+            <% }else{ %>
+            <option value="">All</option>
+            <% } %>
+            <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
+            <% if(typeof body != 'undefined' && body.listingType == listTypeDropdownValues[i]){ %>
+            <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
+            <% }else{ %>
+            <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
+            <% } %>
+            <% } %>
+          </select>
+        </div>
+        <% var keyword = ""; %>
+        <% if(typeof body != 'undefined'){ %>
+        <% keyword = body.keyword; %>
+        <% } %>
+        <input name="keyword" type="text" class="form-control form-control-md" placeholder="Search" maxlength="40"
+          value="<%= keyword %>" />
+        <span class="input-group-prepend">
+          <button class="btn btn-primary" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </form>
+</header>

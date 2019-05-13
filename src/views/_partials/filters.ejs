@@ -1,0 +1,67 @@
+<!--
+  Filter partial: price, bedrooms, bathrooms, miles from campus
+  todo:
+  - add more filters
+-->
+<div class="cardSize card text-center">
+  <!--card head-->
+  <div class="card-header">
+    <strong>Filters</strong>
+  </div>
+  <form id="filterForm" method="post" action="/listing/">
+    <input type="hidden" name="listingType" value="<%= body.listingType %>">
+    <input type="hidden" name="keyword" value="<%= body.keyword %>">
+    <div class="card-body">
+      <div class="form-check">
+        <!--housing type-->
+        <div id="checkbox-container" class="text-left">
+          <!--////////  PRICE  RANGE  //////////-->
+          <%- include('../_partials/filterItems/priceRange'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  MILES  FROM  SCHOOL  //////////-->
+          <%- include('../_partials/filterItems/milesFromCampus'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  BEDROOM  RANGE  //////////-->
+          <%- include('../_partials/filterItems/bedroomsRange'); %>
+          <div class="dropdown-divider"></div>
+          <!--////////  BATHROOM  RANGE  //////////-->
+          <%- include('../_partials/filterItems/bathroomsRange'); %>
+        </div>
+        <!-- More Filters buttom
+      <a
+        class="btn btn-outline-secondary"
+        data-toggle="collapse"
+        href="#collapseExample"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        More Filters
+      </a> -->
+      </div>
+      <!--card footer-->
+      <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col">
+              <button id="resetButton" type="button" class="btn btn-danger">
+                Reset
+            </button>
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-success">
+              Update
+            </button>
+          </div>
+        </div>
+        <!--<a href="#" class="btn btn-primary">Search Filter</a>-->
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Reset all checkboxes-->
+<script>
+  $("#resetButton").click(()=>{
+    $('input[type=checkbox]').prop('checked',false);
+  });
+</script>

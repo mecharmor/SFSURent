@@ -1,0 +1,55 @@
+<!--
+Dashboard
+todo: 
+- connect user postings to dashboard
+- create admin dashboard with user interface
+- create account information section
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <header></header>
+
+    <main>
+      <%- include('_partials/header'); %>
+      <!-- Your Listings Jumbotron -->
+      <div class="p-3">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="text-center">
+            <h3>
+              <strong>My Listings</strong>
+            </h3>
+          </div>
+          <div class="px-3">
+            <hr />
+            <!--list card item-->
+            <div class="p-1">
+              <div class="card" style="width: 20rem;">
+                <img
+                  class="card-img-top"
+                  src="/images/houseFiller.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <a href="#" class="btn btn-primary">Edit</a>
+                  <a href="#" class="btn float-right btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            <!--end list card item-->
+          </div>
+        </div>
+      </div>
+      <!-- End Your Listings Jumbotron -->
+    </main>
+
+    <footer>
+      <%- include('_partials/footer'); %>
+    </footer>
+  </body>
+</html>

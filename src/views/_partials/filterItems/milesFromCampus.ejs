@@ -1,0 +1,109 @@
+<!-- 
+    user input field for distance from campus
+-->
+
+<strong>Miles from Campus:</strong>
+<!-- Below 1-Mile -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="1"
+    id="distanceCheck1"
+    name="distance1"
+    <%= (typeof body != 'undefined' && typeof body.distance1 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck1">
+    Less than 1
+  </label>
+</div>
+
+<!-- 1 to 2 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="1-2"
+    id="distanceCheck2"
+    name="distance2"
+    <%= (typeof body != 'undefined' && typeof body.distance2 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck2">
+    1 - 2
+  </label>
+</div>
+
+<!-- 2 to 3 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="2-3"
+    id="distanceCheck3"
+    name="distance3"
+    <%= (typeof body != 'undefined' && typeof body.distance3 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck3">
+    2 - 3
+  </label>
+</div>
+
+<!-- 3 - 4 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="3-4"
+    id="distanceCheck4"
+    name="distance4"
+    <%= (typeof body != 'undefined' && typeof body.distance4 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck4">
+    3 - 4
+  </label>
+</div>
+
+<!-- 4 - 5 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="4-5"
+    id="distanceCheck5"
+    name="distance5"
+    <%= (typeof body != 'undefined' && typeof body.distance5 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck5">
+    4 - 5
+  </label>
+</div>
+
+<!-- 5 - 6 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="5-6"
+    id="distanceCheck6"
+    name="distance6"
+    <%= (typeof body != 'undefined' && typeof body.distance6 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck6">
+    5 - 6
+  </label>
+</div>
+
+<!-- Above 6 -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value="6"
+    id="distanceCheck7"
+    name="distance7"
+    <%= (typeof body != 'undefined' && typeof body.distance7 != 'undefined')?'checked':'' %>
+  />
+  <label class="form-check-label" for="distanceCheck7">
+    Greater Than 6
+  </label>
+</div>

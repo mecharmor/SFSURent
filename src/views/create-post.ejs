@@ -1,0 +1,199 @@
+<%- include('_partials/header'); %>
+    <br>
+    <br>
+    <div class="container py-3">
+        <div class="row">
+            <div class="mx-auto col-sm-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Create a Listing</h4>
+                    </div>
+                    <div class="text-right">
+                            <label class="col-lg-5 col-form-label form-control-label">mandatory fields marked by *</label>
+                        </div>
+                    <div class="card-body">
+                        <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" enctype="multipart/form-data" method="post">
+                            
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Title*</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="title">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Type*</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" name="listing_type_id">
+                                        <option value="1">Apartment*</option>
+                                        <option value="2">Bungalow*</option>
+                                        <option value="3">Room*</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- Address Input including Autocomplete -->
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Address*</label>
+                                <div class="col-lg-9">
+
+                                    <div id="locationField">
+                                        <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" name="address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                var placeSearch, autocomplete;
+
+                                var componentForm = {
+                                    street_number: 'short_name',
+                                    route: 'long_name',
+                                    locality: 'long_name',
+                                    administrative_area_level_1: 'short_name',
+                                    country: 'long_name',
+                                    postal_code: 'short_name'
+                                };
+
+                                function initAutocomplete() {
+                                    // Create the autocomplete object, restricting the search predictions to
+                                    // geographical location types.
+                                    autocomplete = new google.maps.places.Autocomplete(
+                                        document.getElementById('autocomplete'), { types: ['geocode'] });
+                                        autocomplete.addListener('place_changed', getLocation);
+                                }
+
+                                function getLocation() {
+                                    // Get the location details from the autocomplete object.
+                                    var place = autocomplete.getPlace(); 
+                                    var latitude = place.geometry.location.lat();                                   
+                                    var longitude =  place.geometry.location.lng(); 
+                                    console.log(latitude, longitude);                                  
+                                }
+
+                                function geolocate() {
+                                    if (navigator.geolocation) {
+                                        navigator.geolocation.getCurrentPosition(function (position) {
+                                            var geolocation = {
+                                                lat: position.coords.latitude,
+                                                lng: position.coords.longitude
+                                            };                                            
+                                            var circle = new google.maps.Circle(
+                                                { center: geolocation, radius: position.coords.accuracy });
+                                            autocomplete.setBounds(circle.getBounds());
+                                        });
+                                    }
+                                }
+                            </script>
+
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMuWbtufa4o-yIjmfJOP3k6ncOSp2Q4IE&libraries=places&callback=initAutocomplete"
+                                async defer></script>
+
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Rent*</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="price">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Size*</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="size">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Bedrooms*</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="num_bed">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Bathrooms*</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="num_bath">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="">Laundry</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="">Heater</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="">Parking</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Description*</label>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row"></div>
+                            <label class="col-lg-3 col-form-label form-control-label">Upload an Image*</label>
+                            <div class="col-lg-9">
+                                <input type='file' onchange="readURL(this);" name="thumb" />
+                            </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="text-center">
+                        <img id="uploadedImage"/>
+                    </div>
+
+                    <script>
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#uploadedImage')
+                                                .attr('src', e.target.result);
+                                        };
+
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }                              
+                    </script>
+
+                    <br>
+                    <br>
+
+                    <div class="text-center">
+
+                        <p>Your listing will be evaluated for approval within 24 hours</p>
+                    </div>
+                    <br>
+                    <br>
+
+                    <!-- Post & Cancel Buttons -->
+                    <div class="text-center form-group row">
+                        <div class="col-md-6">
+                            <input type="reset" href="/listing" onclick="window.location.href = '/listing';" class="btn btn-secondary" value="Cancel">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value="Post">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <%- include('_partials/footer'); %>

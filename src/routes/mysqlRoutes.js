@@ -1,41 +1,31 @@
-var express = require('express');
-var mysqlRouter = express.Router();
-const mysql = require('mysql');
+const express = require('express');
 
-mysqlRouter.route('/')
+const mysqlRouter = express.Router();
+const https = require('https');
+const db = require('../model/database.js');
+const init = require('../model/init-db.js');
+
+mysqlRouter.route('/refresh')
   .get((req, res) => {
-    const connection = mysql.createConnection({
-      host: 'team11-db-instance.chozbodasabv.us-west-1.rds.amazonaws.com',
-      user: 'team11master',
-      password: 'csc648team11',
-      port: 3306,
-      database: 'team11db',
-    });
+    (async () => {
+      await init.DropTables();
+      await init.CreateTables();
+      res.send('Refreshed database.');
+    })();
+  });
 
-    connection.connect(function (err) {
-      if (err) {
-        res.send("Connection failed");
-        return;
-      }
-
-      // insert a timestamp into the table
-      var sql = "INSERT INTO test_table SET time = CURRENT_TIMESTAMP";
-      connection.query(sql, function (err, result) {
-        if (err) {
-          res.send(err);
-          return;
-        }
-      });
-      // output the data
-      connection.query("SELECT * FROM test_table ORDER BY time DESC", function (err, result, fields) {
-        if (err) {
-          res.send(err);
-          return;
-        } else {
-          res.send(result);
-          connection.end();
-        }
-      });
-    });
+/*
+Here we can insert some sample data in our listing table
+*/
+mysqlRouter.route('/insert')
+  .get((req, res) => {
+    (async () => {
+      await init.DeleteAllData();
+      await init.InsertListingTypes();
+      await init.InsertFeatures();
+      await init.InsertTestUsers();
+      await init.InsertTestListings();
+      res.send('Inserted data into the database.');
+    })();
   });
 module.exports = mysqlRouter;
