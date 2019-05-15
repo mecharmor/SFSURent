@@ -11,6 +11,7 @@ Description: Routes for authentication
 */
 
 const express = require('express');
+const request = require('request');
 const passport = require('passport');
 const { validationResult } = require('express-validator/check');
 const { User } = require('../model/user.js');
@@ -24,6 +25,12 @@ authRouter.route('/login')
     res.render('register', { login: true, isLoggedIn: req.isAuthenticated() });
   });
 
+
+authRouter.route('/login/failed')
+  .get((req, res) => {
+    res.render('register', { login: true, loginError: true, isLoggedIn: req.isAuthenticated() });
+  });
+
 authRouter.route('/logout')
   .get((req, res) => {
     req.logout();
@@ -35,12 +42,20 @@ authRouter.route('/register')
     res.render('register', { isLoggedIn: req.isAuthenticated() });
   })
   .post(validateCreateUser(), (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+    const errors = validationResult(req).array({ onlyFirstError: true });
+
+    // fix error
+    if (errors.length !== 0) {
+      res.render('register', {
+        isLoggedIn: req.isAuthenticated(),
+        errors,
+        body: req.body,
+      });
+      return;
     }
+  
     User.register(req.body.name, req.body.email, req.body.password);
-    return res.send('done');
+    res.send("registered");
   });
 
 authRouter.route('/login')
@@ -49,7 +64,7 @@ authRouter.route('/login')
   })
   .post(passport.authenticate('local', {
     successRedirect: '/dashboard/',
-    failureRedirect: '/auth/login/?failed=true',
+    failureRedirect: '/auth/login/failed',
     failureFlash: false,
   }));
 
