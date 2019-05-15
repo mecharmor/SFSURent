@@ -69,11 +69,16 @@ dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
   // const img = fs.readFileSync(req.file.path);
 
   (async () => {
-    const thumb = await makeThumb(req.file.path);
-    const image = await makeImage(req.file.path);
+    let thumb;
+    let image;
+
+    if (req.file) {
+      thumb = await makeThumb(req.file.path);
+      image = await makeImage(req.file.path);
+    }
 
     if (thumb === 'err' || image === 'err') {
-      res.send('error on the images');
+      res.render('create-post', { isLoggedIn: req.isAuthenticated(), err: 'Error parsing image.' });
       return;
     }
 

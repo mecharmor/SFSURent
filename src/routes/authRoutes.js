@@ -24,6 +24,12 @@ authRouter.route('/login')
     res.render('register', { login: true, isLoggedIn: req.isAuthenticated() });
   });
 
+authRouter.route('/logout')
+  .get((req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
 authRouter.route('/register')
   .get((req, res) => {
     res.render('register', { isLoggedIn: req.isAuthenticated() });
