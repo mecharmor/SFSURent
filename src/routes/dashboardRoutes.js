@@ -143,4 +143,47 @@ dashboardRoutes.post('/listing/:id/delete', (req, res) => {
 });
 
 
+dashboardRoutes.route('/admin')
+  .get((req, res) => {
+
+if (req.user.id != 1)
+    {
+      res.redirect('/');
+      return;
+    }
+
+
+else {
+    console.log(req.user);
+    db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
+      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
+      + 'FROM listings '
+      + 'WHERE status != "deleted" '
+      + 'ORDER BY listings.id')
+      .then(([listing_results,_]) => {
+        
+        db.query('SELECT listing_id, message.body, users.name '
+          + 'FROM message ' 
+          + 'JOIN users ON message.user_id = users.id '
+          + 'WHERE listing_id IN (SELECT id FROM listings)',)
+            .then(([message_results,_]) => {
+               console.log(message_results)
+               res.render('dashboard', { 
+               isLoggedIn: req.isAuthenticated(),
+               body:message_results
+             });
+            });
+
+
+
+
+
+      });
+    }
+  });
+
+
+
+
+
 module.exports = dashboardRoutes;
