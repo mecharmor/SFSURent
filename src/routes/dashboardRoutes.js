@@ -89,7 +89,7 @@ dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
       ) VALUES (?,?,?,?,?,?,?,?,?,?,?) `,
     [req.body.price, req.body.title, req.body.description, req.body.address,
       thumb, 0, req.body.num_bed, req.body.num_bath,
-      req.body.size, req.body.listing_type_id, 1]);
+      req.body.size, req.body.listing_type_id, req.user.id]);
 
     await db.query(`INSERT INTO listing_image (
       title, image, orders, listing_id
