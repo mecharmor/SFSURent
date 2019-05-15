@@ -30,7 +30,7 @@ dashboardRoutes.route('/')
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
       + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
       + 'FROM listings '
-      + 'WHERE user_id=? '
+      + 'WHERE user_id=? and status != "deleted" '
       + 'ORDER BY listings.id', req.user.id)
       .then(([listing_results,_]) => {
         
