@@ -133,5 +133,14 @@ dashboardRoutes.post('/listing/:id/message', (req, res) => {
     });
 });
 
+dashboardRoutes.post('/listing/:id/delete', (req, res) => {
+
+  db.query('UPDATE listings SET status = "deleted" WHERE id = ? and (user_id=? or user_id=1)',
+  req.params.id, req.user.id)
+    .then(() => {
+      res.send({ status: true });
+    });
+});
+
 
 module.exports = dashboardRoutes;
