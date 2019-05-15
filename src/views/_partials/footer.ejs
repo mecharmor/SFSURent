@@ -12,32 +12,100 @@
   }
 </style>
 
-<footer id="main-footer" class="bg-dark">
-  <div class="container" style="padding-top:1em;">
-    <div class="row">
-    <div class="col">
-        <button
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#contactModal"
-        >
-        Contact
-      </button>
-    </div>
-    <div class="textcolor col">
-        <h3>SFSU Rent</h3>
-        <p>
-          Copyright &copy; 2019
-        </p>
+  <!-- Modal -->
+  <div class="modal fade" id="contactLandlordModal" tabindex="-1" role="dialog" aria-labelledby="contactLandlordModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Type your message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form class="form" role="form" autocomplete="off" action="/dashboard/listing/message" method="post">
+              <input type="hidden" id="messageListingId"/>
+            <div class="modal-body">
+                <textarea class="form-control" id="messageBody" rows="3"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="sendMsg" >Send Message</button>
+            </div>
+          </form>
+          </div>
       </div>
-    <div class="col">
-      <button
-      class="btn btn-success"
-      onclick="window.location.href = '/about';"
-      >
-      About
-      </button>
     </div>
+    <script>
+
+
+
+
+        // $('#contactLandlordModal').on('show.bs.modal', function(e) {
+        //   setSendingDone();
+        //   var listingId = $(e.relatedTarget).data('listing-id');
+        //   $(e.currentTarget).find('#messageListingId').val(listingId);
+        // });
+
+
+
+      $('#sendMsg').click(() => {
+        setSending();
+        
+        var jqxhr = $.post( "/dashboard/listing/" + $('#messageListingId').val() + "/message",
+        {
+          messageBody: $('#messageBody').val()
+        },
+         function() {
+          alert( "Message sent!" );
+          $('#contactLandlordModal').modal('hide');
+        })
+        .fail(function() {
+          alert( "Error sending message!" );
+        })
+        .always(function() {
+        });
+      });
+
+      function setSending(){
+        $('#sendMsg').attr("disabled", true);
+        $('#sendMsg').html('<i class="fa fa-spinner fa-spin"></i>');
+      }
+
+      function setSendingDone(){
+        $('#sendMsg').attr("disabled", false);
+        $('#sendMsg').html('Send Message');
+      }
+
+      function ShowSendMessageDialog(listing_id){
+        let isLoggedIn = <%= isLoggedIn %>;
+        if(isLoggedIn){
+          setSendingDone();
+          $('#messageListingId').val(listing_id);
+          $('#contactLandlordModal').modal('show');
+        }else{
+          $('#loginModal').modal('show');
+        }
+      }
+ 
+    </script>
+
+<footer id="main-footer" class="bg-dark">
+  <div class="text-center">
+    <div class="row">
+    <div class="textcolor col">
+        <p>
+        <h3>SFSU Rent</h3>
+          Copyright &copy; 2019<br>
+          <a 
+          style="text-decoration : none; color : #fff;"
+          href="#"
+          data-toggle="modal"
+          data-target="#contactModal">
+          Contact
+        </a>
+        </p>
+        
+      </div>
   </div>
   </div>
 

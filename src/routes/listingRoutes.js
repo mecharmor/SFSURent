@@ -15,7 +15,7 @@ const listing_type = {
   room: 3,
 };
 
-// Home page for site, Cory, Junwei, 4/1/19
+// Home page for site, Cory, Junwei, 5/6/19
 listingRoutes.route('/')
   .get((req, res) => {
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
@@ -27,6 +27,7 @@ listingRoutes.route('/')
         res.render('listing/index', {
           objectArrayFromDb: results,
           body: req.body,
+          isLoggedIn: req.isAuthenticated(),
         });
       });
   })
@@ -101,6 +102,7 @@ listingRoutes.route('/')
         res.render('listing/index', {
           body: req.body,
           objectArrayFromDb: results,
+          isLoggedIn: req.isAuthenticated(),
         });
       });
   });
@@ -112,12 +114,12 @@ listingRoutes.route('/:id(\\d+)')
     + 'FROM listings '
     + 'WHERE id = ?', req.params.id).then(([results, fields]) => {
 
-      if (!results || results.length != 1 || results[0].status !== 'approved') {
+      if (!results || results.length !== 1 || results[0].status !== 'approved') {
         res.status(404).send('404 - Page Not found');
         return;
       }
 
-      res.render('listing/item', { objectArrayFromDb: results });
+      res.render('listing/item', { objectArrayFromDb: results, isLoggedIn: req.isAuthenticated() });
     });
   });
 
