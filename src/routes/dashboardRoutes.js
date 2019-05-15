@@ -27,7 +27,31 @@ const dashboardRoutes = express.Router();
 dashboardRoutes.route('/')
   .get((req, res) => {
     console.log(req.user);
-    res.render('dashboard', { isLoggedIn: req.isAuthenticated() });
+    db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
+      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
+      + 'FROM listings '
+      + 'WHERE user_id=? and status != "deleted" '
+      + 'ORDER BY listings.id', req.user.id)
+      .then(([listing_results,_]) => {
+        
+        db.query('SELECT listing_id, message.body, users.name '
+          + 'FROM message ' 
+          + 'JOIN users ON message.user_id = users.id '
+          + 'WHERE listing_id IN (SELECT id FROM listings WHERE user_id = ?)', req.user.id)
+            .then(([message_results,_]) => {
+               console.log(message_results)
+               res.render('dashboard', { 
+               isLoggedIn: req.isAuthenticated(),
+               body:message_results
+             });
+            });
+
+
+
+
+
+      });
+
   });
 
 dashboardRoutes.route('/listing')
@@ -108,5 +132,6 @@ dashboardRoutes.post('/listing/:id/message', (req, res) => {
       res.send({ status: true });
     });
 });
+
 
 module.exports = dashboardRoutes;
