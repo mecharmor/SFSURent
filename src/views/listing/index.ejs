@@ -62,7 +62,7 @@
       <div>
         <!--items per page / item count-->
         <h2 style="padding-top: 15px">Available For Rent</h2>
-        <h6>1-10 of 50 results</h6>
+        <h6>1-<%= objectArrayFromDb.length; %> of <%= objectArrayFromDb.length; %> results</h6>
       </div>
       <div class="row">
         <% if(objectArrayFromDb.length < 1) { %>
