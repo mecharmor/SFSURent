@@ -26,57 +26,67 @@ todo:
               <div class="col-12">
                 <!-- Card Item: Start---------------------------------------------->
                 <!-- Card body -->
+                <% for(var i=0; i < listings.length; i++) { %>
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Title (Price)</h5>
+                    <h5 class="card-title"><kbd>$<%= listings[i].price %></kbd> <%= listings[i].title %></h5>
                     <p class="card-text">
-                      Description
+                      Address: <%= listings[i].address %>
                     </p>
-                    <!--goto: viewable by USER & ADMIN-->
-                    <a href="#" class="btn btn-primary">Goto</a>
-                    <!--delete: viewable by USER ONLY-->
-                    <a href="#" class="btn btn-primary">Delete</a>
-                    <!--approve: viewable by ADMIN ONLY-->
-                    <a href="#" class="btn btn-success">Approve</a>
-                    <!--flag: viewable by ADMIN ONLY-->
-                    <a href="#" class="btn btn-warning float-right">Flag</a>
-                    <!--messages: viewable by USER ONLY
-                    NEED TO CHANGE DATA-TARGET FOR EACH CARD -->
+                    <!--delete: viewable by User & Admin ONLY-->
+                    <form class="form" role="form" autocomplete="off" action='/dashboard/listing/<%= listings[i].id %>/delete' enctype="multipart/form-data" method="post">
+                    <button class="btn btn-danger" type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                    <% if(isAdmin){ %>
+                      <!--approve: viewable by ADMIN ONLY-->
+                      <a href="#" class="btn btn-success">Approve</a>
+                      <!--flag: viewable by ADMIN ONLY-->
+                      <a href="#" class="btn btn-warning float-right">Block</a>
+                      <!--messages: viewable by USER ONLY
+                      NEED TO CHANGE DATA-TARGET FOR EACH CARD -->
+                    <% } %>
                     <button
                       class="btn btn-primary float-right"
                       type="button"
                       data-toggle="collapse"
-                      data-target="#collapse1"
+                      data-target='#collapse<%= listings[i].id%>'
                       aria-expanded="true"
-                      aria-controls="collapse1"
+                      aria-controls="collapse<%= listings[i].id%>"
                     >
-                      Messages
+                    <% let counter = 0; %>
+                            <% for(var j=0; j < messages.length; j++) { %>
+                              <% if (messages[j].listing_id == listings[i].id){ %>
+                                <% counter++; %>
+                              <% } %>
+                            <% } %>
+                      View Messages (<%= counter %>)
                     </button>
                   </div>
                   <!--Messages dropdown: viewable by USER ONLY
                   NEED TO CHANGE ID FOR EACH TARGET-->
                   <div class="accordion">
                     <div
-                      id="collapse1"
+                      id="collapse<%= listings[i].id%>"
                       class="collapse collapse"
                       aria-labelledby="headingOne"
                     >
                       <hr />
                       <div class="card-body">
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            <h5>From: User1</h5>
-                            Hello, i like ur house
-                          </li>
-                          <li class="list-group-item">
-                            <h5>From: User2</h5>
-                            Yo dawg, ur houz is kool
-                          </li>
+                            <% for(var j=0; j < messages.length; j++) { %>
+                              <% if (messages[j].listing_id == listings[i].id){ %>
+                                <li class="list-group-item">
+                                  <h5>From: <%= messages[j].name %></h5>
+                                  <%= messages[j].body %>
+                                </li>
+                              <% } %>
+                            <% } %><!--End of For Loop, ejs-->
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
+                <% } %><!-- End of listing card loop-->
                 <!-- Card Item2: End ----------------------------------------------->
               </div>
             </div>
