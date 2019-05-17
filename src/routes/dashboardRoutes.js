@@ -31,10 +31,10 @@ dashboardRoutes.route('/')
       return;
     }
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
-      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
+      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listings.status '
       + 'FROM listings '
       + 'WHERE user_id=? and status != "deleted" '
-      + 'ORDER BY listings.id', req.user.id)
+      + 'ORDER BY listings.id DESC', req.user.id)
       .then(([listing_results,_]) => {
         
         db.query('SELECT listing_id, message.body, users.name '
@@ -156,6 +156,19 @@ dashboardRoutes.post('/listing/:id/delete', (req, res) => {
   }
 });
 
+dashboardRoutes.post('/listing/:id/approve', (req, res) => {
+
+  if(req.user.id == 1){
+    db.query('UPDATE listings SET status = "approved" WHERE id = ?',
+    req.params.id)
+      .then(() => {
+        res.redirect('/dashboard/admin');
+      });
+  }else{
+        res.redirect('/dashboard');
+  }
+});
+
 dashboardRoutes.route('/admin')
   .get((req, res) => {
     if (req.user.id != 1)
@@ -165,10 +178,10 @@ dashboardRoutes.route('/admin')
         }
     else {
         db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
-          + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
+          + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listings.status '
           + 'FROM listings '
           + 'WHERE status != "deleted" '
-          + 'ORDER BY listings.id')
+          + 'ORDER BY listings.id DESC')
           .then(([listing_results,_]) => {
             db.query('SELECT listing_id, message.body, users.name '
               + 'FROM message ' 

@@ -29,21 +29,27 @@ todo:
                 <% for(var i=0; i < listings.length; i++) { %>
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title"><kbd>$<%= listings[i].price %></kbd> <%= listings[i].title %></h5>
+                    <h5 class="card-title"><kbd>$<%= listings[i].price %></kbd> <%= listings[i].title %>
+                    <% if(listings[i].status == "pending"){ %>
+                      - <strong>Pending Admin Approval</strong>
+                      <% }else{ %>
+                      - <strong>Listing Approved</strong>
+                      <% } %>
+                    </h5>
                     <p class="card-text">
                       Address: <%= listings[i].address %>
                     </p>
                     <!--delete: viewable by User & Admin ONLY-->
                     <form class="form" role="form" autocomplete="off" action='/dashboard/listing/<%= listings[i].id %>/delete' enctype="multipart/form-data" method="post">
-                    <button class="btn btn-danger" type="submit" class="btn btn-primary">Delete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
                     <% if(isAdmin){ %>
                       <!--approve: viewable by ADMIN ONLY-->
-                      <a href="#" class="btn btn-success">Approve</a>
-                      <!--flag: viewable by ADMIN ONLY-->
-                      <a href="#" class="btn btn-warning float-right">Block</a>
-                      <!--messages: viewable by USER ONLY
-                      NEED TO CHANGE DATA-TARGET FOR EACH CARD -->
+                      <% if(listings[i].status == "pending"){ %>
+                        <form class="form" role="form" autocomplete="off" action='/dashboard/listing/<%= listings[i].id %>/approve' enctype="multipart/form-data" method="post">
+                          <button class="btn btn-success" type="submit">Approve</button>
+                        </form>
+                      <% } %>
                     <% } %>
                     <button
                       class="btn btn-primary float-right"
