@@ -1,9 +1,8 @@
 <!--
 Dashboard
 todo: 
-- connect user postings to dashboard
-- create admin dashboard with user interface
-- create account information section
+- connect to backend
+- change what buttons show up for users vs admin
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@ todo:
       <%- include('_partials/header'); %>
       <!-- Your Listings Jumbotron -->
       <div class="p-3">
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid" style="min-height: 75vh;">
           <div class="text-center">
             <h2>
               <strong>Dashboard</strong>
@@ -24,80 +23,64 @@ todo:
             <hr />
             <!--Row-->
             <div class="row">
-              <div class="col-lg-6">
-                <h2>Listings</h2>
+              <div class="col-12">
                 <!-- Card Item: Start---------------------------------------------->
+                <!-- Card body -->
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Title Price</h5>
+                    <h5 class="card-title">Title (Price)</h5>
                     <p class="card-text">
                       Description
                     </p>
+                    <!--goto: viewable by USER & ADMIN-->
                     <a href="#" class="btn btn-primary">Goto</a>
+                    <!--delete: viewable by USER ONLY-->
                     <a href="#" class="btn btn-primary">Delete</a>
-                    <a href="#" class="btn btn-warning">Flag</a>
-                    <a href="#" class="btn btn-success float-right">Approve</a>
+                    <!--approve: viewable by ADMIN ONLY-->
+                    <a href="#" class="btn btn-success">Approve</a>
+                    <!--flag: viewable by ADMIN ONLY-->
+                    <a href="#" class="btn btn-warning float-right">Flag</a>
+                    <!--messages: viewable by USER ONLY
+                    NEED TO CHANGE DATA-TARGET FOR EACH CARD -->
+                    <button
+                      class="btn btn-primary float-right"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#collapse1"
+                      aria-expanded="true"
+                      aria-controls="collapse1"
+                    >
+                      Messages
+                    </button>
+                  </div>
+                  <!--Messages dropdown: viewable by USER ONLY
+                  NEED TO CHANGE ID FOR EACH TARGET-->
+                  <div class="accordion">
+                    <div class="card">
+                      <div
+                        id="collapse1"
+                        class="collapse show"
+                        aria-labelledby="headingOne"
+                      >
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              <h5>From: User1</h5>
+                              Hello, i like ur house
+                            </li>
+                            <li class="list-group-item">
+                              <h5>From: User2</h5>
+                              Yo dawg, ur houz is kool
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- Card Item2: End ----------------------------------------------->
-
-                <!-- Card Item2: Start--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Title Price</h5>
-                    <p class="card-text">
-                      Description
-                    </p>
-                    <a href="#" class="btn btn-primary">Goto</a>
-                    <a href="#" class="btn btn-primary">Delete</a>
-                    <a href="#" class="btn btn-warning">Flag</a>
-                    <a href="#" class="btn btn-success float-right">Approve</a>
-                  </div>
-                </div>
-                <!-- Card Item2: End --xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
               </div>
-              <!-- Message Section: Start-->
-              <div class="col-lg-6 ">
-                <h2>Messages</h2>
-                <!--Message Card: Start --------------------------------------------->
-                <div class="card">
-                  <div class="card-header">
-                    <h5>
-                      From: user1
-                      <a href="#" class="btn btn-danger float-right">X</a>
-                    </h5>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">
-                      Message message message message message message mesaage
-                      <a href="#" class="btn btn-primary float-right">Reply</a>
-                    </p>
-                  </div>
-                </div>
-                <!--Message Card: End------------------------------------------------->
-
-                <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-                <div class="card">
-                  <div class="card-header">
-                    <h5>
-                      From: user1
-                      <a href="#" class="btn btn-danger float-right">X</a>
-                    </h5>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text">
-                      Message message message message message message mesaage
-                      Message message message message message message mesaage
-                      Message message message message message message mesaage
-                      <a href="#" class="btn btn-primary float-right">Reply</a>
-                    </p>
-                  </div>
-                </div>
-                <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-              </div>
-              <!--Message section: End-->
             </div>
-            <!--postings and messages row-->
             <!--end list card item-->
           </div>
         </div>
