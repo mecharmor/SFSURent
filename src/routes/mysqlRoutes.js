@@ -28,5 +28,4 @@ mysqlRouter.route('/insert')
       res.send('Inserted data into the database.');
     })();
   });
-
 module.exports = mysqlRouter;
