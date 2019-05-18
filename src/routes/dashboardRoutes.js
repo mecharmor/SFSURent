@@ -9,6 +9,7 @@ const multer = require('multer');
 const fs = require('fs');
 const Jimp = require('jimp');
 const db = require('../model/database.js');
+const { validateCreatePost } = require('../validators/post.js');
 
 // Set storage for file uploads - Soheil 4/29/19
 const storage = multer.diskStorage({
@@ -89,7 +90,7 @@ async function makeImage(path) {
   }
 }
 
-dashboardRoutes.post('/listing', upload.single('thumb'), (req, res) => {
+dashboardRoutes.post('/listing',[validateCreatePost() ,upload.single('thumb')], (req, res) => {
   // const img = fs.readFileSync(req.file.path);
 
   (async () => {
