@@ -26,4 +26,7 @@ module.exports.validateCreateUser = () => [
     }
     return true;
   }),
+  check('terms',
+    'You must accept the terms and conditions.')
+    .exists().equals('1'),
 ];

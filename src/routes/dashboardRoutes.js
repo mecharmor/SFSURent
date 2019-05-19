@@ -28,22 +28,27 @@ const dashboardRoutes = express.Router();
 
 dashboardRoutes.route('/')
   .get((req, res) => {
-    console.log(req.user);
+    if(req.user.id == 1){
+      res.redirect('/dashboard/admin');
+      return;
+    }
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
-      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
+      + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listings.status '
       + 'FROM listings '
       + 'WHERE user_id=? and status != "deleted" '
-      + 'ORDER BY listings.id', req.user.id)
-      .then(([listing_results, _]) => {
+      + 'ORDER BY listings.id DESC', req.user.id)
+      .then(([listing_results,_]) => {
         db.query('SELECT listing_id, message.body, users.name '
           + 'FROM message '
           + 'JOIN users ON message.user_id = users.id '
           + 'WHERE listing_id IN (SELECT id FROM listings WHERE user_id = ?)', req.user.id)
-          .then(([message_results, _]) => {
-            console.log(message_results);
-            res.render('dashboard', {
-              isLoggedIn: req.isAuthenticated(),
-              body: message_results,
+            .then(([message_results,_]) => {
+               res.render('dashboard', { 
+               isLoggedIn: req.isAuthenticated(),
+               messages:message_results,
+               listings:listing_results,
+               isAdmin: false
+             });
             });
           });
       });
@@ -51,7 +56,6 @@ dashboardRoutes.route('/')
 
 dashboardRoutes.route('/listing')
   .get((req, res) => {
-    console.log(req.user);
     res.render('create-post', { isLoggedIn: req.isAuthenticated() });
   });
 
@@ -65,7 +69,6 @@ async function makeThumb(path) {
         .getBufferAsync(Jimp.MIME_JPEG));
     return buffer;
   } catch (err) {
-    // console.log(err);
     return 'err';
   }
 }
@@ -79,7 +82,6 @@ async function makeImage(path) {
         .getBufferAsync(Jimp.MIME_JPEG));
     return buffer;
   } catch (err) {
-    // console.log(err);
     return 'err';
   }
 }
@@ -101,11 +103,16 @@ dashboardRoutes.post('/listing', validateCreatePost(), upload.single('thumb'), (
   }
 
   (async () => {
-    const thumb = await makeThumb(req.file.path);
-    const image = await makeImage(req.file.path);
+    let thumb;
+    let image;
+
+    if (req.file) {
+      thumb = await makeThumb(req.file.path);
+      image = await makeImage(req.file.path);
+    }
 
     if (thumb === 'err' || image === 'err') {
-      res.send('error on the images');
+      res.render('create-post', { isLoggedIn: req.isAuthenticated(), err: 'Error parsing image.' });
       return;
     }
 
@@ -116,7 +123,7 @@ dashboardRoutes.post('/listing', validateCreatePost(), upload.single('thumb'), (
       ) VALUES (?,?,?,?,?,?,?,?,?,?,?) `,
     [req.body.price, req.body.title, req.body.description, req.body.address,
       thumb, 0, req.body.num_bed, req.body.num_bath,
-      req.body.size, req.body.listing_type_id, 1]);
+      req.body.size, req.body.listing_type_id, req.user.id]);
 
     await db.query(`INSERT INTO listing_image (
       title, image, orders, listing_id
@@ -140,6 +147,69 @@ dashboardRoutes.post('/listing/:id/message', (req, res) => {
       res.send({ status: true });
     });
 });
+
+dashboardRoutes.post('/listing/:id/delete', (req, res) => {
+
+  if(req.user.id == 1){
+    db.query('UPDATE listings SET status = "deleted" WHERE id = ?',
+    req.params.id)
+      .then(() => {
+        res.redirect('/dashboard/admin');
+      });
+  }else{
+    db.query('UPDATE listings SET status = "deleted" WHERE id = ? AND user_id = ?',
+    [req.params.id, req.user.id])
+      .then(() => {
+        res.redirect('/dashboard');
+      });
+  }
+});
+
+dashboardRoutes.post('/listing/:id/approve', (req, res) => {
+
+  if(req.user.id == 1){
+    db.query('UPDATE listings SET status = "approved" WHERE id = ?',
+    req.params.id)
+      .then(() => {
+        res.redirect('/dashboard/admin');
+      });
+  }else{
+        res.redirect('/dashboard');
+  }
+});
+
+dashboardRoutes.route('/admin')
+  .get((req, res) => {
+    if (req.user.id != 1)
+        {
+          res.redirect('/');
+          return;
+        }
+    else {
+        db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
+          + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath, listings.status '
+          + 'FROM listings '
+          + 'WHERE status != "deleted" '
+          + 'ORDER BY listings.id DESC')
+          .then(([listing_results,_]) => {
+            db.query('SELECT listing_id, message.body, users.name '
+              + 'FROM message ' 
+              + 'JOIN users ON message.user_id = users.id '
+              + 'WHERE listing_id IN (SELECT id FROM listings)',)
+                .then(([message_results,_]) => {
+                  res.render('dashboard', { 
+                  isLoggedIn: req.isAuthenticated(),
+                  listings: listing_results,
+                  messages:message_results,
+                  isAdmin: true
+                });
+            });
+      });
+    }
+  });
+
+
+
 
 
 module.exports = dashboardRoutes;
