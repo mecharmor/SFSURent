@@ -20,7 +20,7 @@
                             </div>
                           <% } %>
                     <div class="card-body">
-                        <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" enctype="multipart/form-data" method="post">
+                        <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" method="post">
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Title*</label>
                                 <div class="col-lg-9">
@@ -28,6 +28,7 @@
                                     class="form-control"
                                     type="text"
                                     name="title"
+                                    maxlength="40"
                                     value="<%= (typeof body != 'undefined' && typeof body.title != 'undefined')?body.title:'' %>"
                                     >
                                 </div>
@@ -63,6 +64,30 @@
                             </div>
 
                             <script>
+
+                            $(document).ready(function(){
+                                $(".PositiveIntegersOnly").keydown(function (event) {
+                                    if (event.shiftKey) {
+                                        event.preventDefault();
+                                    }
+
+                                    if (event.keyCode == 46 || event.keyCode == 8) {
+                                    }else {
+                                        if (event.keyCode < 95) {
+                                            if (event.keyCode < 48 || event.keyCode > 57) {
+                                                event.preventDefault();
+                                            }
+                                        }
+                                        else {
+                                            if (event.keyCode < 96 || event.keyCode > 105) {
+                                                event.preventDefault();
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+
+
                                 var placeSearch, autocomplete;
 
                                 var componentForm = {
@@ -107,9 +132,10 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Price*</label>
                                 <div class="col-lg-9">
                                     <input
-                                    class="form-control"
+                                    class="form-control PositiveIntegersOnly"
                                     type="text"
                                     name="price"
+                                    maxlength="40"
                                     value="<%= (typeof body != 'undefined' && typeof body.price != 'undefined')?body.price:'' %>"
                                     >
                                 </div>
@@ -118,9 +144,10 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Size*</label>
                                 <div class="col-lg-9">
                                     <input 
-                                    class="form-control"
+                                    class="form-control PositiveIntegersOnly"
                                     type="text"
                                     name="size"
+                                    maxlength="40"
                                     value="<%= (typeof body != 'undefined' && typeof body.size != 'undefined')?body.size:'' %>"
                                     >
                                 </div>
@@ -129,9 +156,10 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Bedrooms*</label>
                                 <div class="col-lg-9">
                                     <input
-                                    class="form-control"
+                                    class="form-control PositiveIntegersOnly"
                                     type="text"
                                     name="num_bed"
+                                    maxlength="5"
                                     value="<%= (typeof body != 'undefined' && typeof body.num_bed != 'undefined')?body.num_bed:'' %>"
                                     >
                                 </div>
@@ -140,9 +168,10 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Bathrooms*</label>
                                 <div class="col-lg-9">
                                     <input
-                                    class="form-control"
+                                    class="form-control PositiveIntegersOnly"
                                     type="text"
                                     name="num_bath"
+                                    maxlength="5"
                                     value="<%= (typeof body != 'undefined' && typeof body.num_bath != 'undefined')?body.num_bath:'' %>"
                                     >
                                 </div>
@@ -159,7 +188,7 @@
                                 </div>
                             </div>
                             <div class="form-group row"></div>
-                            <label class="col-lg-3 col-form-label form-control-label">Upload an Image</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Upload an Image*</label>
                             <div class="col-lg-9">
                                 <input
                                 type='file'
@@ -173,6 +202,7 @@
                         <img id="uploadedImage"/>
                     </div>
                     <script>
+
                                 function readURL(input) {
                                     if (input.files && input.files[0]) {
                                         var reader = new FileReader();
