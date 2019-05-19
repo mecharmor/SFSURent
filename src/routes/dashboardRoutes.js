@@ -52,7 +52,6 @@ dashboardRoutes.route('/')
             });
           });
       });
-  });
 
 dashboardRoutes.route('/listing')
   .get((req, res) => {

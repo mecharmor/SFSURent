@@ -1,8 +1,5 @@
 const { check } = require('express-validator/check');
 
-
-
-
 module.exports.validateCreatePost = () => [
     check('title',
       'Title must be between 2 and 40 characters long.')
