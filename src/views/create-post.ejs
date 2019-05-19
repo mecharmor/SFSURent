@@ -20,7 +20,7 @@
                             </div>
                           <% } %>
                     <div class="card-body">
-                        <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" method="post">
+                        <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" method="post" enctype="multipart/form-data"><!--enctype="multipart/form-data" breaks validation-->
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Title*</label>
                                 <div class="col-lg-9">

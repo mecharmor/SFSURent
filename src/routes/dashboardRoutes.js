@@ -84,12 +84,13 @@ async function makeImage(path) {
     return 'err';
   }
 }
-
-dashboardRoutes.route('/listing').post(validateCreatePost(), upload.single('thumb'), (req, res) => {
+//non working route
+//dashboardRoutes.route('/listing').post(validateCreatePost(), upload.single('thumb'), (req, res) => {
+dashboardRoutes.route('/listing').post(upload.single('thumb'), (req, res) => {
   // const img = fs.readFileSync(req.file.path);
   const errors = validationResult(req).array({ onlyFirstError: true });
 
-  // fix error
+  // Pass Errors to create-post
   if (errors.length !== 0) {
     console.log(errors);
     res.render('create-post', {
