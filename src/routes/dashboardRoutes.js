@@ -86,13 +86,13 @@ async function makeImage(path) {
 }
 //non working route
 //dashboardRoutes.route('/listing').post(validateCreatePost(), upload.single('thumb'), (req, res) => {
-dashboardRoutes.route('/listing').post(upload.single('thumb'), (req, res) => {
+dashboardRoutes.route('/listing').post(upload.single('thumb'),validateCreatePost(), (req, res) => {
   // const img = fs.readFileSync(req.file.path);
   const errors = validationResult(req).array({ onlyFirstError: true });
 
   // Pass Errors to create-post
   if (errors.length !== 0) {
-    console.log(errors);
+    //console.log(errors);
     res.render('create-post', {
       isLoggedIn: req.isAuthenticated(),
       errors,
@@ -112,6 +112,11 @@ dashboardRoutes.route('/listing').post(upload.single('thumb'), (req, res) => {
     if (thumb === 'err' || image === 'err') {
       res.render('create-post', { isLoggedIn: req.isAuthenticated(), err: 'Error parsing image.' });
       return;
+    }
+
+    //Default Image if user does not upload a photo
+    if(thumb == null || thumb == undefined){
+      thumb = fs.readFileSync('./test_images/default.png');
     }
 
     const insertRes = await db.query(`INSERT INTO listings (
