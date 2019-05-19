@@ -1,6 +1,5 @@
 <%- include('_partials/header'); %>
-    <br>
-    <br>
+    <br><br>
     <div class="container py-3">
         <div class="row">
             <div class="mx-auto col-sm-12">
@@ -11,41 +10,53 @@
                     <div class="text-right">
                             <label class="col-lg-5 col-form-label form-control-label">mandatory fields marked by *</label>
                         </div>
-                        <div class="alert alert-danger">
-                            <strong>Invalid Input!</strong> Please fill out all mandatory fields.
-                          </div>
+                          <%if (typeof errors != 'undefined') { %>
+                            <div class="alert alert-danger" style="text-align:left">
+                              <ul style="padding-left: 15px;">
+                              <% errors.forEach(function(err){ %>
+                                <li><%= err.msg %></li>
+                              <% }) %>
+                              </ul>
+                            </div>
+                          <% } %>
                     <div class="card-body">
                         <form class="form" role="form" autocomplete="off" action="/dashboard/listing/" enctype="multipart/form-data" method="post">
-                            
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Title*</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="title">
+                                    <input
+                                    class="form-control"
+                                    type="text"
+                                    name="title"
+                                    value="<%= (typeof body != 'undefined' && typeof body.title != 'undefined')?body.title:'' %>"
+                                    >
                                 </div>
                             </div>
-
-
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Type*</label>
                                 <div class="col-lg-9">
                                     <select class="form-control" name="listing_type_id">
-                                        <option value="1">Apartment*</option>
-                                        <option value="2">Bungalow*</option>
-                                        <option value="3">Room*</option>
-
+                                        <option value="1" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == '1')?'selected=selected':'' %> >Apartment</option>
+                                        <option value="2" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == '2')?'selected=selected':'' %> >Bungalow</option>
+                                        <option value="3" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == '3')?'selected=selected':'' %> >Room</option>
                                     </select>
                                 </div>
                             </div>
 
-
                             <!-- Address Input including Autocomplete -->
-
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Address*</label>
                                 <div class="col-lg-9">
 
                                     <div id="locationField">
-                                        <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" name="address"
+                                        <input
+                                        class="form-control"
+                                        id="autocomplete"
+                                        placeholder="Enter your address"
+                                        onFocus="geolocate()"
+                                        type="text"
+                                        name="address"
+                                        value="<%= (typeof body != 'undefined' && typeof body.address != 'undefined')?body.address:'' %>"
                                         />
                                     </div>
                                 </div>
@@ -62,7 +73,6 @@
                                     country: 'long_name',
                                     postal_code: 'short_name'
                                 };
-
                                 function initAutocomplete() {
                                     // Create the autocomplete object, restricting the search predictions to
                                     // geographical location types.
@@ -70,7 +80,6 @@
                                         document.getElementById('autocomplete'), { types: ['geocode'] });
                                         autocomplete.addListener('place_changed', getLocation);
                                 }
-
                                 function getLocation() {
                                     // Get the location details from the autocomplete object.
                                     var place = autocomplete.getPlace(); 
@@ -78,7 +87,6 @@
                                     var longitude =  place.geometry.location.lng(); 
                                     console.log(latitude, longitude);                                  
                                 }
-
                                 function geolocate() {
                                     if (navigator.geolocation) {
                                         navigator.geolocation.getCurrentPosition(function (position) {
@@ -93,70 +101,77 @@
                                     }
                                 }
                             </script>
-
                             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMuWbtufa4o-yIjmfJOP3k6ncOSp2Q4IE&libraries=places&callback=initAutocomplete"
                                 async defer></script>
-
-
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Price*</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="price">
+                                    <input
+                                    class="form-control"
+                                    type="text"
+                                    name="price"
+                                    value="<%= (typeof body != 'undefined' && typeof body.price != 'undefined')?body.price:'' %>"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Size*</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="size">
+                                    <input 
+                                    class="form-control"
+                                    type="text"
+                                    name="size"
+                                    value="<%= (typeof body != 'undefined' && typeof body.size != 'undefined')?body.size:'' %>"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Bedrooms*</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="num_bed">
+                                    <input
+                                    class="form-control"
+                                    type="text"
+                                    name="num_bed"
+                                    value="<%= (typeof body != 'undefined' && typeof body.num_bed != 'undefined')?body.num_bed:'' %>"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Bathrooms*</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="num_bath">
+                                    <input
+                                    class="form-control"
+                                    type="text"
+                                    name="num_bath"
+                                    value="<%= (typeof body != 'undefined' && typeof body.num_bath != 'undefined')?body.num_bath:'' %>"
+                                    >
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="">Laundry</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="">Heater</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="">Parking</label>
-                                </div>
-                            </div> -->
-
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Description</label>
                                 <div class="col-lg-9">
-                                    <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                                    <textarea
+                                    class="form-control"
+                                    rows="5"
+                                    id="description"
+                                    name="description"
+                                    ><%= (typeof body != 'undefined' && typeof body.description != 'undefined')?body.description:'' %></textarea>
                                 </div>
                             </div>
-
                             <div class="form-group row"></div>
                             <label class="col-lg-3 col-form-label form-control-label">Upload an Image</label>
                             <div class="col-lg-9">
-                                <input type='file' onchange="readURL(this);" name="thumb" />
+                                <input
+                                type='file'
+                                onchange="readURL(this);"
+                                name="thumb"
+                                />
                             </div>
                     </div>
-
                     <!-- Image Upload -->
                     <div class="text-center">
                         <img id="uploadedImage"/>
                     </div>
-
                     <script>
                                 function readURL(input) {
                                     if (input.files && input.files[0]) {
@@ -171,17 +186,11 @@
                                     }
                                 }                              
                     </script>
-
-                    <br>
-                    <br>
-
+                    <br><br>
                     <div class="text-center">
-
                         <p>Your listing will be evaluated for approval within 24 hours</p>
                     </div>
-                    <br>
-                    <br>
-
+                    <br><br>
                     <!-- Post & Cancel Buttons -->
                     <div class="text-center form-group row">
                         <div class="col-md-6">
@@ -194,7 +203,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
     </div>

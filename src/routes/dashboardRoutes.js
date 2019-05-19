@@ -87,12 +87,13 @@ async function makeImage(path) {
 
 dashboardRoutes.post('/listing', validateCreatePost(), upload.single('thumb'), (req, res) => {
   // const img = fs.readFileSync(req.file.path);
-
   const errors = validationResult(req).array({ onlyFirstError: true });
 
   // fix error
   if (errors.length !== 0) {
     console.log(errors);
+    console.log("---------- BODY ----------");
+    console.log(req.body);
     res.render('create-post', {
       isLoggedIn: req.isAuthenticated(),
       errors,
@@ -100,7 +101,8 @@ dashboardRoutes.post('/listing', validateCreatePost(), upload.single('thumb'), (
     });
     return;
   }
-
+  console.log("no errors detected");
+  return;
   (async () => {
     let thumb;
     let image;
