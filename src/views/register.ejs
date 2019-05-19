@@ -34,6 +34,32 @@
   }
 </style>
 
+<script src="https://www.google.com/recaptcha/api.js?render=6LewQqIUAAAAAIUqfICyGYTpEn3IgnirgaaCqaoS"></script>
+<script>
+  grecaptcha.ready(function() {
+      grecaptcha.execute('6LewQqIUAAAAAIUqfICyGYTpEn3IgnirgaaCqaoS', {action: '/auth/register'}).then(function(token) {
+          var recaptchaResponse = document.getElementById('recaptchaResponse');
+          recaptchaResponse.value = token;
+      });
+  });
+</script>
+<!-- validate recaptcha function, but haven't test it yet
+<script>
+  function validateFrom() {
+    var response = grecaptcha.getResponse();
+
+    if(response.length == 0) {
+      console.log("fail");
+      return false;
+    }
+    else {
+      console.log("success");
+      return true;
+    }
+  }
+</script>
+-->
+
 <body>
   <header id="home-section">
     <div class="dark-overlay">
@@ -41,9 +67,9 @@
         <div class="row">
           <div class=" leftTextColor col-lg-8 d-none d-lg-block">
             <h1 class="display-4">
-              Search for available
-              <strong>Houses</strong>, <strong>Appartments</strong>, and
-              <strong>Rooms</strong> or List yours for Rent!
+              <strong>SEARCH</strong> for available
+              houses, appartments, and
+              rooms or <strong>LIST</strong> yours for rent!
             </h1>
             <div class="d-flex">
               <div class="p-4 align-self-start">
@@ -82,14 +108,26 @@
               <div class="card-body">
                 <h3>Register Today</h3>
                 <p>Please fill out this form to register</p>
+
+                <%if (typeof errors != 'undefined') { %>
+                  <div class="alert alert-danger" style="text-align:left">
+                    <ul style="padding-left: 15px;">
+                    <% errors.forEach(function(err){ %>
+                      <li><%= err.msg %></li>
+                    <% }) %>
+                    </ul>
+                  </div>
+                <% } %>
+
                 <form method="post" action="/auth/register">
-                  <!--username-->
+                  <!--name-->
                   <div class="form-group">
                     <input
                       name="name"
                       type="text"
                       class="form-control form-control-lg"
                       placeholder="Name"
+                      value="<%= (typeof body != 'undefined' && typeof body.name != 'undefined')?body.name:'' %>"
                     />
                   </div>
                   <!--email-->
@@ -99,6 +137,7 @@
                       type="email"
                       class="form-control form-control-lg"
                       placeholder="Email"
+                      value="<%= (typeof body != 'undefined' && typeof body.email != 'undefined')?body.email:'' %>"
                     />
                   </div>
                   <!--password-->
@@ -125,19 +164,22 @@
                       name="terms"
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="1"
                       id="termsAndConditionsCheck"
+                      <%= (typeof body != 'undefined' && typeof body.terms != 'undefined')?'checked':'' %>
                     />
                     <label class="form-check-label" for="appartmentCheck">
-                      Agree to terms and conditions
+                      Agree to <a href="" style="color: blue;">terms and conditions</a>
                     </label>
                     <p></p>
                   </div>
-                  <!--Captcha-->
+                  <!--Captcha
                   <h5>
                     Are You Human?
                     <button class="btn btn-outline-light">Yes</button>
                   </h5>
+                  -->
+                  <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                   <!--submit button-->
                   <input
                     type="submit"
@@ -170,6 +212,14 @@
       </div>
     </div>
   </section>
+
+  <%if (typeof login != 'undefined') { %>
+    <script type="text/javascript">
+      $("#loginModal").modal('show');
+    </script>
+  <% } %>
+
+
 </body>
 
 <footer>

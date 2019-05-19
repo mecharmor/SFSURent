@@ -16,9 +16,11 @@ class User {
 
   static register(name, email, pass) {
     const hash = bcrypt.hashSync(pass, saltRounds);
-    db.query('INSERT INTO users (name, email, password) VALUES (?,?,?) ',
+    return db.query('INSERT INTO users (name, email, password) VALUES (?,?,?) ',
       [name, email, hash])
-      .then(results => results.insertId);
+      .then((results) => {
+        return results[0].insertId;
+      });
   }
 
   static async checkValid(email, pass) {

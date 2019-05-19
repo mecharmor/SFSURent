@@ -67,7 +67,7 @@ app.use('/about/', aboutRouter);
 app.use('/mysql/', mysqlRouter);
 app.use('/listing/', listingRoutes);
 app.use('/auth/', authRoutes);
-app.use('/dashboard/', dashboardRoutes); // authProtect
+app.use('/dashboard/', authProtect, dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.redirect('/listing/');

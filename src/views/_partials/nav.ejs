@@ -15,6 +15,10 @@ todo:
   body {
     color: #333;
   }
+
+  .nav-item{
+    white-space: nowrap;
+  }
 </style>
 
 <!--navbar-->
@@ -117,6 +121,13 @@ todo:
           <div class="card-body">
             <h3>Login</h3>
             <p>Please fill out this form to login</p>
+
+            <%if (typeof loginError != 'undefined') { %>
+              <div class="alert alert-danger">
+                Invalid email and password combination.
+              </div>
+            <% } %>
+
             <form action="/auth/login/" method="POST">
               <div class="form-group">
                 <input
