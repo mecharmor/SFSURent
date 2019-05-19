@@ -8,6 +8,7 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const Jimp = require('jimp');
+const { validationResult } = require('express-validator/check');
 const db = require('../model/database.js');
 const { validateCreatePost } = require('../validators/post.js');
 
@@ -33,26 +34,19 @@ dashboardRoutes.route('/')
       + 'FROM listings '
       + 'WHERE user_id=? and status != "deleted" '
       + 'ORDER BY listings.id', req.user.id)
-      .then(([listing_results,_]) => {
-        
+      .then(([listing_results, _]) => {
         db.query('SELECT listing_id, message.body, users.name '
-          + 'FROM message ' 
+          + 'FROM message '
           + 'JOIN users ON message.user_id = users.id '
           + 'WHERE listing_id IN (SELECT id FROM listings WHERE user_id = ?)', req.user.id)
-            .then(([message_results,_]) => {
-               console.log(message_results)
-               res.render('dashboard', { 
-               isLoggedIn: req.isAuthenticated(),
-               body:message_results
-             });
+          .then(([message_results, _]) => {
+            console.log(message_results);
+            res.render('dashboard', {
+              isLoggedIn: req.isAuthenticated(),
+              body: message_results,
             });
-
-
-
-
-
+          });
       });
-
   });
 
 dashboardRoutes.route('/listing')
@@ -90,8 +84,21 @@ async function makeImage(path) {
   }
 }
 
-dashboardRoutes.post('/listing',[validateCreatePost() ,upload.single('thumb')], (req, res) => {
+dashboardRoutes.post('/listing', validateCreatePost(), upload.single('thumb'), (req, res) => {
   // const img = fs.readFileSync(req.file.path);
+
+  const errors = validationResult(req).array({ onlyFirstError: true });
+
+  // fix error
+  if (errors.length !== 0) {
+    console.log(errors);
+    res.render('create-post', {
+      isLoggedIn: req.isAuthenticated(),
+      errors,
+      body: req.body, // body is passed so we can refill the user input in the form
+    });
+    return;
+  }
 
   (async () => {
     const thumb = await makeThumb(req.file.path);
