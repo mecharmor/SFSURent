@@ -28,11 +28,9 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Type*</label>
                                 <div class="col-lg-9">
-
-                                        <% let listing_type = ["Apartment","Bungalow","Room"]; %>
                                         <select class="form-control" name="listing_type_id">
-                                        <% for(var l=0; l < listing_type.length; l++) { %>
-                                            <option value="<%= listing_type[l] %>" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == 'listing_type[l]')?'selected=selected':'' %> ><%= listing_type[l] %></option>
+                                        <% for(let j=0; j < LISTINGTYPES.length; j++) { %>
+                                            <option value="<%= LISTINGTYPES[j].id %>" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == 'LISTINGTYPES[j].id')?'selected=selected':'' %> ><%= LISTINGTYPES[j].name %></option>
                                            <!--<option value="2" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == '2')?'selected=selected':'' %> >Bungalow</option>
                                             <option value="3" <%= (typeof body != 'undefined' && typeof body.listing_type_id != 'undefined' && body.listing_type_id == '3')?'selected=selected':'' %> >Room</option> -->
                                             <% } %>

@@ -18,6 +18,8 @@ const listing_type = {
 // Home page for site, Cory, Junwei, 5/6/19
 listingRoutes.route('/')
   .get((req, res) => {
+
+    //res.locals.LISTINGTYPES = req.app.locals.LISTINGTYPES;
     db.query('SELECT listings.id, listings.title, listings.description, listings.price, listings.distance_to_sfsu,'
       + 'listings.address, listings.thumb, listings.num_bed, listings.num_bath '
       + 'FROM listings '
@@ -38,7 +40,7 @@ listingRoutes.route('/')
 
     // listing type id - temp solution
     if (req.body.listingType !== '') {
-      const id = listing_type[req.body.listingType];
+      const id = req.body.listingType;
       conditions.push(`listings.listing_type_id = ${id}`);
     }
     // %Like search

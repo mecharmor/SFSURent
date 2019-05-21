@@ -9,10 +9,6 @@ const db = require('./database.js');
 const saltRounds = 10;
 
 class User {
-  // constructor(height, width) {
-  //   this.height = height;
-  //   this.width = width;
-  // }
 
   static register(name, email, pass) {
     const hash = bcrypt.hashSync(pass, saltRounds);

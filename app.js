@@ -18,6 +18,8 @@ const debug = require('debug')('app');
 // app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const dbMiddleware = require('./src/model/dbMiddleware.js');
+
 app.use(expressValidator());
 
 // use express session
@@ -63,20 +65,18 @@ const authRoutes = require('./src/routes/authRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
 
 // USE ROUTES
-app.use('/about/', aboutRouter);
+app.use('/about/',dbMiddleware.passListingTypes ,aboutRouter);
 app.use('/mysql/', mysqlRouter);
-app.use('/listing/', listingRoutes);
-app.use('/auth/', authRoutes);
-app.use('/dashboard/', authProtect, dashboardRoutes);
+app.use('/listing/', dbMiddleware.passListingTypes ,listingRoutes);
+app.use('/auth/',dbMiddleware.passListingTypes ,authRoutes);
+app.use('/dashboard/', authProtect,dbMiddleware.passListingTypes, dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.redirect('/listing/');
-  // res.render('listing/index');
 });
 
 app.get('/contact/admin', (req, res) => {
   res.render('contact-admin', { isLoggedIn: req.isAuthenticated() });
-  // res.render('listing/index');
 });
 
 app.listen(80, () => {

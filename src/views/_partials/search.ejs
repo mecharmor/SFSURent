@@ -17,7 +17,6 @@
     <div class="search-inner px-3">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <% let listTypeDropdownValues = ["Apartment","Bungalow","Room"]; %>
           <select class="form-control" name="listingType" style=" -webkit-appearance: none;
           -webkit-border-radius: 0px;height: 100%;">
             <% if(typeof body == 'undefined' || body.listingType == ""){ %>
@@ -25,11 +24,11 @@
             <% }else{ %>
             <option value="">All</option>
             <% } %>
-            <% for(let i = 0; i < listTypeDropdownValues.length; i++){ %>
-            <% if(typeof body != 'undefined' && body.listingType == listTypeDropdownValues[i]){ %>
-            <option value="<%= listTypeDropdownValues[i] %>" selected><%= listTypeDropdownValues[i] %></option>
+            <% for(let i = 0; i < LISTINGTYPES.length; i++){ %>
+            <% if(typeof body != 'undefined' && body.listingType == LISTINGTYPES[i].id){ %>
+            <option value="<%= LISTINGTYPES[i].id %>" selected><%= LISTINGTYPES[i].name %></option>
             <% }else{ %>
-            <option value="<%= listTypeDropdownValues[i] %>"><%= listTypeDropdownValues[i] %></option>
+            <option value="<%= LISTINGTYPES[i].id %>"><%= LISTINGTYPES[i].name %></option>
             <% } %>
             <% } %>
           </select>
