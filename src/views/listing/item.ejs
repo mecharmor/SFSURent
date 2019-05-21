@@ -1,200 +1,190 @@
 <%- include('../_partials/header'); %>
-  <br>
-  <br>
 
-  <div class="text-center row">
-    <div class="col-md-2">
-      <a href="/listing/" class="btn btn-primary">Go Back</a>
-    </div>
-    <div class="col-md-8">
-      <h4 style="color: black;">
-        <%= objectArrayFromDb[0].title %>
-      </h4>
-    </div>
-    <div class="col-md-2">
-        <button style="background-color:#C99700 ;color:white;" type="button" class="btn" onclick="ShowSendMessageDialog(<%= objectArrayFromDb[0].id %>)">
-            Contact the owner
-          </button>
-    </div>
-  </div>
-  <br>
-  <br>
-
-  <div class="text-center row" style="color:black">
-
-    <div class="col-md-1"></div>
-
-
-    <div class="col-md-5 rounded" style="background-color: white;">
-      <br>
-      <div>
-        <h3>Details</h3>
-        <br>
-        <h6>Housing Type :
-          <%= LISTINGTYPES[objectArrayFromDb[0].listing_type_id].name %>
-        </h6>
-        <h6>Address :
-          <%= objectArrayFromDb[0].address %>
-        </h6>
-        <h6>Rent :
-          $<%= objectArrayFromDb[0].price %> /mo
-        </h6>
-        <br>
-        <div class="text-center row">
-          <div class="col-md-4">
-            <h6>Size :
-              <%= objectArrayFromDb[0].size %> sq.feet</h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bedrooms :
-              <%= objectArrayFromDb[0].num_bed %></h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bathrooms :
-              <%= objectArrayFromDb[0].num_bath %></h6>
-          </div>
-        </div>
-        <br>
-      </div>
-    </div>
-
-    <div class="col-md-5" style="padding-top: 25px">
-
-      <div id="demo" class="carousel slide" data-ride="carousel">
-
-        <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
-
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
-            </div>
-          </div>
-      </div>
-      <br>
-      <br>
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-
-  <div class="text-center row" style="color:black">
-    <div class="col-md-1"></div>
-    <div class="col-md-5 rounded" style="background-color:white; padding-right:10px">
-      <div>
-        <br>
-        <h3>Description</h3>
-        <p>
-          <%= objectArrayFromDb[0].description %>
-        </p>
-      </div>
-    </div>
-      <br>
-      <br>
-      <div class="col-md-5 rounded"> 
-          <div id="map" style="height:300px;"></div>
-    <br>
-    <br>
-      <div class="switch">
-          <input name="radio" type="radio" value="DRIVING" id="optionone" checked>
-          <label for="changingmode-driving" class="right">Driving</label>
-          <input name="radio" type="radio" value="WALKING" id="optiontwo" checked>
-          <label for="changingmode-driving" class="right">Walking</label>
-          <input name="radio" type="radio" value="BICYCLING" id="optionthree" checked>
-          <label for="changingmode-driving" class="right">Bicycling</label>
-          <input name="radio" type="radio" value="TRANSIT" id="optionfour" checked>
-          <label for="changingmode-driving" class="right">Transit</label>
-      <div id="googleMap" style="width:100%;height:100px;"></div>
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-</div>
-  <br>
-  <br>
-  <script>
-           function getDirections() {
-            let apiKey = "AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE"; 
-            let formattedAddress= '<%= objectArrayFromDb[0].address %>';
-            formattedAddress = formattedAddress.split(' ').join('+');
-            let URL = "https://maps.googleapis.com/maps/api/geocode/json?address="+formattedAddress+"&key="+apiKey;
-                         
-            fetch(URL, {
-              method: 'GET'
-    
-              }).then(dataWrappedByPromise => dataWrappedByPromise.json())
-                .then(data => {
-                    // you can access your data here
-                    var latitude = data.results[0].geometry.location.lat;
-                    var longitude = data.results[0].geometry.location.lng;
-                  
-                      /* School Location */
-                      var sLocation = {lat: 37.7219, lng: -122.4782};
-                      var dLocation = {lat:latitude,  lng:longitude};
-                      
-                      /* Marker */
-                      var map = new google.maps.Map(document.getElementById('map'), {
-                          center: sLocation,
-                          zoom: 14,
-                          });
-                      
-                      var marker = new google.maps.Marker({
-                          //position: sLocation,
-                          draggable: true,
-                          animination: google.maps.Animation.DROP});
-                        marker.setMap(map); 
-                        
-                        var directionsDisplay = new google.maps.DirectionsRenderer;
-                        var directionsService = new google.maps.DirectionsService;
-                        directionsDisplay.setMap(map);
-                            
-                        calculateAndDisplayRoute(directionsService, directionsDisplay);
-                        document.getElementsByName('radio').forEach(function(el){
-                          el.addEventListener('click', function(){
-                          calculateAndDisplayRoute(directionsService, directionsDisplay);
-                        });
-                        });
-
-                        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-                          
-                          //var selectedMode = document.getElementById('mode').value;
-                          var selectedMode = "";
-                          var radio = document.getElementsByName('radio')
-                          radio.forEach(function(element){
-                            if(element.checked){
-                              selectedMode = element.value;
-                            }
-                          })
-                              directionsService.route({
-                              origin: sLocation,
-                              destination: dLocation,
-                              travelMode: google.maps.TravelMode[selectedMode]
-                              }, function(response, status){
-                                if(status == 'OK'){
-                                  directionsDisplay.setDirections(response);
-                                } else {
-                                  window.alert('Error4' + status);
-                                }
-                              });
-                            }  
-                                  })  
-                                .catch(error => console.error('Error:', error));                              
-              }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE&callback=getDirections"
-  async defer></script>
 <br>
 <br>
 <div class="text-center row">
-    <div class="col-md-4 text-center"></div>
-    <div class="col-md-4 text-center" style="background-color:#463077">
-      <!-- <button style="color:white; height:75px" class="btn" data-toggle="modal" data-target="#exampleModalLong" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button> -->
-      <!-- Button trigger modal -->
-  <button style="color:white; height:75px" type="button" class="btn" onclick="ShowSendMessageDialog(<%= objectArrayFromDb[0].id %>)">
-    Contact the owner
-  </button>
-    </div>
-    <div class="col-md-4 text-center"></div>
+  <div class="col-md-2">
+    <a href="/listing/" class="btn btn-secondary">Go Back</a>
   </div>
+  <div class="col-md-8">
+    <h4 style="color: black;">
+      <%= objectArrayFromDb[0].title %>
+    </h4>
+  </div>
+  <div class="col-md-2">
+      <button type="button" class="btn btn-primary" onclick="ShowSendMessageDialog(<%= objectArrayFromDb[0].id %>)">
+          Contact the owner
+        </button>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="text-center row" style="color:black">
+
+  <div class="col-md-1"></div>
+
+
+  <div class="col-md-5 rounded">
+    <br>
+    <div>
+      <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Overview</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= objectArrayFromDb[0].price %> <small class="text-muted">/ mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li><%= objectArrayFromDb[0].size %><small class="text-muted"> sqft</small></li>
+              <li><%= objectArrayFromDb[0].num_bed %><small class="text-muted"> bedrooms</small></li>
+              <li><%= objectArrayFromDb[0].num_bath %><small class="text-muted"> bathrooms</small></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Details</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title"><%= LISTINGTYPES[objectArrayFromDb[0].listing_type_id].name %><small class="text-muted">/housing</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li><%= objectArrayFromDb[0].address %><small class="text-muted"> address</small></li>
+                <li><%=objectArrayFromDb[0].distance_to_sfsu %><small class="text-muted">mi to SFSU</small></li>
+              </ul>
+            </div>
+          </div>
+      <br>
+    </div>
+  </div>
+  <div class="col-md-5" style="padding-top: 25px">
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+      <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+<div class="text-center row" style="color:black">
+  <div class="col-md-1"></div>
+  <div class="col-md-5 rounded" style="background-color:white; padding-right:10px; height:300px;">
+    <div>
+      <br>
+      <h3>Description</h3>
+      <div style="height:200px;width:100%;border:0px;overflow:auto;">
+          <%= objectArrayFromDb[0].description %>
+      </div>          
+    </div>
+  </div>
+    <br>
+    <div class="col-md-5 rounded"> 
+        <div id="map" style="height:300px;"></div>
   <br>
   <br>
+    <div class="switch">
+        <input name="radio" type="radio" value="DRIVING" id="optionone" checked>
+        <label for="changingmode-driving" class="right">Driving</label>
+        <input name="radio" type="radio" value="WALKING" id="optiontwo">
+        <label for="changingmode-driving" class="right">Walking</label>
+        <input name="radio" type="radio" value="BICYCLING" id="optionthree">
+        <label for="changingmode-driving" class="right">Bicycling</label>
+        <input name="radio" type="radio" value="TRANSIT" id="optionfour">
+        <label for="changingmode-driving" class="right">Transit</label>
+    <div id="googleMap" style="width:100%;height:100px;"></div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+</div>
+<script>
+         function getDirections() {
+          let apiKey = "AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE"; 
+          let formattedAddress= '<%= objectArrayFromDb[0].address %>';
+          formattedAddress = formattedAddress.split(' ').join('+');
+          let URL = "https://maps.googleapis.com/maps/api/geocode/json?address="+formattedAddress+"&key="+apiKey;
+                       
+          fetch(URL, {
+            method: 'GET'
+  
+            }).then(dataWrappedByPromise => dataWrappedByPromise.json())
+              .then(data => {
+                  // you can access your data here
+                  var latitude = data.results[0].geometry.location.lat;
+                  var longitude = data.results[0].geometry.location.lng;
+                
+                    /* School Location */
+                    var sLocation = {lat: 37.7219, lng: -122.4782};
+                    var dLocation = {lat:latitude,  lng:longitude};
+                    
+                    /* Marker */
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: sLocation,
+                        zoom: 14,
+                        });
+                    
+                    var marker = new google.maps.Marker({
+                        //position: sLocation,
+                        draggable: true,
+                        animination: google.maps.Animation.DROP});
+                      marker.setMap(map); 
+                      
+                      var directionsDisplay = new google.maps.DirectionsRenderer;
+                      var directionsService = new google.maps.DirectionsService;
+                      directionsDisplay.setMap(map);
+                          
+                      calculateAndDisplayRoute(directionsService, directionsDisplay);
+                      document.getElementsByName('radio').forEach(function(el){
+                        el.addEventListener('click', function(){
+                        calculateAndDisplayRoute(directionsService, directionsDisplay);
+                      });
+                      });
+
+                      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                        
+                        //var selectedMode = document.getElementById('mode').value;
+                        var selectedMode = "";
+                        var radio = document.getElementsByName('radio')
+                        radio.forEach(function(element){
+                          if(element.checked){
+                            selectedMode = element.value;
+                          }
+                        })
+                            directionsService.route({
+                            origin: sLocation,
+                            destination: dLocation,
+                            travelMode: google.maps.TravelMode[selectedMode]
+                            }, function(response, status){
+                              if(status == 'OK'){
+                                directionsDisplay.setDirections(response);
+                              } else {
+                                window.alert('Error4' + status);
+                              }
+                            });
+                          }  
+                                })  
+                              .catch(error => console.error('Error:', error));                              
+            }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE&callback=getDirections"
+async defer></script>
+<br>
+<div class="text-center row">
+  <div class="col-md-4 text-center"></div>
+  <div class="col-md-4 text-center">
+    <!-- <button style="color:white; height:75px" class="btn" data-toggle="modal" data-target="#exampleModalLong" style="background-color:#dea954; color:#f8f8f8">Contact the Owner</button> -->
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="ShowSendMessageDialog(<%= objectArrayFromDb[0].id %>)">Contact the owner</button>
+  </div>
+  <div class="col-md-4 text-center"></div>
+</div>
+<br>
+<br>
 
   <%- include('../_partials/footer'); %>
