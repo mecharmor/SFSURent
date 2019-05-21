@@ -27,18 +27,17 @@
 
     <div class="col-md-5 rounded" style="background-color: white;">
       <br>
-
       <div>
-        <h3>Information</h3>
+        <h3>Details</h3>
         <br>
-        <h6>Type :
-          <%= objectArrayFromDb[0].listing_type_id %>
+        <h6>Housing Type :
+          <%= LISTINGTYPES[objectArrayFromDb[0].listing_type_id].name %>
         </h6>
         <h6>Address :
           <%= objectArrayFromDb[0].address %>
         </h6>
         <h6>Rent :
-          <%= objectArrayFromDb[0].price %>
+          $<%= objectArrayFromDb[0].price %> /mo
         </h6>
         <br>
         <div class="text-center row">
@@ -48,101 +47,35 @@
           </div>
           <div class="col-md-4">
             <h6>Bedrooms :
-              <%= objectArrayFromDb[0].num_bed %> sq.feet</h6>
+              <%= objectArrayFromDb[0].num_bed %></h6>
           </div>
           <div class="col-md-4">
             <h6>Bathrooms :
-              <%= objectArrayFromDb[0].size %> sq.feet</h6>
+              <%= objectArrayFromDb[0].num_bath %></h6>
           </div>
         </div>
         <br>
-
-        <!-- <div class="text-center row">
-
-
-          <div style="padding-bottom:10px" class="col-md-3">
-            <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
-          </div>
-
-          <div style="padding-bottom:10px" class="col-md-3">
-            <button style="background-color:#463077" type="button" class="btn btn-info">Parking</button>
-          </div>
-
-          <div style="padding-bottom:10px" class="col-md-3">
-            <button style="background-color:#463077" type="button" class="btn btn-info">Heater</button>
-          </div>
-
-          <div style="padding-bottom:10px" class="col-md-3">
-            <button style="background-color:#463077" type="button" class="btn btn-info">Laundry</button>
-          </div>
-
-        </div> -->
-
-        <br>
-        <!-- <br>
-        <div class="text-center row">
-          <div class="col-md-4">
-            <h6>Walk : 10 minutes </h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Car : 3 minutes</h6>
-          </div>
-          <div class="col-md-4">
-            <h6>Bike : 5 minutes</h6>
-          </div>
-        </div>
-        <br> -->
-
       </div>
-
     </div>
 
     <div class="col-md-5" style="padding-top: 25px">
 
       <div id="demo" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-          <li data-target="#demo" data-slide-to="0" class="active"></li>
-          <li data-target="#demo" data-slide-to="1"></li>
-          <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
 
         <% var image_b64 = new Buffer(objectArrayFromDb[0].thumb).toString('base64') %>
 
-
           <!-- The slideshow -->
-          <div class="carousel-inner" style="">
+          <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
             </div>
-            <div class="carousel-item">
-              <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
-            </div>
-            <div class="carousel-item">
-              <img src="data:image/jpg;base64,<%= image_b64 %>" style="display:inline" alt="Apartment Image" width="400" height="350">
-            </div>
           </div>
-
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
       </div>
       <br>
       <br>
     </div>
-
-
-
-
     <div class="col-md-1"></div>
   </div>
-
-
-
 
   <div class="text-center row" style="color:black">
     <div class="col-md-1"></div>
@@ -150,7 +83,6 @@
       <div>
         <br>
         <h3>Description</h3>
-        
         <p>
           <%= objectArrayFromDb[0].description %>
         </p>
@@ -162,17 +94,6 @@
           <div id="map" style="height:300px;"></div>
     <br>
     <br>
-    <!-- <div class="col-md-5 rounded">
-        <div class="panel panel-info" style="color:black">
-            <b>Mode of Travel: </b>
-            <select id="mode">
-              <option value="DRIVING">Driving</option>
-              <option value="WALKING">Walking</option>
-              <option value="BICYCLING">Bicycling</option>
-              <option value="TRANSIT">Transit</option>
-            </select>
-            </div> -->
-
       <div class="switch">
           <input name="radio" type="radio" value="DRIVING" id="optionone" checked>
           <label for="changingmode-driving" class="right">Driving</label>
@@ -182,30 +103,20 @@
           <label for="changingmode-driving" class="right">Bicycling</label>
           <input name="radio" type="radio" value="TRANSIT" id="optionfour" checked>
           <label for="changingmode-driving" class="right">Transit</label>
-      
       <div id="googleMap" style="width:100%;height:100px;"></div>
-
     </div>
-
     <div class="col-md-1"></div>
-
-
   </div>
 </div>
-
   <br>
   <br>
-
   <script>
-
-            
            function getDirections() {
             let apiKey = "AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE"; 
             let formattedAddress= '<%= objectArrayFromDb[0].address %>';
             formattedAddress = formattedAddress.split(' ').join('+');
             let URL = "https://maps.googleapis.com/maps/api/geocode/json?address="+formattedAddress+"&key="+apiKey;
-          
-                             
+                         
             fetch(URL, {
               method: 'GET'
     
@@ -266,18 +177,12 @@
                             }  
                                   })  
                                 .catch(error => console.error('Error:', error));                              
-
               }
-
   </script>
-
   <script src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBVsJ432DBlKd8_pcQ-VG88uMhIv8UzusE&callback=getDirections"
   async defer></script>
-  
 <br>
 <br>
-
-
 <div class="text-center row">
     <div class="col-md-4 text-center"></div>
     <div class="col-md-4 text-center" style="background-color:#463077">
@@ -287,15 +192,9 @@
     Contact the owner
   </button>
     </div>
-
     <div class="col-md-4 text-center"></div>
   </div>
-
-  
-
-  
   <br>
   <br>
-
 
   <%- include('../_partials/footer'); %>
