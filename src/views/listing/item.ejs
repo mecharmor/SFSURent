@@ -88,6 +88,22 @@
     <div class="col-md-5 rounded"> 
         <div id="map" style="height:300px;"></div>
   <br>
+  
+  <div class="rounded" style="background-color:white">
+    <br>
+    
+<div class="text-center row">
+    <div class = "col-md-3"></div>
+    <div class = "col-md-3">
+  <h6 class="text-muted">Distance</h4> 
+  <h4 id="distanceToSFSU"> </h5>
+</div>
+<div class = "col-md-3">
+  <h6 class="text-muted">Duration</h4> 
+  <h4 id="durationToSFSU"> </h5>
+</div>
+</div>
+
   <br>
     <div class="switch">
         <input name="radio" type="radio" value="DRIVING" id="optionone" checked>
@@ -100,6 +116,8 @@
         <label for="changingmode-driving" class="right">Transit</label>
     <div id="googleMap" style="width:100%;height:100px;"></div>
   </div>
+</div>
+
   <div class="col-md-1"></div>
 </div>
 </div>
@@ -132,7 +150,8 @@
                     var marker = new google.maps.Marker({
                         //position: sLocation,
                         draggable: true,
-                        animination: google.maps.Animation.DROP});
+                        animination: google.maps.Animation.DROP                        
+                        });
                       marker.setMap(map); 
                       
                       var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -150,18 +169,26 @@
                         
                         //var selectedMode = document.getElementById('mode').value;
                         var selectedMode = "";
+                        var distanceToSFSU;
+                        var durationToSFSU;
                         var radio = document.getElementsByName('radio')
                         radio.forEach(function(element){
                           if(element.checked){
                             selectedMode = element.value;
                           }
                         })
+                        
                             directionsService.route({
                             origin: sLocation,
                             destination: dLocation,
                             travelMode: google.maps.TravelMode[selectedMode]
-                            }, function(response, status){
-                              if(status == 'OK'){
+                            }, function(response, status){                              
+                              if(status == 'OK'){                                
+                                distanceToSFSU = response.routes[0].legs[0].distance.text;
+                                durationToSFSU = response.routes[0].legs[0].duration.text;
+                                document.getElementById('distanceToSFSU').innerHTML = distanceToSFSU
+                                document.getElementById('durationToSFSU').innerHTML = durationToSFSU
+
                                 directionsDisplay.setDirections(response);
                               } else {
                                 window.alert('Error4' + status);
