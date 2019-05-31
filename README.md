@@ -1,59 +1,52 @@
-# csc648-sp19-Team11
-todo: project description, team members, etc....
+<p align="center">
+<a href="http://ec2-18-144-46-90.us-west-1.compute.amazonaws.com/listing/">
+SFSURent
+</a>
+</p>
 
-# First time use
-1. Clone the repo.
-```
-git clone
-```
+<h3 align="center">
+SFSURent desktop/mobile website
+</h3>
 
-2. Install the dependencies. 
+<p align="center">
+SFSURent is a house listing website catered to SFSU students looking for affordable housing.
+</p>
+
+## What's SFSURent?
+
+
+SFSURent is a house listing website catered to SFSU students looking for affordable housing.
+
+- User **sign up or login** using their email.
+- User can **browse, post, and message the landlord** on SFSURent.
+- Users can also **view their dashboard** on any listings they posted.
+
+### [Checkout SFSURent](http://ec2-18-144-46-90.us-west-1.compute.amazonaws.com/listing/)
+![daug_demo](https://github.com/mecharmor/SFSURent/blob/master/public/images/SFSURent%20-%20sample.gif)
+
+
+## Functionality
+- EventUp is a fully functioning website for home listings
+- Users can Sign up & Log into the site
+- Users can post a listing
+- Users can message landlords
+- Users can view their dashboard
+- Users can Search & Filter listings
+
+## Getting Started
+> On Linux & Mac
 ```
+git clone https://github.com/mecharmor/SFSURent.git
+
 npm install
+
+npm start
 ```
 
-3. Start the node process
-```
-npm start # Mac
-npm run startwin # Windows
-```
-
-# Workflow Tips
-## Branching
-
-1. First switch to dev branch, and do a git fetch and pull to update your local repo to the latest.
-```
-git checkout dev
-git fetch --all
-git pull
-```
-2. Create a new branch for the specific feauture you are working on.
-```
-git checkout -b my-new-feature-branch
-```
-
-3. Track all the new files by adding them to the repo and commit your changes.
-```
-git add .
-git commit -a -m "a commit message"
-```
-
-4. Push your branch to the repo and create a pull request from github
-```
-git push origin my-new-feature-brach
-```
-
-5. Make sure to switch back to the dev branch and create another branch before starting to work on aother feauture.
-```
-git checkout dev
-```
+## Feedback
+For any other questions about this repo in general please reach out to anyone [**@mecharmor**](https://github.com/mecharmor) on Github. <br>
+PS: Feel free to fork it if you find our app interesting.
 
 
-## Linting
-To maintain coding structure and following standards, this project uses ESLint.
-```
-npm run lint
-```
 
-## Nodemon
-We are using nodmon for which restarts the nodejs application automatically whenever it detects a file change. The nodemon script is already added to the "npm start" command in the package.json file.
+> Updated on: 05/31/19, Cory Lewis
