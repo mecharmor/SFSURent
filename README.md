@@ -1,16 +1,6 @@
-<p align="center">
-<a href="http://ec2-18-144-46-90.us-west-1.compute.amazonaws.com/listing/">
-SFSURent
-</a>
-</p>
-
 <h3 align="center">
 SFSURent desktop/mobile website
 </h3>
-
-<p align="center">
-SFSURent is a house listing website catered to SFSU students looking for affordable housing.
-</p>
 
 ## What's SFSURent?
 
