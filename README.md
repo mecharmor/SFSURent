@@ -35,7 +35,7 @@ npm start
 
 ## Feedback
 For any other questions about this repo in general please reach out to anyone [**@mecharmor**](https://github.com/mecharmor) on Github. <br>
-PS: Feel free to fork it if you find our app interesting.
+PS: Feel free to fork it if you find our site interesting.
 
 
 
