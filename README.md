@@ -11,6 +11,7 @@ SFSURent is a house listing website catered to SFSU students looking for afforda
 - User can **browse, post, and message the landlord** on SFSURent.
 - Users can also **view their dashboard** on any listings they posted.
 
+Note: The link below will no longer work because the server was terminated due to AWS costs
 ### [Checkout SFSURent](http://ec2-18-144-46-90.us-west-1.compute.amazonaws.com/listing/)
 ![daug_demo](https://github.com/mecharmor/SFSURent/blob/master/public/images/SFSURent%20-%20sample.gif)
 
